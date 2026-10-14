@@ -1,0 +1,19 @@
+pandas>=2.0
+numpy>=1.26
+scikit-learn>=1.1
+xgboost>=2.0
+matplotlib>=3.7
+scipy>=1.11
+
+# grpo/ (GRPO pipeline) only -- see grpo/README.md
+# `pip install -r requirements.txt` on a Linux CUDA box pulls the CUDA-
+# enabled torch wheel automatically (no special --index-url needed with
+# modern pip/torch); on the Mac it pulls the MPS-capable build instead.
+# Same requirements file works on both -- model_real.py detects the device
+# at runtime and picks dtype/batch sizes accordingly.
+torch>=2.2
+transformers>=4.40
+trl>=0.9
+peft>=0.10
+accelerate>=0.30
+tokenizers>=0.19

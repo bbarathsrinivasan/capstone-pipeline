@@ -1,0 +1,141 @@
+{
+  "config": {
+    "GROUP_SIZE": 4,
+    "PROMPTS_PER_STEP": 6,
+    "N_STEPS": 12,
+    "MAX_NEW_TOKENS": 90,
+    "LEARNING_RATE": 0.001,
+    "KL_COEF": 0.02,
+    "REWARD_VARIANT": "safety_shaped",
+    "model_params": 1186304
+  },
+  "history": [
+    {
+      "loss": -5.9604644775390625e-05,
+      "pg_loss": -0.0,
+      "kl": -0.0029802322387695312,
+      "reward_mean": 0.0,
+      "reward_std": 0.0,
+      "parse_success_rate": 0.0
+    },
+    {
+      "loss": 1.2997388694202527e-05,
+      "pg_loss": -0.0,
+      "kl": 0.000649869441986084,
+      "reward_mean": 0.0,
+      "reward_std": 0.0,
+      "parse_success_rate": 0.0
+    },
+    {
+      "loss": -2.8542676773213316e-06,
+      "pg_loss": -0.0,
+      "kl": -0.00014271338295657188,
+      "reward_mean": 0.0,
+      "reward_std": 0.0,
+      "parse_success_rate": 0.0
+    },
+    {
+      "loss": 9.154478902928531e-06,
+      "pg_loss": -0.0,
+      "kl": 0.00045772394514642656,
+      "reward_mean": 0.0,
+      "reward_std": 0.0,
+      "parse_success_rate": 0.0
+    },
+    {
+      "loss": -1.2741883438138757e-05,
+      "pg_loss": -0.0,
+      "kl": -0.0006370941991917789,
+      "reward_mean": 0.0,
+      "reward_std": 0.0,
+      "parse_success_rate": 0.0
+    },
+    {
+      "loss": 8.337020699400455e-05,
+      "pg_loss": -0.0,
+      "kl": 0.004168510437011719,
+      "reward_mean": 0.0,
+      "reward_std": 0.0,
+      "parse_success_rate": 0.0
+    },
+    {
+      "loss": 0.00014867862046230584,
+      "pg_loss": -0.0,
+      "kl": 0.00743393087759614,
+      "reward_mean": 0.0,
+      "reward_std": 0.0,
+      "parse_success_rate": 0.0
+    },
+    {
+      "loss": 0.00017657795979175717,
+      "pg_loss": -0.0,
+      "kl": 0.008828897960484028,
+      "reward_mean": 0.0,
+      "reward_std": 0.0,
+      "parse_success_rate": 0.0
+    },
+    {
+      "loss": 0.00026283858460374177,
+      "pg_loss": -0.0,
+      "kl": 0.013141930103302002,
+      "reward_mean": 0.0,
+      "reward_std": 0.0,
+      "parse_success_rate": 0.0
+    },
+    {
+      "loss": 0.0003437431587371975,
+      "pg_loss": -0.0,
+      "kl": 0.01718715764582157,
+      "reward_mean": 0.0,
+      "reward_std": 0.0,
+      "parse_success_rate": 0.0
+    },
+    {
+      "loss": 0.0004055344907101244,
+      "pg_loss": -0.0,
+      "kl": 0.02027672529220581,
+      "reward_mean": 0.0,
+      "reward_std": 0.0,
+      "parse_success_rate": 0.0
+    },
+    {
+      "loss": 0.0005501659470610321,
+      "pg_loss": -0.0,
+      "kl": 0.027508297935128212,
+      "reward_mean": 0.0,
+      "reward_std": 0.0,
+      "parse_success_rate": 0.0
+    }
+  ],
+  "final_samples": [
+    {
+      "sample_id": "tier1_globem_0419",
+      "true_risk": "minimal",
+      "generation": " 376p 1220} 753\u001c 510rite 1429\ufffd 1762= me 3200 3200gh 1217 461 2253 1506mmar 343 1787 whic 1611 1604 282 282t 482\ufffdmat 251\ufffd 320 77 114 1676 109 1474 1473 1680 1680\ufffd7 3358 1527ome 206 1553 281 760 237 stu} pic 232ab 14 322 usual shorter\u0000 385 734 1868markable 1563g 125 limiting 1588severe\ufffd 21 1993 2225\ufffd\ufffd no 1543 216 753 1390 125\u0012 partici 1690 1690 1363",
+      "parsed_score": null,
+      "reward": 0.0
+    },
+    {
+      "sample_id": "tier1_globem_0194",
+      "true_risk": "moderate",
+      "generation": " 1726 2042). usual 1645 311\ufffdco 683ably 1903\ufffd de\ufffd 614). 1435]gg\u001c dro 1563 1341 u 2072 95 1170 1369 remained 1462 apparent 1078 1790\ufffd 1673 1724 1590 1757plyevices increasednu 1050Time 328 1341TiTi unre 209 1170 443sis 1696Un\ufffd 1686\u001c 1343 1349 183 1698nre 1358\ufffdlineg\ufffdminimal 1347 275 sentences 443 week 1621 week\ufffd 1585 1498 2441 elevated d 586] 1439 21 warrants 782 1075 1200",
+      "parsed_score": null,
+      "reward": 0.0
+    },
+    {
+      "sample_id": "tier1_globem_0029",
+      "true_risk": "severe",
+      "generation": "rite recordedfted= me sharply 1340 13157 2001 402x 62\u0012rite 21 3358 135 477 1498 1700 2009\ufffd BlTimetgagement 497 1391 132 856\u0006 66 102 usu\ufffdoth 1255 2724\ufffd 1393 1304k 1751 1512mat 1315 1898 3358\ufffd 1759 1577(xactxacthange 533 1147 3254 1734 209 1304=\ufffd 1564\\ 753 392 1940 270Th 1931 1855 1550 111 929 an 1625 pic 1498 you 1170 1721 1530 Daily\ufffdlo 1653 11 1491",
+      "parsed_score": null,
+      "reward": 0.0
+    },
+    {
+      "sample_id": "tier1_globem_0073",
+      "true_risk": "severe",
+      "generation": "ral 330\ufffd 929\ufffd shifted\ufffd\ufffd Daily 190 3358 irregu\ufffd 1506 1273 1185 194 1076 Efficiency 1566gTiTi picture conlity 95 330 1394 to 346 shifted\ufffd 1444 1265= 1596 o 1296\ufffd 1908 425 midnight 1741 1606= 1614 3200O 1489 99). 2293 180 c 1732 1843k\ufffd 1699\ufffd 1452irs looks 1200 1767 11 1220 1312= 443 ty 1363 305 216 88 1363 1050 1639\ufffd\ufffd 1459 328 328 90use 292 1506 584ion",
+      "parsed_score": null,
+      "reward": 0.0
+    }
+  ],
+  "wall_clock_seconds": 147.95231556892395
+}
