@@ -202,7 +202,25 @@ def grpo_step(policy, tokenizer, optimizer, batch_examples, prompt_max_length):
         ref_mean_logprob = ref_logprob_sum / n_tok_all
 
     pg_loss = -(advantages_t.detach() * mean_logprob).mean()
-    kl = (mean_logprob - ref_mean_logprob.detach()).mean()
+    # KL estimator: Schulman's "k3" estimator (http://joschu.net/blog/kl-approx.html),
+    # not the raw signed difference this used to be. The raw difference
+    # (mean_logprob - ref_mean_logprob) is unbiased in EXPECTATION over
+    # x~policy, but for any single sampled x it can be negative -- and once
+    # pg_loss has zero gradient (every rollout in a batch gets reward 0, so
+    # advantage=0 for all of them -- exactly what parse_success_rate=0.0
+    # means in grpo_real_run.json), that raw difference becomes the ONLY
+    # live gradient. Minimizing loss then means minimizing it: pushing the
+    # policy to assign LOWER probability to the very sequence it just
+    # sampled, with nothing to anchor it. That is the mechanism behind the
+    # observed collapse (kl drifting from -0.002 to -0.46 over steps 2-8,
+    # final generations total gibberish) -- the "KL penalty" was, in that
+    # regime, an incentive to become incoherent, not a containment term.
+    # The k3 estimator has the same expectation but is >=0 for every
+    # sample (e^r - 1 - r >= 0 for all real r, equality only at r=0), so
+    # this exploit isn't reachable: drifting from the reference can only
+    # ever raise the loss, never lower it, even when pg_loss is silent.
+    log_ratio = ref_mean_logprob.detach() - mean_logprob  # r = log pi_ref(x) - log pi(x)
+    kl = (torch.exp(log_ratio) - 1 - log_ratio).mean()
     loss = pg_loss + KL_COEF * kl
 
     # Same dtype-mismatch nan risk as sft.py (see model_real.py's
