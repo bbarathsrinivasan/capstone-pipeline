@@ -159,6 +159,8 @@ def build_policy_and_reference(model_name=MODEL_NAME, sft_adapter_path=None):
     the unmodified pretrained base) without the duplicate memory. This is
     what let GRPO fit in the budget SFT already proved fits.
     """
+    base = load_base_model(model_name)
+
     if sft_adapter_path:
         from peft import PeftModel
 
