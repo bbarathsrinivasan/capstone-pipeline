@@ -146,14 +146,19 @@ def build_policy_and_reference(model_name=MODEL_NAME, sft_adapter_path=None):
     while anchoring to the SFT checkpoint instead would keep it closer to
     "the format-tuned model" specifically. Worth revisiting once a real run
     is in hand -- flag it the same way as the safety-shaped reward penalty.
+
+    NOTE on how the reference is obtained: there is no separate reference
+    model object anymore. An earlier version built one with
+    `copy.deepcopy(base)`, which keeps a full second copy of the base
+    model's weights resident in GPU memory for the entire run -- on a 4B
+    model in bf16 that's ~8GB permanently spent on something only needed
+    for one KL term per step. train_real.py instead computes reference
+    logprobs on THIS SAME policy object with its LoRA adapter temporarily
+    disabled (`with policy.disable_adapter(): ...`), which is mathematically
+    identical (disabling the adapter makes the model behave exactly like
+    the unmodified pretrained base) without the duplicate memory. This is
+    what let GRPO fit in the budget SFT already proved fits.
     """
-    import copy
-
-    base = load_base_model(model_name)
-    reference = copy.deepcopy(base).to(DEVICE)
-    for p in reference.parameters():
-        p.requires_grad = False
-
     if sft_adapter_path:
         from peft import PeftModel
 
@@ -171,9 +176,9 @@ def build_policy_and_reference(model_name=MODEL_NAME, sft_adapter_path=None):
     print(f"LoRA policy: {trainable:,} trainable / {total:,} total "
           f"({100 * trainable / total:.2f}%) -- base weights frozen, only "
           f"rank-16 adapters update.")
-    return policy, reference
+    return policy
 
 
 if __name__ == "__main__":
     tok = load_tokenizer()
-    policy, reference = build_policy_and_reference()
+    policy = build_policy_and_reference()

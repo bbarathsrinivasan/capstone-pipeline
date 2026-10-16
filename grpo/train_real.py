@@ -132,7 +132,7 @@ def sequence_logprobs(model, full_ids, prompt_len, attention_mask):
     return seq_logprob, n_tokens
 
 
-def grpo_step(policy, reference, tokenizer, optimizer, batch_examples, prompt_max_length):
+def grpo_step(policy, tokenizer, optimizer, batch_examples, prompt_max_length):
     all_rewards, all_parsed, all_texts = [], [], []
     group_advantages = []
     full_ids_list, attn_list, prompt_lens = [], [], []
@@ -184,11 +184,21 @@ def grpo_step(policy, reference, tokenizer, optimizer, batch_examples, prompt_ma
 
     with torch.no_grad():
         ref_logprob_sum = torch.zeros(len(full_ids_list), device=DEVICE)
-        for i in range(len(batch_examples)):
-            pl = prompt_lens[i * GROUP_SIZE]
-            idx = slice(i * GROUP_SIZE, (i + 1) * GROUP_SIZE)
-            seq_lp, n_tok = sequence_logprobs(reference, batch_ids[idx], pl, batch_attn[idx])
-            ref_logprob_sum[idx] = seq_lp
+        # Reference logprobs on the SAME model with its LoRA adapter
+        # temporarily disabled, instead of a separate deepcopy()'d reference
+        # model -- that deepcopy kept a full second 4B-parameter base model
+        # resident in GPU memory (~8GB in bf16) for the whole run just for
+        # this KL term, which is exactly what pushed GRPO's memory past what
+        # SFT needed on the same GPU (SFT only ever has ONE model resident).
+        # disable_adapter() makes `policy` behave as the plain pretrained
+        # base -- mathematically identical to the deepcopy reference, same
+        # weights, just without the duplicate copy.
+        with policy.disable_adapter():
+            for i in range(len(batch_examples)):
+                pl = prompt_lens[i * GROUP_SIZE]
+                idx = slice(i * GROUP_SIZE, (i + 1) * GROUP_SIZE)
+                seq_lp, n_tok = sequence_logprobs(policy, batch_ids[idx], pl, batch_attn[idx])
+                ref_logprob_sum[idx] = seq_lp
         ref_mean_logprob = ref_logprob_sum / n_tok_all
 
     pg_loss = -(advantages_t.detach() * mean_logprob).mean()
@@ -220,7 +230,7 @@ def main():
     if SFT_ADAPTER_PATH and sft_path is None:
         print(f"WARNING: {SFT_ADAPTER_PATH} not found -- run sft.py first. "
               f"Continuing with a FRESH LoRA init (reproduces the cold-start finding on a real model).")
-    policy, reference = build_policy_and_reference(sft_adapter_path=sft_path)
+    policy = build_policy_and_reference(sft_adapter_path=sft_path)
     # Same OOM fix as sft.py: see its main() comment for why this (not the
     # cache-clearing in free_memory) is what actually controls memory for
     # the training forward/backward pass.
@@ -239,7 +249,7 @@ def main():
     t0 = time.time()
     for step in range(N_STEPS):
         batch = random.sample(eval_set, PROMPTS_PER_STEP)
-        step_log = grpo_step(policy, reference, tokenizer, optimizer, batch, prompt_max_length)
+        step_log = grpo_step(policy, tokenizer, optimizer, batch, prompt_max_length)
         history.append({k: v for k, v in step_log.items() if k not in ("rewards", "parsed", "texts")})
         print(f"[step {step + 1:>2}/{N_STEPS}] "
               f"reward_mean={step_log['reward_mean']:.3f} "
