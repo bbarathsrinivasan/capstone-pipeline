@@ -51,7 +51,7 @@ SCALE_UP_PATH = ["Qwen/Qwen3-0.6B", "Qwen/Qwen3-1.7B", "Qwen/Qwen3-4B"]
 # A real GPU has far more memory and throughput than the Mac's MPS backend
 # -- scale batch/group sizes up automatically rather than hand-tuning a
 # separate config per machine. sft.py and train_real.py read this.
-GPU_SCALE = 4 if DEVICE == "cuda" else 1
+GPU_SCALE = 1 if DEVICE == "cuda" else 1
 
 ROOT = Path(__file__).resolve().parent
 CHECKPOINT_DIR = ROOT / "checkpoints"
