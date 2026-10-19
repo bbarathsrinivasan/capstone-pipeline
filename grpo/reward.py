@@ -26,6 +26,21 @@ CRITICAL_FAILURE_MULTIPLIER = 0.15  # how hard a Severe->Safe miss is punished
 
 SCORE_PATTERN = re.compile(r"risk\s*score\s*[:=]\s*(-?\d+(?:\.\d+)?)", re.IGNORECASE)
 
+# Partial-credit floor for format drift, added after grpo_real_run.json showed
+# a specific failure mode: the moment EVERY rollout in a group fails to parse,
+# they all score exactly 0.0 -- identical rewards -> group_std=0 -> advantage
+# 0 for everyone (see train_real.py's grpo_step) -> no gradient, no matter how
+# far off they are from each other. A near-miss (model wrote "risk score" but
+# the number is missing/garbled/out of range) and total gibberish (no such
+# phrase anywhere) were being scored identically, so the GROUP never had the
+# variance needed to tell the optimizer "that one was closer." This constant
+# gives the near-miss case a small, real distinction above full collapse --
+# small enough (vs. ~0.6-0.75 for an actually correct parse) that it can't be
+# mistaken for real accuracy signal, but enough that a MIXED group (some
+# rollouts still saying the phrase, some not) has nonzero std again.
+STRUCTURE_PATTERN = re.compile(r"risk\s*score", re.IGNORECASE)
+PARTIAL_CREDIT_FOR_PHRASE = 0.05
+
 
 def parse_predicted_score(generated_text):
     """Pull the numeric risk score out of a generation. None if unparseable
@@ -63,10 +78,19 @@ def safety_shaped_reward(p, y):
 
 
 def reward_batch(generated_texts, true_ints, variant="safety_shaped"):
-    """variant: 'timesrl' or 'safety_shaped'. Returns (rewards, parsed_scores)."""
+    """variant: 'timesrl' or 'safety_shaped'. Returns (rewards, parsed_scores).
+
+    parsed_scores (used for parse_success_rate logging) are unaffected by the
+    partial-credit floor below -- a sample with a structural near-miss still
+    shows up as parsed=None, it's only the REWARD that's no longer a flat 0."""
     fn = timesrl_reward if variant == "timesrl" else safety_shaped_reward
     parsed = [parse_predicted_score(t) for t in generated_texts]
-    rewards = [fn(p, y) for p, y in zip(parsed, true_ints)]
+    rewards = []
+    for text, p, y in zip(generated_texts, parsed, true_ints):
+        if p is None and STRUCTURE_PATTERN.search(text):
+            rewards.append(PARTIAL_CREDIT_FOR_PHRASE)
+        else:
+            rewards.append(fn(p, y))
     return rewards, parsed
 
 

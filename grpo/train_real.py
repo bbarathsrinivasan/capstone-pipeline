@@ -72,7 +72,14 @@ PROMPTS_PER_STEP = 4 * GPU_SCALE
 N_STEPS = 8 * GPU_SCALE
 MAX_NEW_TOKENS = 160
 TEMPERATURE = 1.0
-LEARNING_RATE = 5e-5
+LEARNING_RATE = 5e-6  # was 5e-5 -- every run so far (3/3) collapsed the SFT
+                      # checkpoint's format-adherence to 0 by step 2 regardless
+                      # of which loss term produced the step-1 gradient (same
+                      # outcome whether that gradient was negative- or
+                      # positive-signed -- see results/grpo_real_run.json
+                      # history across runs). 10x smaller as a direct test of
+                      # whether the step size itself is what's knocking a
+                      # narrow SFT optimum off its format cliff.
 KL_COEF = 0.02
 REWARD_VARIANT = "safety_shaped"
 SEED = 0
