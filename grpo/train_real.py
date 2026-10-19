@@ -249,6 +249,29 @@ def main():
         print(f"WARNING: {SFT_ADAPTER_PATH} not found -- run sft.py first. "
               f"Continuing with a FRESH LoRA init (reproduces the cold-start finding on a real model).")
     policy = build_policy_and_reference(sft_adapter_path=sft_path)
+    # Disable dropout on the policy before any RL training. LORA_CONFIG
+    # (model_real.py) sets lora_dropout=0.05 -- harmless, even useful, as
+    # ordinary regularization during sft.py's supervised training, but
+    # actively wrong here: nothing in this file ever puts the model in
+    # eval() mode, so that 5% dropout is stochastically active in BOTH
+    # generate_group()'s forward pass (which produces the sampled tokens)
+    # and sequence_logprobs()'s separate forward pass a few lines below
+    # (which computes log pi_theta(x) for those same tokens, for the
+    # gradient). Those are two different calls with two different random
+    # dropout masks over the SAME weights -- so "log pi_theta(x)" is not
+    # actually well-defined for a fixed theta and x the way a policy
+    # gradient update requires; the x being scored was never really drawn
+    # from the exact distribution being differentiated. TRL's PPO/GRPO
+    # trainers call the equivalent of this for exactly this reason before
+    # RL (never before SFT). Candidate explanation for why a single,
+    # correctly-clipped step 1 update was enough to collapse the SFT
+    # checkpoint's format-adherence onto pure gibberish in
+    # grpo_real_run.json: this fix makes pi_theta deterministic given
+    # theta, closing that gap, but hasn't been isolated/confirmed yet --
+    # rerun and check whether parse_rate now survives past step 1.
+    for module in policy.modules():
+        if isinstance(module, torch.nn.Dropout):
+            module.p = 0.0
     # Same OOM fix as sft.py: see its main() comment for why this (not the
     # cache-clearing in free_memory) is what actually controls memory for
     # the training forward/backward pass.
