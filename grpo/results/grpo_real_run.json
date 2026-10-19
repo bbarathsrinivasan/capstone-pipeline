@@ -12,65 +12,65 @@
   },
   "history": [
     {
-      "loss": -0.2948930561542511,
-      "pg_loss": -0.32459282875061035,
-      "kl": 1.4849884510040283,
-      "reward_mean": 0.6272290215811998,
-      "reward_std": 0.28067698748193365,
+      "loss": 0.47293126583099365,
+      "pg_loss": 0.44049447774887085,
+      "kl": 1.6218401193618774,
+      "reward_mean": 0.7514052040757608,
+      "reward_std": 0.18050098808939713,
       "parse_success_rate": 1.0
     },
     {
-      "loss": 3.158561958116479e-05,
+      "loss": 2.785511242109351e-05,
       "pg_loss": -0.0,
-      "kl": 0.0015792809426784515,
+      "kl": 0.0013927556574344635,
       "reward_mean": 0.0,
       "reward_std": 0.0,
       "parse_success_rate": 0.0
     },
     {
-      "loss": 4.303246532799676e-05,
+      "loss": 5.7727917010197416e-05,
       "pg_loss": -0.0,
-      "kl": 0.0021516233682632446,
+      "kl": 0.002886395901441574,
       "reward_mean": 0.0,
       "reward_std": 0.0,
       "parse_success_rate": 0.0
     },
     {
-      "loss": 1.7000362277030945e-05,
+      "loss": 3.4275351936230436e-05,
       "pg_loss": -0.0,
-      "kl": 0.0008500181138515472,
+      "kl": 0.001713767647743225,
       "reward_mean": 0.0,
       "reward_std": 0.0,
       "parse_success_rate": 0.0
     },
     {
-      "loss": 3.789506808971055e-05,
+      "loss": 7.521726365666837e-05,
       "pg_loss": -0.0,
-      "kl": 0.0018947534263134003,
+      "kl": 0.003760863095521927,
       "reward_mean": 0.0,
       "reward_std": 0.0,
       "parse_success_rate": 0.0
     },
     {
-      "loss": 5.840882658958435e-05,
+      "loss": 4.3492465920280665e-05,
       "pg_loss": -0.0,
-      "kl": 0.0029204413294792175,
+      "kl": 0.0021746233105659485,
       "reward_mean": 0.0,
       "reward_std": 0.0,
       "parse_success_rate": 0.0
     },
     {
-      "loss": 2.5638788429205306e-05,
+      "loss": 4.430644185049459e-05,
       "pg_loss": -0.0,
-      "kl": 0.001281939446926117,
+      "kl": 0.002215322107076645,
       "reward_mean": 0.0,
       "reward_std": 0.0,
       "parse_success_rate": 0.0
     },
     {
-      "loss": 0.0001245208113687113,
+      "loss": 4.8097819671966136e-05,
       "pg_loss": -0.0,
-      "kl": 0.006226040422916412,
+      "kl": 0.0024048909544944763,
       "reward_mean": 0.0,
       "reward_std": 0.0,
       "parse_success_rate": 0.0
@@ -80,31 +80,31 @@
     {
       "sample_id": "tier1_globem_0305",
       "true_risk": "mild",
-      "generation": " The problem the action givena32- $\\$\\d\"<issue*<reul* show what$a a a show a<<a =<<re which, what show show a which problem which,s<rea$a2\\]<rerel<%a show given equation given show the<<issue<re<$ \\]<rerel{R<reulul<re\"a show showing the, the problem problems show show example$$\\a set problem triangle show given example, which set whicha show example given example showing, a the\"\u5bf9\u9898\u76eea show,\u5bf9$Sul:s show$$$a=<%<s, 000023200,2\\ar(",
+      "generation": " This\"s show a$$a$\\<re\"\"\u5411\u95ee\u9898\u95ee\u9898,s show which showing\"\u95ee\u9898\u5411\u53d8\u91cf\u95ee\u9898\u8bbe\u8ba1\u9898\u76ee\u5bf9<s$R$s show: 00, which tilea a a a select on\"<% given problem on which show show set $\\r^s\u5bf9\u8bbe\u8ba1\u663e\u793a\u51fd\u6570a$a-s$ \\a$a- \\, which, the\"\u5411\u8bbe\u8ba1\u4e00\u4e2a\u4e8b\u4ef6$$$\\$$a-<{[\u95ee\u9898\u5bf9\u4e8b\u4ef6\u4e8b\u4ef6<<\u6b63\u5411\u8bbe\u8ba1a<issue$a*<reul:a$<s$-s$(2s\\s<re<re show triangle- show example showing\"<<re set tile show on show<\u6b63\u5411\u5bf9\u4e8b\u4ef6$$s show",
       "parsed_score": null,
       "reward": 0.0
     },
     {
       "sample_id": "tier1_globem_0363",
       "true_risk": "minimal",
-      "generation": " Several,\\] show problem which the \\)$a show the set theorem problem showinga$$$$s<re$a show,a-<%- The\"\u4e00\u4e2a\u95ee\u9898\u8bbe\u8ba1\u51fd\u6570\u8bbe\u8ba1\u8bbe\u8ba1\u8bbe\u8ba1\u51fd\u6570\u53d8\u91cf\u5411\u4efb\u8bbe\u8ba1\u65bd\u5de5\u539f\u7406\u8bbe\u8ba1\u9898\u76ee-ar$a*\u5bf9\u95ee\u9898\u9898\u76ee$<re set<re: The example, a set show set(<re\"a$s show what,\u5bf9\u53d8\u91cf\u5411\u51fd\u6570$a<%R<<re$<re(000x\\{(<reationa showa set seta33s213a show a\" show\"a\"\u5bf9a\"$- The set\"<re-s\"<$a$a\"\u95ee\u9898\u95ee\u9898<<s set problem theorem showing a",
+      "generation": " Several,\u5bf9\u5bf9\u4e8b\u4ef6\u95ee\u9898\u601d\u8003\u95ee\u9898$a2s$$$\\{a=$a$\\<reations showinga a seta:\"\u95ee\u9898-s: set set theorem of which ona=$\\n20x-<re set<a10$(24-20000,\u5bf9\u53d8\u91cf\u95ee\u9898\u5206\u6790(300$$a*<<rea a problem which problem<re\"<re show,\u5bf9\u5411\u4e00\u4e2a\u4e00\u4e2a\u51fd\u6570$(23(20s<re problem\"\u5bf9\u4e00\u4e2a\u51fd\u6570$2\n<re\"$$35, the, which triangle:\u5bf9\u5411\u5411\u65bd\u5de5<a\"\u5bf9\u9898\u76ee$3$<reations given\"<<%t*$\\relationss<re",
       "parsed_score": null,
       "reward": 0.0
     },
     {
       "sample_id": "tier1_globem_0419",
       "true_risk": "minimal",
-      "generation": " \n\n$$\\<%$$a- a show the<rea:<re which a problem of\"\"\u95ee\u9898\u8bbe\u8ba1<rerel<string>\u95ee\u9898\u9898\u76ee$a1a$a12a show given given on(s set<<re which, $\\t triangle triangle-<$-247200a=<re which,100\"\u8bbe\u8ba1\u51fd\u6570(7x\"<<re$(00sul>\u53d8\u91cf\u51fd\u6570\u547d\u9898a12x\\ref(0002, the set problem,000- set problem,s\u5bf9\u4e00\u4e2a\u65bd\u5de5\u95ee\u9898\u9898\u76ee\u95ee\u9898$ \\sa show seta$- set showa show,20, \\t show $\\sa1\"<re__\u95ee\u9898s show a show",
+      "generation": " Let triangle$<re____\u95ee\u9898\u95ee\u9898s<re: <\"<re set$* \\)\n$<re set<re$(s\u5bf9\u5de5\u4f5c\u663e\u793aa- $r<%<$a<re$a show<%R<s\\text<<re show\"\u5bf9\u8bbe\u8ba1<<\u6b63\u8bbe\u8ba1\u8bbe\u8ba1\u6761\u4ef6 problem$2a set<issue\"<$a show which which on a show a showa*<|$\\s$2s$a<re__\u95ee\u9898\u5bf9\u51fd\u6570\u547d\u9898\u95ee\u9898\u4e00\u4e2a<<{a15$m\"2x show show set<:s<reation problem problem problem-s2\n(\u5bf9\u95ee\u9898\u5bf9a(1<re:<re<re<% show example\"$<re$",
       "parsed_score": null,
       "reward": 0.0
     },
     {
       "sample_id": "tier1_globem_0417",
       "true_risk": "minimal",
-      "generation": " The<:a,\u5bf9\u4e00\u4e2a\u5de5\u4f5c\u5411<%a a$$$$ \\leulative\"<issue of$$$\\t$$\\<re- $\\a$a$a on the,20s set set a a$a*a triangle(a-23, \\<<re set$-a<re which problem,00s show\" show:s$(<re set show triangle triangle triangle:\n$a3s<re which\"a$$$a show,a<<re problem:<re problem on $\\$\\a$3a,,,0000s<s<: $a<re: \u95ee\u9898(\u5bf9\u5b9a\u4e8b\u4ef6\u601d\u8003\u95ee\u9898\"<re: \\<re$<$$",
+      "generation": " Sleep-<re:$a show what\"s show, \\,2, 200, a a \\ar show,00, the, the show$\\s{\n<re: \\<<% show\"\u5bf9\u95ee\u9898, \\text<% problem,s<s$23s$\"\u5bf9\u5411\u4e00\u4f4d\u5bf9\u5bf9\u95ee\u9898\u95ee\u9898$a11122354200$(23*<re<re set\"R<issue set given problem problems $\\d<re which show show\"<rerel<\u6b63\u5411\u8bbe\u8ba1\u65bd\u5de5\u8bbe\u8ba1\u8bbe\u8ba1$$272, $m* \\over<re<rerel\"\u95ee\u9898\"t show set $\\<<{<a, what show set $\\$<re$",
       "parsed_score": null,
       "reward": 0.0
     }
   ],
-  "wall_clock_seconds": 556.3469376564026
+  "wall_clock_seconds": 528.0812861919403
 }
