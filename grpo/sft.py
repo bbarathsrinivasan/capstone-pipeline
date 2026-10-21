@@ -45,7 +45,7 @@ import torch
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from model_real import MODEL_NAME, CHECKPOINT_DIR, DEVICE, GPU_SCALE, load_tokenizer, load_base_model, LORA_CONFIG, free_memory
-from prompts import build_examples
+from prompts import build_examples, split_examples_by_subject
 from reward import parse_predicted_score
 from peft import get_peft_model
 
@@ -127,30 +127,45 @@ def build_sft_target(true_risk_int, rng):
     if rng.random() < NOISE_RATE:
         delta = rng.choice([-1, 1])
         stated_risk = min(3, max(0, true_risk_int + delta))
-    summary = rng.choice(SUMMARY_TEMPLATES[true_risk_int])
+    # Bug fix: this used to be SUMMARY_TEMPLATES[true_risk_int] -- the
+    # summary described the TRUE severity while the stated score (on the
+    # NOISE_RATE fraction of rows) was independently shifted off of it. That
+    # taught the model, by example, that the final score doesn't have to
+    # agree with the summary it just wrote -- the opposite of what you'd
+    # want if the score is supposed to be DECIDED FROM the summary rather
+    # than independently re-read off the raw numbers. Keying the template to
+    # stated_risk instead makes every SFT target internally consistent: the
+    # summary always matches whatever score actually gets stated, noised or
+    # not. (The label noise relative to the TRUE risk is still there and
+    # still intentional -- see NOISE_RATE's docstring above -- this only
+    # fixes which text the stated score is paired with.)
+    summary = rng.choice(SUMMARY_TEMPLATES[stated_risk])
     return f"{summary}\n\nRisk score: {stated_risk}"
 
 
 def build_sft_examples():
-    """Subject-grouped split -- same discipline as src/run_clean_baseline.py's
-    CV, so SFT-val genuinely tests generalization to unseen people, not just
-    unseen weeks from people the model trained on."""
+    """Subject-grouped split via prompts.py's split_examples_by_subject,
+    shared with train_real.py (GRPO's training pool) and
+    evaluate_before_after.py (the before/after holdout) so all three agree
+    on exactly the same held-out subjects -- SFT-val, GRPO's training data,
+    and the before/after eval set are never the same subjects by accident."""
     examples = build_examples()
+    train_examples, val_examples = split_examples_by_subject(examples, VAL_FRACTION, SEED)
     rng = random.Random(SEED)
-    subjects = sorted({e["subject_id"] for e in examples})
-    rng.shuffle(subjects)
-    n_val = max(1, int(len(subjects) * VAL_FRACTION))
-    val_subjects = set(subjects[:n_val])
 
-    train_rows, val_rows = [], []
-    for e in examples:
-        target = build_sft_target(e["risk_int"], rng)
-        row = {"subject_id": e["subject_id"], "prompt": e["prompt"], "completion": target,
-               "risk_int": e["risk_int"], "risk_category": e["risk_category"]}
-        (val_rows if e["subject_id"] in val_subjects else train_rows).append(row)
+    def to_rows(exs):
+        return [
+            {"subject_id": e["subject_id"], "prompt": e["prompt"],
+             "completion": build_sft_target(e["risk_int"], rng),
+             "risk_int": e["risk_int"], "risk_category": e["risk_category"]}
+            for e in exs
+        ]
 
+    train_rows, val_rows = to_rows(train_examples), to_rows(val_examples)
+    n_val_subjects = len({e["subject_id"] for e in val_examples})
+    n_subjects = len({e["subject_id"] for e in examples})
     print(f"SFT dataset: {len(train_rows)} train / {len(val_rows)} val rows "
-          f"({len(val_subjects)}/{len(subjects)} subjects held out of train).")
+          f"({n_val_subjects}/{n_subjects} subjects held out of train).")
     return train_rows, val_rows
 
 

@@ -1,13 +1,15 @@
 #!/usr/bin/env bash
 # Convenience runner for the real-model GRPO track on a fresh AWS GPU instance.
 # Runs the full sequence in order: zero-shot check -> SFT (cold-start fix) ->
-# GRPO. Each step reads/writes grpo/results/ and grpo/checkpoints/, so it's
-# safe to re-run individual steps by calling the python files directly
-# instead of this script once you're past the first full pass.
+# GRPO -> before/after eval -> plots. Each step reads/writes grpo/results/
+# and grpo/checkpoints/, so it's safe to re-run individual steps by calling
+# the python files directly instead of this script once you're past the
+# first full pass.
 #
 # Usage:
 #   bash grpo/run_gpu.sh                      # default model (Qwen3-0.6B)
 #   bash grpo/run_gpu.sh Qwen/Qwen3-1.7B       # scale-up: override the model
+#   GRPO_N_STEPS=80 bash grpo/run_gpu.sh       # override GRPO step count (default 40)
 #
 # Expects to be run from the repo root (or anywhere -- it cds to the repo
 # root itself) on a machine with: a CUDA GPU, Python 3.10+, and
@@ -32,16 +34,24 @@ else:
 "
 
 echo
-echo "== 1/3: zero-shot format check =="
+echo "== 1/5: zero-shot format check =="
 python3 grpo/zero_shot_check.py
 
 echo
-echo "== 2/3: SFT (cold-start fix) =="
+echo "== 2/5: SFT (cold-start fix) =="
 python3 grpo/sft.py
 
 echo
-echo "== 3/3: GRPO on the real model =="
+echo "== 3/5: GRPO on the real model =="
 python3 grpo/train_real.py
 
 echo
-echo "Done. Results in grpo/results/, checkpoint in grpo/checkpoints/sft_lora."
+echo "== 4/5: before/after evaluation (held-out subjects) =="
+python3 grpo/evaluate_before_after.py
+
+echo
+echo "== 5/5: plots =="
+python3 grpo/make_plots_real.py
+
+echo
+echo "Done. Results in grpo/results/, checkpoints in grpo/checkpoints/{sft_lora,grpo_lora}."

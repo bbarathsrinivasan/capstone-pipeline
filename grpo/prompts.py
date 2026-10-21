@@ -12,6 +12,7 @@ Scope: tier-1 GLOBEM only, same "clean" slice as src/build_clean_dataset.py
 -- see that file for why tier 3 / hrv / hrs are excluded.
 """
 import json
+import random
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -61,6 +62,34 @@ def build_feature_block(record):
         inner = ", ".join(f"{d}: {days.get(d, 'null')}" for d in ["D1", "D2", "D3", "D4", "D5", "D6", "D7"])
         lines.append(f"{label} ({unit}): {{{inner}}}")
     return "\n".join(lines)
+
+
+def split_examples_by_subject(examples, val_fraction=0.15, seed=0):
+    """Subject-grouped train/val split, shared by sft.py and train_real.py so
+    the two stages agree on exactly the same held-out subjects. Previously
+    each file had its own copy of this logic (sft.py's build_sft_examples),
+    and train_real.py didn't hold anything out at all -- it trained GRPO on
+    a small hand-picked 24-example subsample of the FULL 480, which could
+    silently include subjects SFT had held out for its own validation. With
+    this shared version: sft.py trains on train_examples and reports
+    parse-rate on val_examples; train_real.py's GRPO training pool is also
+    restricted to train_examples (never the held-out subjects); and
+    evaluate_before_after.py calls this same function with the same
+    defaults to independently reconstruct the identical val_examples as a
+    genuine before/after holdout that NEITHER stage has ever trained on.
+
+    Deterministic given (seed, val_fraction) and the example list's
+    subject_id set -- uses its own local random.Random instance rather than
+    the global `random` module, so it doesn't depend on, or disturb, however
+    much of the global RNG stream the caller has already consumed."""
+    rng = random.Random(seed)
+    subjects = sorted({e["subject_id"] for e in examples})
+    rng.shuffle(subjects)
+    n_val = max(1, int(len(subjects) * val_fraction))
+    val_subjects = set(subjects[:n_val])
+    train_examples = [e for e in examples if e["subject_id"] not in val_subjects]
+    val_examples = [e for e in examples if e["subject_id"] in val_subjects]
+    return train_examples, val_examples
 
 
 def load_clean_tier1_records():

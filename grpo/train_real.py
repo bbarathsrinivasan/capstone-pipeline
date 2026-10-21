@@ -13,6 +13,7 @@ Needs real network access to huggingface.co -- see README.md "Real-model
 track" for where to run this (not this sandbox).
 """
 import json
+import os
 import random
 import sys
 import time
@@ -24,7 +25,7 @@ import torch.nn.functional as F
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from model_real import MODEL_NAME, CHECKPOINT_DIR, DEVICE, GPU_SCALE, load_tokenizer, build_policy_and_reference, free_memory
-from prompts import build_examples
+from prompts import build_examples, split_examples_by_subject
 from reward import reward_batch
 
 # sft.py's run exposed a real bug: a fixed, char-count-guessed max_length
@@ -69,7 +70,16 @@ RESULTS.mkdir(exist_ok=True)
 #   assuming either way).
 GROUP_SIZE = 4 * GPU_SCALE
 PROMPTS_PER_STEP = 4 * GPU_SCALE
-N_STEPS = 8 * GPU_SCALE
+# N_STEPS used to be a flat 8*GPU_SCALE with no way to change it short of
+# editing this file -- fine while every run was dying by step 2 regardless,
+# not fine now that the real bug (policy left in train() mode during
+# generation, see generate_group()'s docstring) is fixed and steps actually
+# work. Overridable via GRPO_N_STEPS so scaling up doesn't need a new
+# round-trip through this file. Default raised 8 -> 40 (5x) now that a
+# longer run is worth the wall-clock/GPU cost -- each step was ~65-70s on a
+# g5.xlarge for Qwen3-4B, so 40 steps is roughly 45 minutes.
+N_STEPS = int(os.environ.get("GRPO_N_STEPS", 8 * GPU_SCALE * 5))
+VAL_FRACTION = 0.15  # must match sft.py's -- see split_examples_by_subject
 MAX_NEW_TOKENS = 160
 TEMPERATURE = 0.7  # was 1.0 -- three different code fixes (KL estimator, no
                    # dropout, 10x lower LR) all produced the SAME collapse
@@ -101,19 +111,6 @@ SFT_ADAPTER_PATH = str(CHECKPOINT_DIR / "sft_lora")  # run sft.py first; or None
 random.seed(SEED)
 torch.manual_seed(SEED)
 np.random.seed(SEED)
-
-
-def sample_eval_set(examples, n_per_class=6):
-    by_class = {0: [], 1: [], 2: [], 3: []}
-    for e in examples:
-        by_class[e["risk_int"]].append(e)
-    for k in by_class:
-        random.shuffle(by_class[k])
-    chosen = []
-    for k in range(4):
-        chosen.extend(by_class[k][:n_per_class])
-    random.shuffle(chosen)
-    return chosen
 
 
 @torch.no_grad()
@@ -323,10 +320,22 @@ def main():
 
     examples = build_examples()
     prompt_max_length = compute_prompt_max_length(tokenizer, examples)
-    eval_set = sample_eval_set(examples, n_per_class=6)
-    print(f"Training pool: {len(eval_set)} class-balanced tier-1 prompts "
-          f"(6 per class), model='{MODEL_NAME}', sft_checkpoint={'yes' if sft_path else 'NO'}, "
-          f"reward variant='{REWARD_VARIANT}'")
+    # Used to be a hand-picked 24-example stratified subsample of the full
+    # 480 (sample_eval_set, n_per_class=6) -- far too little diversity for a
+    # real training run, and with no guarantee it avoided whatever subjects
+    # sft.py held out for its own validation. Now: the SAME subject-grouped
+    # split sft.py uses (prompts.py's split_examples_by_subject, same
+    # VAL_FRACTION/SEED), training only on train_examples -- the held-out
+    # val_examples subjects are never trained on by either stage, and stay
+    # available as the genuine before/after holdout (evaluate_before_after.py
+    # reconstructs the identical split independently).
+    eval_set, held_out_examples = split_examples_by_subject(examples, VAL_FRACTION, SEED)
+    print(f"GRPO training pool: {len(eval_set)} tier-1 prompts from "
+          f"{len({e['subject_id'] for e in eval_set})} subjects, model='{MODEL_NAME}', "
+          f"sft_checkpoint={'yes' if sft_path else 'NO'}, reward variant='{REWARD_VARIANT}'. "
+          f"{len(held_out_examples)} examples from "
+          f"{len({e['subject_id'] for e in held_out_examples})} subjects held out "
+          f"(never trained on) for evaluate_before_after.py.")
 
     history = []
     t0 = time.time()
@@ -356,6 +365,15 @@ def main():
             "sample_id": ex["sample_id"], "true_risk": ex["risk_category"],
             "generation": texts[0], "parsed_score": parsed[0], "reward": rewards[0],
         })
+
+    # Save the GRPO-trained adapter -- previously train_real.py never saved
+    # a checkpoint at all, so there was no way to evaluate "after GRPO"
+    # separately from "during GRPO training." evaluate_before_after.py loads
+    # this and sft_lora (the pre-GRPO checkpoint) on the SAME held-out
+    # subjects to measure whether GRPO actually improved accuracy.
+    grpo_save_path = CHECKPOINT_DIR / "grpo_lora"
+    policy.save_pretrained(str(grpo_save_path))
+    print(f"Saved GRPO-trained LoRA adapter to {grpo_save_path}")
 
     out = {
         "config": dict(
