@@ -1,0 +1,990 @@
+{
+  "before": {
+    "label": "before_sft_only",
+    "n": 69,
+    "parse_rate": 1.0,
+    "exact_match_accuracy_of_all": 0.11594202898550725,
+    "exact_match_accuracy_of_parsed": 0.11594202898550725,
+    "mean_abs_error_of_parsed": 1.391304347826087,
+    "mean_reward": 0.48738350730015567,
+    "samples": [
+      {
+        "sample_id": "tier1_globem_0008",
+        "true_risk": "severe",
+        "generation": " \n\nSleep is slightly shorter or more irregular than typical on a couple of days, with a modest increase in nighttime screen time.\n\nRisk score: 1",
+        "parsed_score": 1.0,
+        "reward": 0.03740283131659443
+      },
+      {
+        "sample_id": "tier1_globem_0010",
+        "true_risk": "severe",
+        "generation": " \n\nSleep is slightly shorter or more irregular than typical on a couple of days, with a modest increase in nighttime screen time.\n\nRisk score: 1",
+        "parsed_score": 1.0,
+        "reward": 0.03740283131659443
+      },
+      {
+        "sample_id": "tier1_globem_0013",
+        "true_risk": "severe",
+        "generation": " Sleep duration and efficiency are slightly below average on most days, with a few nights of severe fragmentation. Multiple hours at home overnight, heavy nighttime phone use.\n\nThis week shows consistent sleep timing and minimal mobility outside the home.\n\nRisk score: 1",
+        "parsed_score": 1.0,
+        "reward": 0.03740283131659443
+      },
+      {
+        "sample_id": "tier1_globem_0019",
+        "true_risk": "severe",
+        "generation": " \n\nSleep is slightly shorter or more irregular than typical on a couple of days, with a modest increase in nighttime screen time.\n\nRisk score: 1",
+        "parsed_score": 1.0,
+        "reward": 0.03740283131659443
+      },
+      {
+        "sample_id": "tier1_globem_0026",
+        "true_risk": "severe",
+        "generation": " Sleep duration and efficiency are slightly below average, with a modest increase in nighttime screen time.\n\nRisk score: 1",
+        "parsed_score": 1.0,
+        "reward": 0.03740283131659443
+      },
+      {
+        "sample_id": "tier1_globem_0030",
+        "true_risk": "severe",
+        "generation": " The sleep duration is slightly below average for the week (e.g., 6.5 hours) and the sleep efficiency is slightly lower than typical (e.g., 88%).\n\nSleep duration is slightly below average for the week (e.g., 6.5 hours) and the sleep efficiency is slightly lower than typical (e.g., 88%).\n\nRisk score: 1",
+        "parsed_score": 1.0,
+        "reward": 0.03740283131659443
+      },
+      {
+        "sample_id": "tier1_globem_0039",
+        "true_risk": "severe",
+        "generation": " \n\nSleep duration and efficiency stay within a typical range across the week, with home time and screen use showing no unusual pattern.\n\nRisk score: 0",
+        "parsed_score": 0.0,
+        "reward": 0.006590540043511113
+      },
+      {
+        "sample_id": "tier1_globem_0051",
+        "true_risk": "severe",
+        "generation": " Sleep duration and efficiency are slightly below average on most days, with a few nights of severe insomnia. Multiple sleep-wake cycles are observed across the week.\n\nRisk score: 2",
+        "parsed_score": 2.0,
+        "reward": 0.7066482778577162
+      },
+      {
+        "sample_id": "tier1_globem_0052",
+        "true_risk": "severe",
+        "generation": " Sleep duration and efficiency are slightly below average on most days, with a few nights of severe fragmentation. Multiple hours spent away from home, high nighttime screen time, and a slightly later-than-typical bedtime.\n\nRisk score: 2",
+        "parsed_score": 2.0,
+        "reward": 0.7066482778577162
+      },
+      {
+        "sample_id": "tier1_globem_0064",
+        "true_risk": "severe",
+        "generation": " Sleep duration and efficiency are slightly below average, with a few days showing marked fatigue.\n\nSleep duration and efficiency are slightly below average, with a few days showing marked fatigue.\n\nRisk score: 1",
+        "parsed_score": 1.0,
+        "reward": 0.03740283131659443
+      },
+      {
+        "sample_id": "tier1_globem_0080",
+        "true_risk": "severe",
+        "generation": " Sleep duration and efficiency are slightly below average, with a modest increase in nighttime screen time.\n\nRisk score: 1",
+        "parsed_score": 1.0,
+        "reward": 0.03740283131659443
+      },
+      {
+        "sample_id": "tier1_globem_0081",
+        "true_risk": "severe",
+        "generation": " \n\nSleep duration and efficiency stay within a typical range across the week, with home time and screen use showing no unusual pattern.\n\nRisk score: 0",
+        "parsed_score": 0.0,
+        "reward": 0.006590540043511113
+      },
+      {
+        "sample_id": "tier1_globem_0082",
+        "true_risk": "severe",
+        "generation": " \n\nSleep duration and efficiency stay within a typical range across the week, with home time and screen use showing no unusual pattern.\n\nRisk score: 0",
+        "parsed_score": 0.0,
+        "reward": 0.006590540043511113
+      },
+      {
+        "sample_id": "tier1_globem_0084",
+        "true_risk": "severe",
+        "generation": " \n\nSleep is slightly shorter or more irregular than typical on a couple of days, with a modest increase in nighttime screen time.\n\nRisk score: 1",
+        "parsed_score": 1.0,
+        "reward": 0.03740283131659443
+      },
+      {
+        "sample_id": "tier1_globem_0088",
+        "true_risk": "severe",
+        "generation": " \n\nSleep is slightly shorter or more irregular than typical on a couple of days, with a modest increase in nighttime screen time.\n\nRisk score: 1",
+        "parsed_score": 1.0,
+        "reward": 0.03740283131659443
+      },
+      {
+        "sample_id": "tier1_globem_0090",
+        "true_risk": "severe",
+        "generation": " \n\nSleep duration and efficiency stay within a typical range across the week, with home time and screen use showing no unusual pattern.\n\nRisk score: 0",
+        "parsed_score": 0.0,
+        "reward": 0.006590540043511113
+      },
+      {
+        "sample_id": "tier1_globem_0105",
+        "true_risk": "severe",
+        "generation": " \n\nSleep is slightly shorter or more irregular than typical on a couple of days, with a modest increase in nighttime screen time.\n\nRisk score: 1",
+        "parsed_score": 1.0,
+        "reward": 0.03740283131659443
+      },
+      {
+        "sample_id": "tier1_globem_0109",
+        "true_risk": "severe",
+        "generation": " \n\nSleep is slightly shorter or more irregular than typical on a couple of days, with a modest increase in nighttime screen time.\n\nRisk score: 1",
+        "parsed_score": 1.0,
+        "reward": 0.03740283131659443
+      },
+      {
+        "sample_id": "tier1_globem_0112",
+        "true_risk": "severe",
+        "generation": " \n\nSleep duration and efficiency stay within a typical range across the week, with home time and screen use showing no unusual pattern.\n\nRisk score: 0",
+        "parsed_score": 0.0,
+        "reward": 0.006590540043511113
+      },
+      {
+        "sample_id": "tier1_globem_0125",
+        "true_risk": "moderate",
+        "generation": " \n\nSleep duration and efficiency stay within a typical range across the week, with home time and screen use showing no unusual pattern.\n\nRisk score: 0",
+        "parsed_score": 0.0,
+        "reward": 0.24935220877729622
+      },
+      {
+        "sample_id": "tier1_globem_0126",
+        "true_risk": "moderate",
+        "generation": " Sleep duration and efficiency are slightly below average, with a modest increase in nighttime screen time.\n\nRisk score: 1",
+        "parsed_score": 1.0,
+        "reward": 0.7066482778577162
+      },
+      {
+        "sample_id": "tier1_globem_0138",
+        "true_risk": "moderate",
+        "generation": " Sleep duration and efficiency are slightly below average, with a few days showing marked fatigue.\n\nSleep duration and efficiency are slightly below average, with a few days showing marked fatigue.\n\nRisk score: 1",
+        "parsed_score": 1.0,
+        "reward": 0.7066482778577162
+      },
+      {
+        "sample_id": "tier1_globem_0151",
+        "true_risk": "moderate",
+        "generation": " \n\nSleep is slightly shorter or more irregular than typical on a couple of days, with a modest increase in nighttime screen time.\n\nRisk score: 1",
+        "parsed_score": 1.0,
+        "reward": 0.7066482778577162
+      },
+      {
+        "sample_id": "tier1_globem_0160",
+        "true_risk": "moderate",
+        "generation": " \n\nSleep is slightly shorter or more irregular than typical on a couple of days, with a modest increase in nighttime screen time.\n\nRisk score: 1",
+        "parsed_score": 1.0,
+        "reward": 0.7066482778577162
+      },
+      {
+        "sample_id": "tier1_globem_0171",
+        "true_risk": "moderate",
+        "generation": " \n\nSleep is slightly shorter or more irregular than typical on a couple of days, with a modest increase in nighttime screen time.\n\nRisk score: 1",
+        "parsed_score": 1.0,
+        "reward": 0.7066482778577162
+      },
+      {
+        "sample_id": "tier1_globem_0187",
+        "true_risk": "moderate",
+        "generation": " Sleep duration and efficiency are slightly below average, with a few days showing marked insomnia (wake-after-sleep-onset >45 minutes). Multiple nights show substantial sleep deprivation, and the person is substantially less mobile than typical.\n\nRisk score: 3",
+        "parsed_score": 3.0,
+        "reward": 0.7066482778577162
+      },
+      {
+        "sample_id": "tier1_globem_0192",
+        "true_risk": "moderate",
+        "generation": " \n\nSleep duration and efficiency stay within a typical range across the week, with home time and screen use showing no unusual pattern.\n\nRisk score: 0",
+        "parsed_score": 0.0,
+        "reward": 0.24935220877729622
+      },
+      {
+        "sample_id": "tier1_globem_0221",
+        "true_risk": "moderate",
+        "generation": " Sleep duration and efficiency are slightly below average on most days, with a few nights of heavy drinking.\n\nSleep duration and efficiency are slightly below average on most days, with a few nights of heavy drinking.\n\nRisk score: 1",
+        "parsed_score": 1.0,
+        "reward": 0.7066482778577162
+      },
+      {
+        "sample_id": "tier1_globem_0238",
+        "true_risk": "moderate",
+        "generation": " \n\nSleep is slightly shorter or more irregular than typical on a couple of days, with a modest increase in nighttime screen time.\n\nRisk score: 1",
+        "parsed_score": 1.0,
+        "reward": 0.7066482778577162
+      },
+      {
+        "sample_id": "tier1_globem_0241",
+        "true_risk": "mild",
+        "generation": " \n\nSleep is slightly shorter or more irregular than typical on a couple of days, with a modest increase in nighttime screen time.\n\nRisk score: 1",
+        "parsed_score": 1.0,
+        "reward": 1.0
+      },
+      {
+        "sample_id": "tier1_globem_0253",
+        "true_risk": "mild",
+        "generation": " Sleep duration and efficiency are slightly below average, with a few days showing marked insomnia symptoms.\n\nSleep duration and efficiency are slightly below average, with a few days showing marked insomnia symptoms.\n\nRisk score: 1",
+        "parsed_score": 1.0,
+        "reward": 1.0
+      },
+      {
+        "sample_id": "tier1_globem_0259",
+        "true_risk": "mild",
+        "generation": " \n\nSleep is slightly shorter or more irregular than typical on a couple of days, with a modest increase in nighttime screen time.\n\nRisk score: 1",
+        "parsed_score": 1.0,
+        "reward": 1.0
+      },
+      {
+        "sample_id": "tier1_globem_0262",
+        "true_risk": "mild",
+        "generation": " \n\nSleep is slightly shorter or more irregular than typical on a couple of days, with a modest increase in nighttime screen time.\n\nRisk score: 1",
+        "parsed_score": 1.0,
+        "reward": 1.0
+      },
+      {
+        "sample_id": "tier1_globem_0269",
+        "true_risk": "mild",
+        "generation": " Sleep duration and efficiency are slightly below average on most days, with a few nights of severe fragmentation. Multiple hours at home overnight, heavy nighttime phone use, and a slightly later-than-typical bedtime.\n\nRisk score: 2",
+        "parsed_score": 2.0,
+        "reward": 0.7066482778577162
+      },
+      {
+        "sample_id": "tier1_globem_0277",
+        "true_risk": "mild",
+        "generation": " Sleep duration and efficiency are slightly below average, with a few days showing marked reduction in mobility and phone use.\n\nRisk score: 1",
+        "parsed_score": 1.0,
+        "reward": 1.0
+      },
+      {
+        "sample_id": "tier1_globem_0279",
+        "true_risk": "mild",
+        "generation": " \n\nSleep duration and efficiency stay within a typical range across the week, with home time and screen use showing no unusual pattern.\n\nRisk score: 0",
+        "parsed_score": 0.0,
+        "reward": 0.7066482778577162
+      },
+      {
+        "sample_id": "tier1_globem_0283",
+        "true_risk": "mild",
+        "generation": " \n\nSleep duration and efficiency stay within a typical range across the week, with home time and screen use showing no unusual pattern.\n\nRisk score: 0",
+        "parsed_score": 0.0,
+        "reward": 0.7066482778577162
+      },
+      {
+        "sample_id": "tier1_globem_0285",
+        "true_risk": "mild",
+        "generation": " \n\nSleep duration and efficiency stay within a typical range across the week, with home time and screen use showing no unusual pattern.\n\nRisk score: 0",
+        "parsed_score": 0.0,
+        "reward": 0.7066482778577162
+      },
+      {
+        "sample_id": "tier1_globem_0290",
+        "true_risk": "mild",
+        "generation": " Sleep duration and efficiency are slightly below average on most days, with a few nights of severe insomnia. A few days show a slight increase in nighttime screen time.\n\nRisk score: 2",
+        "parsed_score": 2.0,
+        "reward": 0.7066482778577162
+      },
+      {
+        "sample_id": "tier1_globem_0291",
+        "true_risk": "mild",
+        "generation": " Sleep duration and efficiency are slightly below average on most days, with a few nights of severe fragmentation. Multiple hours spent away from home, high nighttime screen time, and a slightly later bedtime than typical.\n\nRisk score: 2",
+        "parsed_score": 2.0,
+        "reward": 0.7066482778577162
+      },
+      {
+        "sample_id": "tier1_globem_0308",
+        "true_risk": "mild",
+        "generation": " Sleep duration and efficiency are slightly below average on most days, with a few nights of severe fragmentation. Multiple hours at home overnight, heavy nighttime phone use, and a slightly later-than-typical bedtime.\n\nRisk score: 2",
+        "parsed_score": 2.0,
+        "reward": 0.7066482778577162
+      },
+      {
+        "sample_id": "tier1_globem_0315",
+        "true_risk": "mild",
+        "generation": " \n\nSleep is slightly shorter or more irregular than typical on a couple of days, with a modest increase in nighttime screen time.\n\nRisk score: 1",
+        "parsed_score": 1.0,
+        "reward": 1.0
+      },
+      {
+        "sample_id": "tier1_globem_0337",
+        "true_risk": "mild",
+        "generation": " \n\nSleep is slightly shorter or more irregular than typical on a couple of days, with a modest increase in nighttime screen time.\n\nRisk score: 1",
+        "parsed_score": 1.0,
+        "reward": 1.0
+      },
+      {
+        "sample_id": "tier1_globem_0343",
+        "true_risk": "mild",
+        "generation": " \n\nSleep duration and efficiency stay within a typical range across the week, with home time and screen use showing no unusual pattern.\n\nRisk score: 0",
+        "parsed_score": 0.0,
+        "reward": 0.7066482778577162
+      },
+      {
+        "sample_id": "tier1_globem_0361",
+        "true_risk": "minimal",
+        "generation": " Sleep duration and efficiency are slightly below average, with a few days showing marked fatigue.\n\nSleep duration and efficiency are slightly below average, with a few days showing marked fatigue.\n\nRisk score: 1",
+        "parsed_score": 1.0,
+        "reward": 0.7066482778577162
+      },
+      {
+        "sample_id": "tier1_globem_0362",
+        "true_risk": "minimal",
+        "generation": " \n\nSleep is slightly shorter or more irregular than typical on a couple of days, with a modest increase in nighttime screen time.\n\nRisk score: 1",
+        "parsed_score": 1.0,
+        "reward": 0.7066482778577162
+      },
+      {
+        "sample_id": "tier1_globem_0367",
+        "true_risk": "minimal",
+        "generation": " Sleep duration and efficiency are slightly below average, with a modest increase in nighttime screen time.\n\nRisk score: 1",
+        "parsed_score": 1.0,
+        "reward": 0.7066482778577162
+      },
+      {
+        "sample_id": "tier1_globem_0369",
+        "true_risk": "minimal",
+        "generation": " Sleep duration and efficiency are slightly below average, with a few days showing marked fatigue.\n\nSleep duration and efficiency are slightly below average, with a few days showing marked fatigue.\n\nRisk score: 1",
+        "parsed_score": 1.0,
+        "reward": 0.7066482778577162
+      },
+      {
+        "sample_id": "tier1_globem_0376",
+        "true_risk": "minimal",
+        "generation": " Sleep duration and efficiency are slightly below average on most days, with a few nights of severe fragmentation. Multiple hours at home overnight, heavy nighttime phone use, and a slightly later-than-typical bedtime.\n\nRisk score: 2",
+        "parsed_score": 2.0,
+        "reward": 0.24935220877729622
+      },
+      {
+        "sample_id": "tier1_globem_0382",
+        "true_risk": "minimal",
+        "generation": " \n\nSleep is slightly shorter or more irregular than typical on a couple of days, with a modest increase in nighttime screen time.\n\nRisk score: 1",
+        "parsed_score": 1.0,
+        "reward": 0.7066482778577162
+      },
+      {
+        "sample_id": "tier1_globem_0383",
+        "true_risk": "minimal",
+        "generation": " Sleep duration and efficiency are slightly below average, with a few days showing marked insomnia (wake after sleep onset >30 minutes). Multiple hours are spent away from home overnight, and nighttime screen time is substantially elevated.\n\nSleep duration and efficiency are slightly below average, with a few days showing marked insomnia (wake after sleep onset >30 minutes). Multiple hours are spent away from home overnight, and nighttime screen time is substantially elevated.\n\nRisk score: 2",
+        "parsed_score": 2.0,
+        "reward": 0.24935220877729622
+      },
+      {
+        "sample_id": "tier1_globem_0394",
+        "true_risk": "minimal",
+        "generation": " \n\nSleep is slightly shorter or more irregular than typical on a couple of days, with a modest increase in nighttime screen time.\n\nRisk score: 1",
+        "parsed_score": 1.0,
+        "reward": 0.7066482778577162
+      },
+      {
+        "sample_id": "tier1_globem_0400",
+        "true_risk": "minimal",
+        "generation": " Sleep duration and efficiency are slightly below average on most days, with a few nights of severe fragmentation. Multiple hours at home overnight, heavy nighttime phone use, and a slightly later-than-typical bedtime.\n\nRisk score: 2",
+        "parsed_score": 2.0,
+        "reward": 0.24935220877729622
+      },
+      {
+        "sample_id": "tier1_globem_0404",
+        "true_risk": "minimal",
+        "generation": " The sleep duration is slightly below average for the week, with a moderate wake-after-sleep-onset (WASO) and a slightly later-than-average bedtime. A few days show a small dip in nighttime screen time, paired with a modest increase in home time.\n\nRisk score: 1",
+        "parsed_score": 1.0,
+        "reward": 0.7066482778577162
+      },
+      {
+        "sample_id": "tier1_globem_0408",
+        "true_risk": "minimal",
+        "generation": " Sleep duration and efficiency are slightly below average, with a few days showing marked fatigue.\n\nSleep duration and efficiency are slightly below average, with a few days showing marked fatigue.\n\nRisk score: 1",
+        "parsed_score": 1.0,
+        "reward": 0.7066482778577162
+      },
+      {
+        "sample_id": "tier1_globem_0409",
+        "true_risk": "minimal",
+        "generation": " Sleep duration and efficiency are slightly below average on most days, with a few nights of severe insomnia. A few days show slightly reduced mobility outside the home.\n\nRisk score: 2",
+        "parsed_score": 2.0,
+        "reward": 0.24935220877729622
+      },
+      {
+        "sample_id": "tier1_globem_0417",
+        "true_risk": "minimal",
+        "generation": " Sleep duration and efficiency are slightly below average, with a few days showing marked worsening. Sleep duration and efficiency are slightly below average, with a few days showing marked worsening. Sleep duration and efficiency are slightly below average, several days show marked worsening. Sleep duration and efficiency are substantially below average, most days show severe worsening.\n\nSleep duration and efficiency are slightly below average, with a few days showing marked worsening.\n\nRisk score: 1",
+        "parsed_score": 1.0,
+        "reward": 0.7066482778577162
+      },
+      {
+        "sample_id": "tier1_globem_0420",
+        "true_risk": "minimal",
+        "generation": " \n\nSleep is slightly shorter or more irregular than typical on a couple of days, with a modest increase in nighttime screen time.\n\nRisk score: 1",
+        "parsed_score": 1.0,
+        "reward": 0.7066482778577162
+      },
+      {
+        "sample_id": "tier1_globem_0426",
+        "true_risk": "minimal",
+        "generation": " Sleep duration and efficiency are slightly below average on most days, with a few nights of severe insomnia. A few days show a slight increase in nighttime screen time.\n\nRisk score: 2",
+        "parsed_score": 2.0,
+        "reward": 0.24935220877729622
+      },
+      {
+        "sample_id": "tier1_globem_0428",
+        "true_risk": "minimal",
+        "generation": " Sleep duration and efficiency are slightly below average on most days, with a few nights of severe insomnia. Multiple hours spent away from home, high nighttime screen time, and a slightly elevated depression risk score.\n\nSeveral days show sleep deprivation or poor efficiency, paired with reduced home time and elevated screen use.\n\nRisk score: 2",
+        "parsed_score": 2.0,
+        "reward": 0.24935220877729622
+      },
+      {
+        "sample_id": "tier1_globem_0431",
+        "true_risk": "minimal",
+        "generation": " \n\nSleep is slightly shorter or more irregular than typical on a couple of days, with a modest increase in nighttime screen time.\n\nRisk score: 1",
+        "parsed_score": 1.0,
+        "reward": 0.7066482778577162
+      },
+      {
+        "sample_id": "tier1_globem_0433",
+        "true_risk": "minimal",
+        "generation": " Sleep duration and efficiency are slightly below average on most days, with a few nights of severe fragmentation. Multiple hours spent away from home, high nighttime screen time, and a slightly later bedtime than typical.\n\nRisk score: 2",
+        "parsed_score": 2.0,
+        "reward": 0.24935220877729622
+      },
+      {
+        "sample_id": "tier1_globem_0444",
+        "true_risk": "minimal",
+        "generation": " Sleep duration and efficiency are slightly below average on most days, with a few nights of heavy sleep deprivation. A few days show slightly reduced mobility outside the home.\n\nRisk score: 2",
+        "parsed_score": 2.0,
+        "reward": 0.24935220877729622
+      },
+      {
+        "sample_id": "tier1_globem_0445",
+        "true_risk": "minimal",
+        "generation": " \n\nSleep duration and efficiency stay within a typical range across the week, with home time and screen use showing no unusual pattern.\n\nRisk score: 0",
+        "parsed_score": 0.0,
+        "reward": 1.0
+      },
+      {
+        "sample_id": "tier1_globem_0461",
+        "true_risk": "minimal",
+        "generation": " Sleep duration and efficiency are slightly below average, with a few days showing marked insomnia (wake after sleep onset >60 minutes). A few days show reduced time spent away from home and slightly higher nighttime screen use.  \nRisk score: 2",
+        "parsed_score": 2.0,
+        "reward": 0.24935220877729622
+      },
+      {
+        "sample_id": "tier1_globem_0469",
+        "true_risk": "minimal",
+        "generation": " Sleep duration and efficiency are slightly below average on most days, with a few nights of severe fragmentation. Multiple hours at home overnight, heavy nighttime phone use, and a slightly later-than-typical bedtime.\n\nRisk score: 2",
+        "parsed_score": 2.0,
+        "reward": 0.24935220877729622
+      },
+      {
+        "sample_id": "tier1_globem_0472",
+        "true_risk": "minimal",
+        "generation": " Sleep duration and efficiency are slightly below average on most days, with a few nights of severe fragmentation. Multiple hours at home overnight, heavy nighttime phone use, and a slightly later-than-typical bedtime.\n\nRisk score: 2",
+        "parsed_score": 2.0,
+        "reward": 0.24935220877729622
+      },
+      {
+        "sample_id": "tier1_globem_0478",
+        "true_risk": "minimal",
+        "generation": " Sleep duration and efficiency are slightly below average, with a few days showing marked insomnia symptoms.\n\nSleep is slightly below average in duration and efficiency, with a couple of days showing marked insomnia symptoms. Several nights feature prolonged wakefulness after sleep onset.\n\nRisk score: 1",
+        "parsed_score": 1.0,
+        "reward": 0.7066482778577162
+      },
+      {
+        "sample_id": "tier1_globem_0479",
+        "true_risk": "minimal",
+        "generation": " \n\nSleep is slightly shorter or more irregular than typical on a couple of days, with a modest increase in nighttime screen time.\n\nRisk score: 1",
+        "parsed_score": 1.0,
+        "reward": 0.7066482778577162
+      }
+    ]
+  },
+  "after": {
+    "label": "after_grpo",
+    "n": 69,
+    "parse_rate": 1.0,
+    "exact_match_accuracy_of_all": 0.18840579710144928,
+    "exact_match_accuracy_of_parsed": 0.18840579710144928,
+    "mean_abs_error_of_parsed": 1.1159420289855073,
+    "mean_reward": 0.5859545452983584,
+    "samples": [
+      {
+        "sample_id": "tier1_globem_0008",
+        "true_risk": "severe",
+        "generation": " Sleep duration and efficiency are slightly below average, with a few days showing marked worsening. Sleep duration and efficiency are slightly below average, with a few days showing marked worsening. Sleep duration and efficiency are slightly below average, several days show marked worsening. Sleep duration and efficiency are substantially below average, most days show severe worsening.\n\nSleep duration and efficiency are slightly below average, with a few days showing marked worsening.\n\nRisk score: 1",
+        "parsed_score": 1.0,
+        "reward": 0.03740283131659443
+      },
+      {
+        "sample_id": "tier1_globem_0010",
+        "true_risk": "severe",
+        "generation": " \n\nSleep is slightly shorter or more irregular than typical on a couple of days, with a modest increase in nighttime screen time.\n\nRisk score: 1",
+        "parsed_score": 1.0,
+        "reward": 0.03740283131659443
+      },
+      {
+        "sample_id": "tier1_globem_0013",
+        "true_risk": "severe",
+        "generation": " Sleep duration and efficiency are slightly below average on most days, with a few nights of heavy sleep deprivation. A few days show slightly reduced mobility outside the home, and sleep-wake timing is slightly shifted later than typical. Sleep duration and efficiency are slightly below average on most days, with a few nights of heavy sleep deprivation. A few days show slightly reduced mobility outside the home, and sleep-wake timing is slightly shifted later than typical.  \nRisk score: 1",
+        "parsed_score": 1.0,
+        "reward": 0.03740283131659443
+      },
+      {
+        "sample_id": "tier1_globem_0019",
+        "true_risk": "severe",
+        "generation": " Sleep duration and efficiency are slightly below average, with a few days showing marked reduction in mobility and phone use.\n\nRisk score: 1",
+        "parsed_score": 1.0,
+        "reward": 0.03740283131659443
+      },
+      {
+        "sample_id": "tier1_globem_0026",
+        "true_risk": "severe",
+        "generation": " Sleep duration and efficiency are slightly below average, with a modest increase in nighttime screen time.\n\nRisk score: 1",
+        "parsed_score": 1.0,
+        "reward": 0.03740283131659443
+      },
+      {
+        "sample_id": "tier1_globem_0030",
+        "true_risk": "severe",
+        "generation": " The sleep duration is slightly below average for the week (e.g., 6.5 hours) and the sleep efficiency is slightly lower than typical (e.g., 88%).\n\nSleep duration is slightly below average for the week (e.g., 6.5 hours) and the sleep efficiency is slightly lower than typical (e.g., 88%).\n\nRisk score: 1",
+        "parsed_score": 1.0,
+        "reward": 0.03740283131659443
+      },
+      {
+        "sample_id": "tier1_globem_0039",
+        "true_risk": "severe",
+        "generation": " \n\nSleep duration and efficiency stay within a typical range across the week, with home time and screen use showing no unusual pattern.\n\nRisk score: 0",
+        "parsed_score": 0.0,
+        "reward": 0.006590540043511113
+      },
+      {
+        "sample_id": "tier1_globem_0051",
+        "true_risk": "severe",
+        "generation": " Sleep duration and efficiency are slightly below average, with a few days showing marked insomnia (wake-after-sleep-onset >60 minutes). Multiple nights show substantial sleep deprivation -- sleep duration <6 hours, efficiency <80% -- alongside a steep rise in phone use and a sharp drop in time spent away from home.\n\nRisk score: 2",
+        "parsed_score": 2.0,
+        "reward": 0.7066482778577162
+      },
+      {
+        "sample_id": "tier1_globem_0052",
+        "true_risk": "severe",
+        "generation": " Sleep duration and efficiency are slightly below average, with a few days showing marked fatigue.\n\nSleep duration and efficiency are slightly below average, with a few days showing marked fatigue.\n\nRisk score: 1",
+        "parsed_score": 1.0,
+        "reward": 0.03740283131659443
+      },
+      {
+        "sample_id": "tier1_globem_0064",
+        "true_risk": "severe",
+        "generation": " Sleep duration and efficiency are slightly below average, with a modest increase in nighttime screen time.  \nRisk score: 1",
+        "parsed_score": 1.0,
+        "reward": 0.03740283131659443
+      },
+      {
+        "sample_id": "tier1_globem_0080",
+        "true_risk": "severe",
+        "generation": " Sleep duration and efficiency are slightly below average, with a modest increase in nighttime screen time.  \nRisk score: 1",
+        "parsed_score": 1.0,
+        "reward": 0.03740283131659443
+      },
+      {
+        "sample_id": "tier1_globem_0081",
+        "true_risk": "severe",
+        "generation": " Sleep duration and efficiency are slightly below average, with a few days showing marked fatigue.\n\nSleep duration and efficiency are slightly below average, with a few days showing marked fatigue.\n\nRisk score: 1",
+        "parsed_score": 1.0,
+        "reward": 0.03740283131659443
+      },
+      {
+        "sample_id": "tier1_globem_0082",
+        "true_risk": "severe",
+        "generation": " \n\nSleep is slightly shorter or more irregular than typical on a couple of days, with a modest increase in nighttime screen time.\n\nRisk score: 1",
+        "parsed_score": 1.0,
+        "reward": 0.03740283131659443
+      },
+      {
+        "sample_id": "tier1_globem_0084",
+        "true_risk": "severe",
+        "generation": " Sleep duration and efficiency are slightly below average on most days, with a few nights of heavy sleep deprivation. A few days show a slight increase in nighttime screen time.\n\nRisk score: 1",
+        "parsed_score": 1.0,
+        "reward": 0.03740283131659443
+      },
+      {
+        "sample_id": "tier1_globem_0088",
+        "true_risk": "severe",
+        "generation": " \n\nSleep is slightly shorter or more irregular than typical on a couple of days, with a modest increase in nighttime screen time.\n\nRisk score: 1",
+        "parsed_score": 1.0,
+        "reward": 0.03740283131659443
+      },
+      {
+        "sample_id": "tier1_globem_0090",
+        "true_risk": "severe",
+        "generation": " \n\nSleep duration and efficiency stay within a typical range across the week, with home time and screen use showing no unusual pattern.\n\nRisk score: 0",
+        "parsed_score": 0.0,
+        "reward": 0.006590540043511113
+      },
+      {
+        "sample_id": "tier1_globem_0105",
+        "true_risk": "severe",
+        "generation": " Sleep duration and efficiency are slightly below average, with a few days showing marked insomnia symptoms.\n\nSleep is slightly below average in duration and efficiency, with a few days showing marked insomnia symptoms. Multiple nights feature prolonged wakefulness after sleep onset.\n\nRisk score: 2",
+        "parsed_score": 2.0,
+        "reward": 0.7066482778577162
+      },
+      {
+        "sample_id": "tier1_globem_0109",
+        "true_risk": "severe",
+        "generation": " Sleep duration and efficiency are slightly below average on most days, with a few nights of heavy sleep deprivation. A few days show substantially reduced time spent away from home and a slight increase in nighttime screen use.\n\nRisk score: 2",
+        "parsed_score": 2.0,
+        "reward": 0.7066482778577162
+      },
+      {
+        "sample_id": "tier1_globem_0112",
+        "true_risk": "severe",
+        "generation": " Sleep duration and efficiency are slightly below average on most days, with a few nights of heavy sleep deprivation. A few days show slightly reduced mobility outside the home, and sleep-wake timing is slightly shifted later than typical. Multiple nights show elevated nighttime screen time.  \nRisk score: 1",
+        "parsed_score": 1.0,
+        "reward": 0.03740283131659443
+      },
+      {
+        "sample_id": "tier1_globem_0125",
+        "true_risk": "moderate",
+        "generation": " Sleep duration and efficiency are slightly below average, with a few days showing marked insomnia (wake after sleep onset >30 minutes). Multiple days show substantially reduced time spent away from home, and nighttime screen use is substantially elevated.\n\nRisk score: 2",
+        "parsed_score": 2.0,
+        "reward": 1.0
+      },
+      {
+        "sample_id": "tier1_globem_0126",
+        "true_risk": "moderate",
+        "generation": " Sleep duration and efficiency are slightly below average, with a modest increase in nighttime screen time.\n\nRisk score: 1",
+        "parsed_score": 1.0,
+        "reward": 0.7066482778577162
+      },
+      {
+        "sample_id": "tier1_globem_0138",
+        "true_risk": "moderate",
+        "generation": " Sleep duration and efficiency are slightly below average, with a few days showing marked fatigue.\n\nSleep duration and efficiency are slightly below average, with a few days showing marked fatigue.\n\nRisk score: 1",
+        "parsed_score": 1.0,
+        "reward": 0.7066482778577162
+      },
+      {
+        "sample_id": "tier1_globem_0151",
+        "true_risk": "moderate",
+        "generation": " The sleep duration is slightly below average for the week, with a moderate wake-after-sleep-onset (WASO) and a slightly later-than-average bedtime. A few days show a small dip in sleep efficiency, paired with a modest increase in phone use before sleep.\n\nRisk score: 1",
+        "parsed_score": 1.0,
+        "reward": 0.7066482778577162
+      },
+      {
+        "sample_id": "tier1_globem_0160",
+        "true_risk": "moderate",
+        "generation": " \n\nSleep is slightly shorter or more irregular than typical on a couple of days, with a modest increase in nighttime screen time.\n\nRisk score: 1",
+        "parsed_score": 1.0,
+        "reward": 0.7066482778577162
+      },
+      {
+        "sample_id": "tier1_globem_0171",
+        "true_risk": "moderate",
+        "generation": " Sleep duration and efficiency are slightly below average on most days, with a few nights of severe insomnia. Multiple days show elevated nighttime screen time alongside reduced time spent away from home.\n\nRisk score: 2",
+        "parsed_score": 2.0,
+        "reward": 1.0
+      },
+      {
+        "sample_id": "tier1_globem_0187",
+        "true_risk": "moderate",
+        "generation": " Sleep duration and efficiency are slightly below average, with a few days showing marked insomnia (wake-after-sleep-onset >45 minutes). Multiple nights show substantial sleep deprivation, and the person is substantially less mobile than typical.\n\nRisk score: 3",
+        "parsed_score": 3.0,
+        "reward": 0.7066482778577162
+      },
+      {
+        "sample_id": "tier1_globem_0192",
+        "true_risk": "moderate",
+        "generation": " Sleep duration and efficiency are slightly below average, with a few days showing marked fatigue.\n\nSleep duration and efficiency are slightly below average, with a few days showing marked fatigue.\n\nRisk score: 1",
+        "parsed_score": 1.0,
+        "reward": 0.7066482778577162
+      },
+      {
+        "sample_id": "tier1_globem_0221",
+        "true_risk": "moderate",
+        "generation": " Sleep duration and efficiency are slightly below average, with a few days showing marked insomnia symptoms.  \nSleep duration and efficiency are slightly below average, with a few days showing marked insomnia symptoms.  \nRisk score: 1",
+        "parsed_score": 1.0,
+        "reward": 0.7066482778577162
+      },
+      {
+        "sample_id": "tier1_globem_0238",
+        "true_risk": "moderate",
+        "generation": " \n\nSleep is slightly shorter or more irregular than typical on a couple of days, with a modest increase in nighttime screen time.\n\nRisk score: 1",
+        "parsed_score": 1.0,
+        "reward": 0.7066482778577162
+      },
+      {
+        "sample_id": "tier1_globem_0241",
+        "true_risk": "mild",
+        "generation": " Sleep duration and efficiency are slightly below average on most days, with a few nights of severe fragmentation. Multiple hours at home overnight, heavy nighttime phone use, and a slightly later-than-typical bedtime.\n\nRisk score: 2",
+        "parsed_score": 2.0,
+        "reward": 0.7066482778577162
+      },
+      {
+        "sample_id": "tier1_globem_0253",
+        "true_risk": "mild",
+        "generation": " Sleep duration and efficiency are slightly below average, with a few days showing marked fatigue.\n\nSleep duration and efficiency are slightly below average, with a few days showing marked fatigue.\n\nRisk score: 1",
+        "parsed_score": 1.0,
+        "reward": 1.0
+      },
+      {
+        "sample_id": "tier1_globem_0259",
+        "true_risk": "mild",
+        "generation": " Sleep duration and efficiency are slightly below average, with a few days showing marked worsening. Multiple sleep fragments are observed across the week. A substantial portion of the day is spent away from home. Nighttime screen use is substantially elevated.\n\nSleep duration and efficiency are slightly below average, with a few days showing marked worsening. Multiple sleep fragments are observed across the week. A substantial portion of the day is spent away from home. Nighttime screen use is substantially elevated.\n\nRisk score: 2",
+        "parsed_score": 2.0,
+        "reward": 0.7066482778577162
+      },
+      {
+        "sample_id": "tier1_globem_0262",
+        "true_risk": "mild",
+        "generation": " The sleep duration is slightly below average for the week, with a moderate wake-after-sleep-onset (WASO) and a slightly reduced time spent away from home.\n\nRisk score: 1",
+        "parsed_score": 1.0,
+        "reward": 1.0
+      },
+      {
+        "sample_id": "tier1_globem_0269",
+        "true_risk": "mild",
+        "generation": " Sleep duration and efficiency are slightly below average on most days, with a few nights of severe fragmentation. Multiple hours spent away from home, high nighttime screen time, and a slightly later bedtime than typical.\n\nRisk score: 2",
+        "parsed_score": 2.0,
+        "reward": 0.7066482778577162
+      },
+      {
+        "sample_id": "tier1_globem_0277",
+        "true_risk": "mild",
+        "generation": " Sleep duration and efficiency are slightly below average, with a few days showing marked fatigue.\n\nSleep duration and efficiency are slightly below average, with a few days showing marked fatigue.\n\nRisk score: 1",
+        "parsed_score": 1.0,
+        "reward": 1.0
+      },
+      {
+        "sample_id": "tier1_globem_0279",
+        "true_risk": "mild",
+        "generation": " Sleep duration and efficiency are slightly below average, with a modest increase in nighttime screen time.  \nRisk score: 1",
+        "parsed_score": 1.0,
+        "reward": 1.0
+      },
+      {
+        "sample_id": "tier1_globem_0283",
+        "true_risk": "mild",
+        "generation": " Sleep duration and efficiency are slightly below average, with a few days showing marked fatigue.\n\nSleep duration and efficiency are slightly below average, with a few days showing marked fatigue.\n\nRisk score: 1",
+        "parsed_score": 1.0,
+        "reward": 1.0
+      },
+      {
+        "sample_id": "tier1_globem_0285",
+        "true_risk": "mild",
+        "generation": " Sleep duration and efficiency are slightly below average on most days, with a few nights of severe insomnia. A few days show a slight increase in nighttime screen time.\n\nRisk score: 1",
+        "parsed_score": 1.0,
+        "reward": 1.0
+      },
+      {
+        "sample_id": "tier1_globem_0290",
+        "true_risk": "mild",
+        "generation": " \n\nSleep duration and efficiency stay within a typical range across the week, with home time and screen use showing no unusual pattern.\n\nRisk score: 0",
+        "parsed_score": 0.0,
+        "reward": 0.7066482778577162
+      },
+      {
+        "sample_id": "tier1_globem_0291",
+        "true_risk": "mild",
+        "generation": " Sleep duration and efficiency are slightly below average on most days, with a few nights of heavy sleep debt. A few days show elevated nighttime screen time alongside reduced time spent away from home. Risk score: 1",
+        "parsed_score": 1.0,
+        "reward": 1.0
+      },
+      {
+        "sample_id": "tier1_globem_0308",
+        "true_risk": "mild",
+        "generation": " Sleep duration and efficiency are slightly below average on most days, with a few nights of heavy sleep debt. A few days show elevated nighttime screen time and slightly reduced mobility outside the home.\nRisk score: 1",
+        "parsed_score": 1.0,
+        "reward": 1.0
+      },
+      {
+        "sample_id": "tier1_globem_0315",
+        "true_risk": "mild",
+        "generation": " Sleep duration and efficiency are slightly below average, with a modest increase in nighttime screen time.  \nRisk score: 1",
+        "parsed_score": 1.0,
+        "reward": 1.0
+      },
+      {
+        "sample_id": "tier1_globem_0337",
+        "true_risk": "mild",
+        "generation": " Sleep duration and efficiency are slightly below average on most days, with a few nights of heavy sleep deprivation. A few days show slightly reduced mobility outside the home, and sleep-wake timing is slightly shifted later than typical. Multiple nights show elevated nighttime screen time. Risk score: 1",
+        "parsed_score": 1.0,
+        "reward": 1.0
+      },
+      {
+        "sample_id": "tier1_globem_0343",
+        "true_risk": "mild",
+        "generation": " Sleep duration and efficiency are slightly below average, with a few days showing marked fatigue.\n\nSleep duration and efficiency are slightly below average, with a few days showing marked fatigue.\n\nRisk score: 1",
+        "parsed_score": 1.0,
+        "reward": 1.0
+      },
+      {
+        "sample_id": "tier1_globem_0361",
+        "true_risk": "minimal",
+        "generation": " Sleep duration and efficiency are slightly below average, with a few days showing marked fatigue.\n\nSleep duration and efficiency are slightly below average, with a few days showing marked fatigue.\n\nRisk score: 1",
+        "parsed_score": 1.0,
+        "reward": 0.7066482778577162
+      },
+      {
+        "sample_id": "tier1_globem_0362",
+        "true_risk": "minimal",
+        "generation": " \n\nSleep is slightly shorter or more irregular than typical on a couple of days, with a modest increase in nighttime screen time.\n\nRisk score: 1",
+        "parsed_score": 1.0,
+        "reward": 0.7066482778577162
+      },
+      {
+        "sample_id": "tier1_globem_0367",
+        "true_risk": "minimal",
+        "generation": " Sleep duration and efficiency are slightly below average, with a modest increase in nighttime screen time.\n\nRisk score: 1",
+        "parsed_score": 1.0,
+        "reward": 0.7066482778577162
+      },
+      {
+        "sample_id": "tier1_globem_0369",
+        "true_risk": "minimal",
+        "generation": " Sleep duration and efficiency are slightly below average, with a few days showing marked fatigue.\n\nSleep duration and efficiency are slightly below average, with a few days showing marked fatigue.\n\nRisk score: 1",
+        "parsed_score": 1.0,
+        "reward": 0.7066482778577162
+      },
+      {
+        "sample_id": "tier1_globem_0376",
+        "true_risk": "minimal",
+        "generation": " Sleep duration and efficiency are slightly below average, with a few days showing marked insomnia (wake after sleep onset >30 minutes). Multiple sleep fragments, substantial time away from home, and a slightly elevated depression risk score.\n\nSleep duration and efficiency are slightly below average, with a few days showing marked insomnia (wake after sleep onset >30 minutes). Multiple sleep fragments, substantial time away from home, and a slightly elevated depression risk score.\n\nRisk score: 1",
+        "parsed_score": 1.0,
+        "reward": 0.7066482778577162
+      },
+      {
+        "sample_id": "tier1_globem_0382",
+        "true_risk": "minimal",
+        "generation": " \n\nSleep is slightly shorter or more irregular than typical on a couple of days, with a modest increase in nighttime screen time.\n\nRisk score: 1",
+        "parsed_score": 1.0,
+        "reward": 0.7066482778577162
+      },
+      {
+        "sample_id": "tier1_globem_0383",
+        "true_risk": "minimal",
+        "generation": " Sleep duration and efficiency are slightly below average, with a few days showing marked worsening. Sleep duration and efficiency are slightly below average, with a few days showing marked worsening. Sleep duration and efficiency are slightly below average, several days show marked worsening. Sleep duration and efficiency are substantially below average, most days show severe worsening.\n\nSleep duration and efficiency are slightly below average, with a few days showing marked worsening.\n\nRisk score: 1",
+        "parsed_score": 1.0,
+        "reward": 0.7066482778577162
+      },
+      {
+        "sample_id": "tier1_globem_0394",
+        "true_risk": "minimal",
+        "generation": " \n\nSleep is slightly shorter or more irregular than typical on a couple of days, with a modest increase in nighttime screen time.\n\nRisk score: 1",
+        "parsed_score": 1.0,
+        "reward": 0.7066482778577162
+      },
+      {
+        "sample_id": "tier1_globem_0400",
+        "true_risk": "minimal",
+        "generation": " Sleep duration and efficiency are slightly below average, with a modest increase in nighttime screen time.  \nRisk score: 1",
+        "parsed_score": 1.0,
+        "reward": 0.7066482778577162
+      },
+      {
+        "sample_id": "tier1_globem_0404",
+        "true_risk": "minimal",
+        "generation": " The sleep duration is slightly below average for the week, with a moderate level of nighttime screen time.\n\nSleep is slightly below average for the week, with a moderate level of nighttime screen time.  \nRisk score: 1",
+        "parsed_score": 1.0,
+        "reward": 0.7066482778577162
+      },
+      {
+        "sample_id": "tier1_globem_0408",
+        "true_risk": "minimal",
+        "generation": " Sleep duration and efficiency are slightly below average, with a few days showing marked insomnia symptoms.  \nSleep duration and efficiency are slightly below average, with a few days showing marked insomnia symptoms.  \nRisk score: 1",
+        "parsed_score": 1.0,
+        "reward": 0.7066482778577162
+      },
+      {
+        "sample_id": "tier1_globem_0409",
+        "true_risk": "minimal",
+        "generation": " Sleep duration and efficiency are slightly below average on most days, with a few nights of severe insomnia. A few days show a slight increase in nighttime screen time.\n\nRisk score: 2",
+        "parsed_score": 2.0,
+        "reward": 0.24935220877729622
+      },
+      {
+        "sample_id": "tier1_globem_0417",
+        "true_risk": "minimal",
+        "generation": " Sleep duration and efficiency are slightly below average, with a few days showing marked worsening. Sleep duration and efficiency are slightly below average, with a few days showing marked worsening. Sleep duration and efficiency are slightly below average, several days show marked worsening. Sleep duration and efficiency are substantially below average, most days show severe worsening.\n\nSleep duration and efficiency are slightly below average, with a few days showing marked worsening.\n\nRisk score: 1",
+        "parsed_score": 1.0,
+        "reward": 0.7066482778577162
+      },
+      {
+        "sample_id": "tier1_globem_0420",
+        "true_risk": "minimal",
+        "generation": " A few days of sleep disruption, slightly elevated nighttime screen time, and a small dip in mobility -- a few sleepless nights but not a full-blown withdrawal.\n\nRisk score: 1",
+        "parsed_score": 1.0,
+        "reward": 0.7066482778577162
+      },
+      {
+        "sample_id": "tier1_globem_0426",
+        "true_risk": "minimal",
+        "generation": " Sleep duration and efficiency are slightly below average, with a few days showing marked reduction in mobility and nighttime screen time.\n\nRisk score: 1",
+        "parsed_score": 1.0,
+        "reward": 0.7066482778577162
+      },
+      {
+        "sample_id": "tier1_globem_0428",
+        "true_risk": "minimal",
+        "generation": " Sleep duration and efficiency are slightly below average on most days, with a few nights of heavy sleep deprivation. A few days show slightly reduced mobility outside the home, and sleep is slightly disrupted by a small amount of nighttime screen time. Risk score: 1",
+        "parsed_score": 1.0,
+        "reward": 0.7066482778577162
+      },
+      {
+        "sample_id": "tier1_globem_0431",
+        "true_risk": "minimal",
+        "generation": " Sleep duration and efficiency are slightly below average on most days, with a few nights of severe insomnia. A few days show a slight increase in nighttime screen time.\n\nRisk score: 2",
+        "parsed_score": 2.0,
+        "reward": 0.24935220877729622
+      },
+      {
+        "sample_id": "tier1_globem_0433",
+        "true_risk": "minimal",
+        "generation": " Sleep duration and efficiency are slightly below average on most days, with a few nights of heavy sleep debt. A few days show a slight increase in nighttime screen time.\n\nRisk score: 1",
+        "parsed_score": 1.0,
+        "reward": 0.7066482778577162
+      },
+      {
+        "sample_id": "tier1_globem_0444",
+        "true_risk": "minimal",
+        "generation": " Sleep duration and efficiency are slightly below average, with a few days showing marked insomnia symptoms.  \nSleep duration and efficiency are slightly below average, with a few days showing marked insomnia symptoms.  \nRisk score: 1",
+        "parsed_score": 1.0,
+        "reward": 0.7066482778577162
+      },
+      {
+        "sample_id": "tier1_globem_0445",
+        "true_risk": "minimal",
+        "generation": " Sleep duration and efficiency are slightly below average, with a few days showing marked insomnia symptoms.  \nSleep duration and efficiency are slightly below average, with a few days showing marked insomnia symptoms.  \nRisk score: 1",
+        "parsed_score": 1.0,
+        "reward": 0.7066482778577162
+      },
+      {
+        "sample_id": "tier1_globem_0461",
+        "true_risk": "minimal",
+        "generation": " Sleep duration and efficiency are slightly below average, with a few days showing marked insomnia (wake after sleep onset >60 minutes). A few days show reduced time spent away from home and slightly higher nighttime screen use.  \nRisk score: 2",
+        "parsed_score": 2.0,
+        "reward": 0.24935220877729622
+      },
+      {
+        "sample_id": "tier1_globem_0469",
+        "true_risk": "minimal",
+        "generation": " Sleep duration and efficiency are slightly below average, with a few days showing marked fatigue.\n\nSleep duration and efficiency are slightly below average, with a few days showing marked fatigue.\n\nRisk score: 1",
+        "parsed_score": 1.0,
+        "reward": 0.7066482778577162
+      },
+      {
+        "sample_id": "tier1_globem_0472",
+        "true_risk": "minimal",
+        "generation": " Sleep duration and efficiency are slightly below average on most days, with a few nights of heavy sleep deprivation. A few days show a slight increase in nighttime screen time.\n\nRisk score: 1",
+        "parsed_score": 1.0,
+        "reward": 0.7066482778577162
+      },
+      {
+        "sample_id": "tier1_globem_0478",
+        "true_risk": "minimal",
+        "generation": " Sleep duration and efficiency are slightly below average, with a few days showing marked insomnia symptoms.\n\nSleep is slightly below average in duration and efficiency, with a couple of days showing marked insomnia symptoms. Several nights feature prolonged wakefulness after sleep onset.\n\nRisk score: 1",
+        "parsed_score": 1.0,
+        "reward": 0.7066482778577162
+      },
+      {
+        "sample_id": "tier1_globem_0479",
+        "true_risk": "minimal",
+        "generation": " The sleep duration is slightly below average for the time of year, with a modest increase in wake-after-sleep-onset.\n\nSleep is slightly below average for the time of year, with a modest increase in wake-after-sleep-onset.  \nRisk score: 1",
+        "parsed_score": 1.0,
+        "reward": 0.7066482778577162
+      }
+    ]
+  }
+}
