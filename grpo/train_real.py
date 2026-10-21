@@ -118,6 +118,28 @@ def sample_eval_set(examples, n_per_class=6):
 
 @torch.no_grad()
 def generate_group(policy, tokenizer, prompt, group_size, max_new_tokens, prompt_max_length):
+    # This is the actual root cause of the collapse, not the KL term, not
+    # dropout, not LR, not temperature (all tried, none worked -- see
+    # results/grpo_real_run.json history across runs, and the EC2 log's
+    # "Caching is incompatible with gradient checkpointing in
+    # Qwen3DecoderLayer. Setting past_key_values=None." warning, which only
+    # ever appears starting at step 2). grpo_step() calls policy.train()
+    # right before computing the gradient, and nothing ever calls
+    # policy.eval() back afterward. HF's gradient-checkpointing path only
+    # activates when self.training=True, and Qwen3's decoder layer disables
+    # the KV cache whenever that path is active -- so from step 2 onward,
+    # every generate() call here was silently decoding WITHOUT a working
+    # cache, with gradient checkpointing's activation-recomputation
+    # machinery (built for one full-sequence training forward pass) running
+    # underneath an incremental, one-token-at-a-time generation loop it was
+    # never designed for. Step 1 was never exposed to this because
+    # policy.train() hadn't been called yet the first time through. Forcing
+    # eval() here (restoring it afterward is grpo_step()'s job, which it
+    # already does via its own policy.train() call) makes every generate()
+    # call -- every step, not just step 1 -- use the normal, cached,
+    # correct decode path regardless of what happened in a previous step's
+    # training forward pass.
+    policy.eval()
     inputs = tokenizer(prompt, return_tensors="pt", truncation=True, max_length=prompt_max_length)
     input_ids = inputs["input_ids"].repeat(group_size, 1).to(DEVICE)
     attention_mask = inputs["attention_mask"].repeat(group_size, 1).to(DEVICE)
