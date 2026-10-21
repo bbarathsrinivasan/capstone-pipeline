@@ -71,7 +71,20 @@ GROUP_SIZE = 4 * GPU_SCALE
 PROMPTS_PER_STEP = 4 * GPU_SCALE
 N_STEPS = 8 * GPU_SCALE
 MAX_NEW_TOKENS = 160
-TEMPERATURE = 1.0
+TEMPERATURE = 0.7  # was 1.0 -- three different code fixes (KL estimator, no
+                   # dropout, 10x lower LR) all produced the SAME collapse
+                   # with near-identical gibberish content, which argues
+                   # against "destructive gradient step" as the mechanism (a
+                   # 10x smaller LR step should have looked at least somewhat
+                   # different and didn't). Working hypothesis instead: at
+                   # temperature=1.0/top_p=0.95, sampling is exploratory
+                   # enough that a near-tied early token decision can flip
+                   # from a tiny/any weight change, and once that happens the
+                   # autoregressive rollout drifts into a strong attractor
+                   # in the BASE model's own output distribution (consistent
+                   # math/Chinese-text content every time) rather than
+                   # recovering. Lower temperature keeps sampling closer to
+                   # the model's peak, making that tip-over less likely.
 LEARNING_RATE = 5e-6  # was 5e-5 -- every run so far (3/3) collapsed the SFT
                       # checkpoint's format-adherence to 0 by step 2 regardless
                       # of which loss term produced the step-1 gradient (same
@@ -298,7 +311,14 @@ def main():
     for step in range(N_STEPS):
         batch = random.sample(eval_set, PROMPTS_PER_STEP)
         step_log = grpo_step(policy, tokenizer, optimizer, batch, prompt_max_length)
-        history.append({k: v for k, v in step_log.items() if k not in ("rewards", "parsed", "texts")})
+        # Keep texts/rewards/parsed per step now (previously stripped out) --
+        # until now we could only see the final_samples at the very end of
+        # the whole run, with no visibility into WHEN or HOW a step's
+        # rollouts actually drift. This is exactly the data needed to tell
+        # apart "garbled from the first token" vs "starts coherent, drifts
+        # mid-generation" for the temperature-based fix above, instead of
+        # inferring blindly from the aggregate numbers alone.
+        history.append(step_log)
         print(f"[step {step + 1:>2}/{N_STEPS}] "
               f"reward_mean={step_log['reward_mean']:.3f} "
               f"parse_rate={step_log['parse_success_rate']:.2f} "
