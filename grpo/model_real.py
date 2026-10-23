@@ -8,11 +8,15 @@ blocks it (confirmed: 403 on huggingface.co and download.pytorch.org), so
 this file is meant to be RUN from a machine with normal internet access --
 see grpo/README.md "Real-model track" for exact commands to run yourself.
 
-Default model: Qwen3-0.6B -- the smallest member of the same model family
-TimeSRL itself used (Qwen3-4B), chosen specifically so the scale-up path
-(0.6B -> 1.7B -> 4B) is a one-line MODEL_NAME change, never a re-tune of
-the reward function or LoRA config below (both already match what the
-paper reports for the 4B model).
+Default model: Qwen3-4B -- the exact size TimeSRL itself reports results
+for, and the one every validated run (SFT fix, GRPO collapse fix, the
+11.6%->18.8% before/after result) has actually used. Qwen3-0.6B/1.7B are
+still available as a one-line MODEL_NAME override (down-scale path) for a
+quick/cheap smoke test of a NEW code change before spending a full 4B run
+on it -- but 0.6B is not a reliable stand-in for judging the pipeline's
+actual accuracy: a real run on it showed SFT failing to even teach the
+output format (parse rate went 0.30 -> 0.00 after 3 epochs), which says
+nothing about whether a given fix helps or hurts at the size that matters.
 """
 import os
 from pathlib import Path
@@ -42,16 +46,16 @@ DEVICE = (
 # because CUDA's bf16 kernels are mature in a way MPS's aren't yet.
 DTYPE = torch.bfloat16 if DEVICE == "cuda" else torch.float32
 
-# Scale-up path, in order -- override via the GRPO_MODEL_NAME env var (see
-# grpo/run_gpu.sh) rather than editing this file, e.g.:
-#   GRPO_MODEL_NAME="Qwen/Qwen3-1.7B" python3 grpo/sft.py
-MODEL_NAME = os.environ.get("GRPO_MODEL_NAME", "Qwen/Qwen3-0.6B")
+# Override via the GRPO_MODEL_NAME env var (see grpo/run_gpu.sh) rather
+# than editing this file -- e.g. to drop DOWN for a quick smoke test:
+#   GRPO_MODEL_NAME="Qwen/Qwen3-0.6B" python3 grpo/sft.py
+MODEL_NAME = os.environ.get("GRPO_MODEL_NAME", "Qwen/Qwen3-4B")
 SCALE_UP_PATH = ["Qwen/Qwen3-0.6B", "Qwen/Qwen3-1.7B", "Qwen/Qwen3-4B"]
 
 # A real GPU has far more memory and throughput than the Mac's MPS backend
 # -- scale batch/group sizes up automatically rather than hand-tuning a
 # separate config per machine. sft.py and train_real.py read this.
-GPU_SCALE = 1 if DEVICE == "cuda" else 1
+GPU_SCALE = 4 if DEVICE == "cuda" else 1
 
 ROOT = Path(__file__).resolve().parent
 CHECKPOINT_DIR = ROOT / "checkpoints"

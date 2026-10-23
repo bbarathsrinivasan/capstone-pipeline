@@ -7,8 +7,13 @@
 # first full pass.
 #
 # Usage:
-#   bash grpo/run_gpu.sh                      # default model (Qwen3-0.6B)
-#   bash grpo/run_gpu.sh Qwen/Qwen3-1.7B       # scale-up: override the model
+#   bash grpo/run_gpu.sh                      # default model, now Qwen3-4B --
+#                                              # every validated result so far is on this size;
+#                                              # don't drop to 0.6B/1.7B except for a quick smoke
+#                                              # test of new CODE (SFT reliably fails to even teach
+#                                              # the output format on 0.6B -- not a meaningful
+#                                              # accuracy signal, see model_real.py)
+#   bash grpo/run_gpu.sh Qwen/Qwen3-0.6B       # smoke-test override only -- see above
 #   GRPO_N_STEPS=80 bash grpo/run_gpu.sh       # override GRPO step count (default 40)
 #   GRPO_GROUP_SIZE=8 bash grpo/run_gpu.sh     # override rollout group size
 #   GRPO_NOISE_RATE=0.0 bash grpo/run_gpu.sh   # SFT label-noise ablation
@@ -18,10 +23,12 @@
 # `pip install -r requirements.txt` already run (see README.md).
 #
 # W&B logging: run `wandb login` once per machine (or export WANDB_API_KEY)
-# before this script, so sft.py/train_real.py/evaluate_before_after.py can
-# log runs to the "capstone-grpo" project (override with WANDB_PROJECT).
-# Not logged in and don't want to be? Set WANDB_DISABLED=1 and these scripts
-# skip W&B entirely and just print to stdout/results/ as before.
+# before this script, so sft.py/train_real.py/evaluate_before_after.py log
+# runs to the "Capstone Implementation" project under the
+# bbasavar-carnegie-mellon-university entity (override with WANDB_PROJECT /
+# WANDB_ENTITY). Not logged in and don't want to be? Set WANDB_DISABLED=1
+# and these scripts skip W&B entirely and just print to stdout/results/ as
+# before.
 set -euo pipefail
 
 cd "$(dirname "$0")/.."
@@ -29,6 +36,13 @@ cd "$(dirname "$0")/.."
 if [ "${1:-}" != "" ]; then
     export GRPO_MODEL_NAME="$1"
 fi
+
+# One shared group id for this entire pipeline run, so the sft/grpo/eval
+# runs below show up grouped together in the W&B UI instead of as three
+# unrelated runs -- set WANDB_RUN_GROUP yourself before calling this script
+# to reuse a specific group name instead of a fresh timestamp each time.
+export WANDB_RUN_GROUP="${WANDB_RUN_GROUP:-run-$(date +%Y%m%d-%H%M%S)}"
+echo "W&B run group: $WANDB_RUN_GROUP"
 
 python3 -c "
 import torch
