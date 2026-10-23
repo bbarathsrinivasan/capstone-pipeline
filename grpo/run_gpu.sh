@@ -37,6 +37,13 @@ if [ "${1:-}" != "" ]; then
     export GRPO_MODEL_NAME="$1"
 fi
 
+# Defensive measure after the 2026-10-23 CUDA OOM (see model_real.py's
+# GPU_SCALE comment) -- the error message's own suggestion. Doesn't fix a
+# real under-provisioned batch size by itself (GPU_SCALE=2 did that), but
+# reduces the odds of hitting the allocator's worst-case fragmentation on
+# top of an already-tight memory budget.
+export PYTORCH_CUDA_ALLOC_CONF="${PYTORCH_CUDA_ALLOC_CONF:-expandable_segments:True}"
+
 # One shared group id for this entire pipeline run, so the sft/grpo/eval
 # runs below show up grouped together in the W&B UI instead of as three
 # unrelated runs -- set WANDB_RUN_GROUP yourself before calling this script

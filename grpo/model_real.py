@@ -55,7 +55,23 @@ SCALE_UP_PATH = ["Qwen/Qwen3-0.6B", "Qwen/Qwen3-1.7B", "Qwen/Qwen3-4B"]
 # A real GPU has far more memory and throughput than the Mac's MPS backend
 # -- scale batch/group sizes up automatically rather than hand-tuning a
 # separate config per machine. sft.py and train_real.py read this.
-GPU_SCALE = 4 if DEVICE == "cuda" else 1
+#
+# Was 4 on CUDA -- confirmed too aggressive on 2026-10-23: sft.py's very
+# first training step (BATCH_SIZE=2*4=8, Qwen3-4B, ~941-token sequences,
+# gradient checkpointing already on) OOM'd mid-backward on a ~22GB GPU
+# ("CUDA out of memory... 22.06 GiB ... this process has 18.83 GiB in
+# use" trying to grab another ~3.7GB -- almost certainly the batch's
+# full-vocab logits/cross-entropy tensor, which checkpointing doesn't
+# shrink). This GPU_SCALE=4 bump had been made in an earlier scale-up pass
+# but never actually run before this crash -- every validated result
+# you've seen so far (the 11.6%->18.8% before/after number) was produced
+# at the OLDER effective scale of 1 (BATCH_SIZE=2, GROUP_SIZE=4). Dropping
+# to 2 keeps the scale-up (still 2x the proven-safe setting) while halving
+# the batch dimension that actually OOM'd. If this still OOMs, drop to 1
+# (back to the exact sizing of every known-good run) rather than guessing
+# further -- or add gradient accumulation to sft.py so the effective batch
+# size doesn't have to equal the peak-memory batch size.
+GPU_SCALE = 2 if DEVICE == "cuda" else 1
 
 ROOT = Path(__file__).resolve().parent
 CHECKPOINT_DIR = ROOT / "checkpoints"
