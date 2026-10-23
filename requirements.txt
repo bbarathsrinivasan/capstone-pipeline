@@ -17,3 +17,6 @@ trl>=0.9
 peft>=0.10
 accelerate>=0.30
 tokenizers>=0.19
+wandb>=0.17  # training-run logging for sft.py/train_real.py/evaluate_before_after.py --
+             # run `wandb login` (or set WANDB_API_KEY) once per machine before training;
+             # set WANDB_DISABLED=1 to skip logging without uninstalling

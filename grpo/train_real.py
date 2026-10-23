@@ -23,6 +23,12 @@ import numpy as np
 import torch
 import torch.nn.functional as F
 
+try:
+    import wandb
+    WANDB_AVAILABLE = True
+except ImportError:
+    WANDB_AVAILABLE = False
+
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from model_real import MODEL_NAME, CHECKPOINT_DIR, DEVICE, GPU_SCALE, load_tokenizer, build_policy_and_reference, free_memory
 from prompts import build_examples, split_examples_by_subject
@@ -68,7 +74,11 @@ RESULTS.mkdir(exist_ok=True)
 #   nonzero parse rate -- better than 0.00, likely still not reliable --
 #   see zero_shot_check.py's result for this specific number before
 #   assuming either way).
-GROUP_SIZE = 4 * GPU_SCALE
+# Overridable via GRPO_GROUP_SIZE now, same pattern as GRPO_N_STEPS below --
+# lets a scale-up/ablation run tune rollout-group size without editing this
+# file (bigger groups give a less noisy group-mean/std for the advantage
+# estimate, at a roughly linear generate() time cost).
+GROUP_SIZE = int(os.environ.get("GRPO_GROUP_SIZE", 4 * GPU_SCALE))
 PROMPTS_PER_STEP = 4 * GPU_SCALE
 # N_STEPS used to be a flat 8*GPU_SCALE with no way to change it short of
 # editing this file -- fine while every run was dying by step 2 regardless,
@@ -107,6 +117,18 @@ KL_COEF = 0.02
 REWARD_VARIANT = "safety_shaped"
 SEED = 0
 SFT_ADAPTER_PATH = str(CHECKPOINT_DIR / "sft_lora")  # run sft.py first; or None for the cold-start comparison
+
+# Periodic held-out probing during training (limitation fix: previously the
+# only held-out signal was the ONE evaluate_before_after.py pass at the very
+# end -- no visibility into whether the best checkpoint was actually the
+# LAST step, or whether training had already started overfitting/drifting
+# by then). GRPO_EVAL_EVERY=0 disables probing entirely (falls back to
+# saving only the final-step weights).
+GRPO_EVAL_EVERY = int(os.environ.get("GRPO_EVAL_EVERY", 10))
+GRPO_EVAL_N = int(os.environ.get("GRPO_EVAL_N", 20))
+
+WANDB_PROJECT = os.environ.get("WANDB_PROJECT", "capstone-grpo")
+WANDB_ENABLED = WANDB_AVAILABLE and os.environ.get("WANDB_DISABLED", "").lower() not in ("1", "true")
 
 random.seed(SEED)
 torch.manual_seed(SEED)
@@ -147,6 +169,13 @@ def generate_group(policy, tokenizer, prompt, group_size, max_new_tokens, prompt
         do_sample=True,
         temperature=TEMPERATURE,
         top_p=0.95,
+        no_repeat_ngram_size=3,  # blocks any 3-gram from repeating verbatim -- added after
+                                 # evaluate_before_after.py's "after" samples turned up a
+                                 # degenerate loop on a true-Severe miss ("Sleep duration and
+                                 # efficiency are slightly below average..." repeated
+                                 # verbatim until max_new_tokens), which both wastes the
+                                 # completion budget and can crowd out the actual
+                                 # "Risk score: N" line this pipeline is graded on.
         pad_token_id=tokenizer.pad_token_id,
     )
     completions = out[:, input_ids.shape[1]:]
@@ -281,6 +310,57 @@ def grpo_step(policy, tokenizer, optimizer, batch_examples, prompt_max_length):
     )
 
 
+def epoch_batches(pool, batch_size, seed=SEED):
+    """Cycling shuffled sampler over the full training pool, replacing the
+    old `random.sample(eval_set, PROMPTS_PER_STEP)` per step. Independent
+    resampling each step means some of the 411 training examples could go
+    the whole run never seen while others get sampled repeatedly (expected
+    duplicates in N_STEPS*PROMPTS_PER_STEP draws from 411 with no
+    replacement tracking); this instead reshuffles the whole pool and walks
+    it in fixed-size chunks, so one full pass ("epoch") touches every
+    example about once before any repeats, with a fresh shuffle each pass."""
+    pool = list(pool)
+    rng = random.Random(seed)
+    while True:
+        rng.shuffle(pool)
+        n_full = len(pool) - (len(pool) % batch_size)
+        for i in range(0, n_full, batch_size):
+            yield pool[i:i + batch_size]
+
+
+@torch.no_grad()
+def quick_eval(policy, tokenizer, examples, prompt_max_length, n=GRPO_EVAL_N):
+    """Cheap mid-training readiness probe on held-out subjects -- greedy
+    decode (not GRPO's stochastic rollouts), scored the same way
+    evaluate_before_after.py scores a checkpoint, but on a SMALL subsample
+    (n, not the full held-out set) so this can run every few steps without
+    meaningfully slowing training down. Used for best-checkpoint selection:
+    without this, main() had no way to tell whether the step-N weights it
+    saved were actually the best the run produced, or whether training had
+    already started drifting by step N."""
+    policy.eval()
+    sample = random.sample(examples, min(n, len(examples)))
+    texts, labels = [], []
+    for ex in sample:
+        inputs = tokenizer(ex["prompt"], return_tensors="pt", truncation=True, max_length=prompt_max_length)
+        inputs = {k: v.to(DEVICE) for k, v in inputs.items()}
+        out = policy.generate(
+            **inputs, max_new_tokens=MAX_NEW_TOKENS, do_sample=False,
+            no_repeat_ngram_size=3, pad_token_id=tokenizer.pad_token_id,
+        )
+        texts.append(tokenizer.decode(out[0, inputs["input_ids"].shape[1]:], skip_special_tokens=True))
+        labels.append(ex["risk_int"])
+        del out, inputs
+        free_memory()
+    rewards, parsed = reward_batch(texts, labels, variant=REWARD_VARIANT)
+    n_exact = sum(1 for p, y in zip(parsed, labels) if p is not None and round(p) == y)
+    return dict(
+        mean_reward=float(np.mean(rewards)),
+        parse_rate=float(np.mean([p is not None for p in parsed])),
+        exact_match_accuracy=n_exact / len(sample),
+    )
+
+
 def main():
     tokenizer = load_tokenizer()
     sft_path = SFT_ADAPTER_PATH if Path(SFT_ADAPTER_PATH).exists() else None
@@ -337,10 +417,32 @@ def main():
           f"{len({e['subject_id'] for e in held_out_examples})} subjects held out "
           f"(never trained on) for evaluate_before_after.py.")
 
+    run = None
+    if WANDB_ENABLED:
+        run = wandb.init(
+            project=WANDB_PROJECT,
+            name=f"grpo-{MODEL_NAME.split('/')[-1]}-{int(time.time())}",
+            config=dict(
+                MODEL_NAME=MODEL_NAME, sft_checkpoint_used=bool(sft_path),
+                GROUP_SIZE=GROUP_SIZE, PROMPTS_PER_STEP=PROMPTS_PER_STEP, N_STEPS=N_STEPS,
+                MAX_NEW_TOKENS=MAX_NEW_TOKENS, LEARNING_RATE=LEARNING_RATE, KL_COEF=KL_COEF,
+                TEMPERATURE=TEMPERATURE, REWARD_VARIANT=REWARD_VARIANT,
+                GRPO_EVAL_EVERY=GRPO_EVAL_EVERY, GRPO_EVAL_N=GRPO_EVAL_N,
+            ),
+        )
+    elif not WANDB_AVAILABLE:
+        print("wandb not installed -- skipping W&B logging (pip install wandb to enable).")
+
+    grpo_save_path = CHECKPOINT_DIR / "grpo_lora"          # best-so-far by held-out probe
+    final_save_path = CHECKPOINT_DIR / "grpo_lora_final"   # always written, last-step weights
+    best_reward = -float("inf")
+    best_step = None
+
+    batch_iter = epoch_batches(eval_set, PROMPTS_PER_STEP)
     history = []
     t0 = time.time()
     for step in range(N_STEPS):
-        batch = random.sample(eval_set, PROMPTS_PER_STEP)
+        batch = next(batch_iter)
         step_log = grpo_step(policy, tokenizer, optimizer, batch, prompt_max_length)
         # Keep texts/rewards/parsed per step now (previously stripped out) --
         # until now we could only see the final_samples at the very end of
@@ -355,6 +457,27 @@ def main():
               f"parse_rate={step_log['parse_success_rate']:.2f} "
               f"loss={step_log['loss']:.4f} kl={step_log['kl']:.4f} "
               f"({time.time() - t0:.0f}s elapsed)")
+        if run is not None:
+            run.log({
+                "train/reward_mean": step_log["reward_mean"], "train/reward_std": step_log["reward_std"],
+                "train/parse_success_rate": step_log["parse_success_rate"], "train/loss": step_log["loss"],
+                "train/pg_loss": step_log["pg_loss"], "train/kl": step_log["kl"],
+            }, step=step + 1)
+
+        if GRPO_EVAL_EVERY and ((step + 1) % GRPO_EVAL_EVERY == 0 or step == N_STEPS - 1):
+            probe = quick_eval(policy, tokenizer, held_out_examples, prompt_max_length, GRPO_EVAL_N)
+            print(f"  [held-out probe @ step {step + 1}] n={min(GRPO_EVAL_N, len(held_out_examples))} "
+                  f"mean_reward={probe['mean_reward']:.3f} parse_rate={probe['parse_rate']:.2f} "
+                  f"exact_match_accuracy={probe['exact_match_accuracy']:.2f}")
+            if run is not None:
+                run.log({
+                    "eval/mean_reward": probe["mean_reward"], "eval/parse_rate": probe["parse_rate"],
+                    "eval/exact_match_accuracy": probe["exact_match_accuracy"],
+                }, step=step + 1)
+            if probe["mean_reward"] > best_reward:
+                best_reward, best_step = probe["mean_reward"], step + 1
+                policy.save_pretrained(str(grpo_save_path))
+                print(f"  -> new best held-out mean_reward={best_reward:.3f}, saved checkpoints/grpo_lora")
 
     final_examples = random.sample(eval_set, 4)
     final_samples = []
@@ -366,14 +489,21 @@ def main():
             "generation": texts[0], "parsed_score": parsed[0], "reward": rewards[0],
         })
 
-    # Save the GRPO-trained adapter -- previously train_real.py never saved
+    # Always save the last-step weights (previously train_real.py never saved
     # a checkpoint at all, so there was no way to evaluate "after GRPO"
-    # separately from "during GRPO training." evaluate_before_after.py loads
-    # this and sft_lora (the pre-GRPO checkpoint) on the SAME held-out
-    # subjects to measure whether GRPO actually improved accuracy.
-    grpo_save_path = CHECKPOINT_DIR / "grpo_lora"
-    policy.save_pretrained(str(grpo_save_path))
-    print(f"Saved GRPO-trained LoRA adapter to {grpo_save_path}")
+    # separately from "during GRPO training"). Additionally, checkpoints/
+    # grpo_lora holds the BEST held-out probe snapshot found above, not just
+    # whatever the last step happened to produce -- if no probe ever ran or
+    # none ever beat -inf (GRPO_EVAL_EVERY=0, or a very short run), fall back
+    # to the final weights so grpo_lora always exists for
+    # evaluate_before_after.py to load.
+    policy.save_pretrained(str(final_save_path))
+    print(f"Saved final-step LoRA adapter to {final_save_path}")
+    if best_step is None:
+        policy.save_pretrained(str(grpo_save_path))
+        print(f"No held-out probe improved during training -- also saved final weights to {grpo_save_path}")
+    else:
+        print(f"Best held-out mean_reward={best_reward:.3f} at step {best_step} -- {grpo_save_path} holds that checkpoint.")
 
     out = {
         "config": dict(
@@ -384,11 +514,21 @@ def main():
         ),
         "history": history,
         "final_samples": final_samples,
+        "best_checkpoint": dict(step=best_step, mean_reward=None if best_step is None else best_reward),
         "wall_clock_seconds": time.time() - t0,
     }
     with open(RESULTS / "grpo_real_run.json", "w") as f:
         json.dump(out, f, indent=2)
     print(f"\nDone in {out['wall_clock_seconds']:.0f}s. -> {RESULTS / 'grpo_real_run.json'}")
+
+    if run is not None:
+        run.summary["best_step"] = best_step
+        run.summary["best_mean_reward"] = best_reward if best_step is not None else None
+        run.log({"final_samples": wandb.Table(
+            columns=["sample_id", "true_risk", "generation", "parsed_score", "reward"],
+            data=[[s["sample_id"], s["true_risk"], s["generation"], s["parsed_score"], s["reward"]] for s in final_samples],
+        )})
+        run.finish()
 
 
 if __name__ == "__main__":

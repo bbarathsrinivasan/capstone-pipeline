@@ -35,6 +35,7 @@ sandbox -- see README.md "Real-model track"). Run zero_shot_check.py first
 to see how big a gap this actually needs to close for your chosen model.
 """
 import json
+import os
 import random
 import sys
 import time
@@ -42,6 +43,12 @@ from pathlib import Path
 
 import numpy as np
 import torch
+
+try:
+    import wandb
+    WANDB_AVAILABLE = True
+except ImportError:
+    WANDB_AVAILABLE = False
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from model_real import MODEL_NAME, CHECKPOINT_DIR, DEVICE, GPU_SCALE, load_tokenizer, load_base_model, LORA_CONFIG, free_memory
@@ -54,7 +61,12 @@ RESULTS = ROOT / "results"
 RESULTS.mkdir(exist_ok=True)
 
 SEED = 0
-NOISE_RATE = 0.2          # fraction of SFT targets with a deliberately off-by-one stated score
+# Overridable via GRPO_NOISE_RATE so the ablation flagged in this file's
+# docstring ("revisit after the first real GRPO run...") doesn't need a code
+# edit to run -- e.g. GRPO_NOISE_RATE=0.0 for a no-noise comparison.
+NOISE_RATE = float(os.environ.get("GRPO_NOISE_RATE", 0.2))  # fraction of SFT targets with a deliberately off-by-one stated score
+WANDB_PROJECT = os.environ.get("WANDB_PROJECT", "capstone-grpo")
+WANDB_ENABLED = WANDB_AVAILABLE and os.environ.get("WANDB_DISABLED", "").lower() not in ("1", "true")
 VAL_FRACTION = 0.15       # held out BY SUBJECT, same discipline as the baseline pipeline's grouped CV
 N_EPOCHS = 3
 BATCH_SIZE = 2 * GPU_SCALE  # 2 on the Mac (MPS OOM'd above this -- attention memory scales with
@@ -235,7 +247,7 @@ def eval_parse_rate(policy, tokenizer, rows, prompt_max_length, n=EVAL_N, max_ne
         inputs = {k: v.to(DEVICE) for k, v in inputs.items()}
         out = policy.generate(
             **inputs, max_new_tokens=max_new_tokens, do_sample=False,
-            pad_token_id=tokenizer.pad_token_id,
+            no_repeat_ngram_size=3, pad_token_id=tokenizer.pad_token_id,
         )
         text = tokenizer.decode(out[0, inputs["input_ids"].shape[1]:], skip_special_tokens=True)
         if parse_predicted_score(text) is not None:
@@ -285,9 +297,21 @@ def main():
     print(f"\nParse-success rate BEFORE SFT (val, greedy decode): {parse_rate_before:.2f}")
     free_memory()  # clear the reserved pool the generation calls above built up, before training starts
 
+    run = None
+    if WANDB_ENABLED:
+        run = wandb.init(
+            project=WANDB_PROJECT, name=f"sft-{MODEL_NAME.split('/')[-1]}-{int(time.time())}",
+            config=dict(MODEL_NAME=MODEL_NAME, NOISE_RATE=NOISE_RATE, N_EPOCHS=N_EPOCHS,
+                        BATCH_SIZE=BATCH_SIZE, LEARNING_RATE=LEARNING_RATE, max_length=max_length),
+        )
+        run.log({"parse_rate_before_sft": parse_rate_before}, step=0)
+    elif not WANDB_AVAILABLE:
+        print("wandb not installed -- skipping W&B logging (pip install wandb to enable).")
+
     history = []
     t0 = time.time()
     n_steps_per_epoch = max(1, len(train_rows) // BATCH_SIZE)
+    global_step = 0
     for epoch in range(N_EPOCHS):
         random.shuffle(train_rows)
         for step in range(n_steps_per_epoch):
@@ -327,7 +351,10 @@ def main():
             loss.backward()
             torch.nn.utils.clip_grad_norm_([p for p in policy.parameters() if p.requires_grad], 1.0)
             optimizer.step()
+            global_step += 1
             history.append({"epoch": epoch, "step": step, "loss": loss.item()})
+            if run is not None:
+                run.log({"train/loss": loss.item(), "train/epoch": epoch + 1}, step=global_step)
             if step % 10 == 0:
                 print(f"[epoch {epoch + 1}/{N_EPOCHS} step {step}/{n_steps_per_epoch}] "
                       f"loss={loss.item():.4f} ({time.time() - t0:.0f}s elapsed)")
@@ -340,6 +367,10 @@ def main():
     if parse_rate_after < 0.7:
         print("Still below a reliable floor -- consider more epochs, more SFT examples, "
               "or a less aggressive NOISE_RATE before moving on to train_real.py.")
+    if run is not None:
+        run.log({"parse_rate_after_sft": parse_rate_after}, step=global_step)
+        run.summary["parse_rate_before_sft"] = parse_rate_before
+        run.summary["parse_rate_after_sft"] = parse_rate_after
 
     CHECKPOINT_DIR.mkdir(exist_ok=True)
     save_path = CHECKPOINT_DIR / "sft_lora"
@@ -355,6 +386,9 @@ def main():
             "loss_history": history, "wall_clock_seconds": time.time() - t0,
         }, f, indent=2)
     print(f"-> {RESULTS / 'sft_run.json'}")
+
+    if run is not None:
+        run.finish()
 
 
 if __name__ == "__main__":

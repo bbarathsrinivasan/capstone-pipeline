@@ -10,10 +10,18 @@
 #   bash grpo/run_gpu.sh                      # default model (Qwen3-0.6B)
 #   bash grpo/run_gpu.sh Qwen/Qwen3-1.7B       # scale-up: override the model
 #   GRPO_N_STEPS=80 bash grpo/run_gpu.sh       # override GRPO step count (default 40)
+#   GRPO_GROUP_SIZE=8 bash grpo/run_gpu.sh     # override rollout group size
+#   GRPO_NOISE_RATE=0.0 bash grpo/run_gpu.sh   # SFT label-noise ablation
 #
 # Expects to be run from the repo root (or anywhere -- it cds to the repo
 # root itself) on a machine with: a CUDA GPU, Python 3.10+, and
 # `pip install -r requirements.txt` already run (see README.md).
+#
+# W&B logging: run `wandb login` once per machine (or export WANDB_API_KEY)
+# before this script, so sft.py/train_real.py/evaluate_before_after.py can
+# log runs to the "capstone-grpo" project (override with WANDB_PROJECT).
+# Not logged in and don't want to be? Set WANDB_DISABLED=1 and these scripts
+# skip W&B entirely and just print to stdout/results/ as before.
 set -euo pipefail
 
 cd "$(dirname "$0")/.."

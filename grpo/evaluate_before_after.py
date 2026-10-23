@@ -23,16 +23,26 @@ Run after both sft.py and train_real.py have produced their checkpoints:
 -> results/before_after_eval.json
 """
 import json
+import os
 import sys
 from pathlib import Path
 
 import torch
 from peft import PeftModel
 
+try:
+    import wandb
+    WANDB_AVAILABLE = True
+except ImportError:
+    WANDB_AVAILABLE = False
+
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from model_real import CHECKPOINT_DIR, DEVICE, load_tokenizer, load_base_model, free_memory
+from model_real import CHECKPOINT_DIR, DEVICE, MODEL_NAME, load_tokenizer, load_base_model, free_memory
 from prompts import build_examples, split_examples_by_subject
-from reward import parse_predicted_score, safety_shaped_reward
+from reward import parse_predicted_score, safety_shaped_reward, SEVERE
+
+WANDB_PROJECT = os.environ.get("WANDB_PROJECT", "capstone-grpo")
+WANDB_ENABLED = WANDB_AVAILABLE and os.environ.get("WANDB_DISABLED", "").lower() not in ("1", "true")
 
 ROOT = Path(__file__).resolve().parent
 RESULTS = ROOT / "results"
@@ -61,18 +71,37 @@ def evaluate(policy, tokenizer, examples, prompt_max_length, label):
     abs_errors = []
     rewards = []
     samples = []
+    # Confusion matrix (true risk_int 0-3 x predicted, rounded; "unparsed"
+    # is its own predicted column) -- added because exact_match_accuracy
+    # alone can't show WHICH errors the checkpoint makes, and the project's
+    # stated safety concern (a true-Severe case predicted Minimal/Mild) is
+    # exactly the kind of error an aggregate accuracy number can hide.
+    confusion = {}
+    n_severe = 0
+    n_severe_critical_miss = 0
     for ex in examples:
         inputs = tokenizer(ex["prompt"], return_tensors="pt", truncation=True, max_length=prompt_max_length)
         inputs = {k: v.to(DEVICE) for k, v in inputs.items()}
         out = policy.generate(
             **inputs, max_new_tokens=MAX_NEW_TOKENS, do_sample=False,
-            pad_token_id=tokenizer.pad_token_id,
+            no_repeat_ngram_size=3, pad_token_id=tokenizer.pad_token_id,
         )
         text = tokenizer.decode(out[0, inputs["input_ids"].shape[1]:], skip_special_tokens=True)
         p = parse_predicted_score(text)
         y = ex["risk_int"]
         r = safety_shaped_reward(p, y)
         rewards.append(r)
+        pred_label = str(round(p)) if p is not None else "unparsed"
+        confusion.setdefault(y, {}).setdefault(pred_label, 0)
+        confusion[y][pred_label] += 1
+        if y == SEVERE:
+            n_severe += 1
+            # Critical miss: true Severe, predicted Minimal/Mild (p<=1.5) OR
+            # not parsed at all -- an unparsed severe case is arguably just
+            # as dangerous as a wrong-but-safe-sounding one, since it also
+            # gives a clinician nothing actionable.
+            if p is None or p <= 1.5:
+                n_severe_critical_miss += 1
         if p is not None:
             n_parsed += 1
             abs_errors.append(abs(p - y))
@@ -97,12 +126,16 @@ def evaluate(policy, tokenizer, examples, prompt_max_length, label):
         "exact_match_accuracy_of_parsed": (n_exact / n_parsed) if n_parsed else None,
         "mean_abs_error_of_parsed": (sum(abs_errors) / len(abs_errors)) if abs_errors else None,
         "mean_reward": sum(rewards) / n,
+        "confusion_matrix": {str(k): v for k, v in confusion.items()},
+        "n_severe": n_severe,
+        "critical_miss_rate": (n_severe_critical_miss / n_severe) if n_severe else None,
         "samples": samples,
     }
     print(f"[{label}] n={n} parse_rate={result['parse_rate']:.2f} "
           f"exact_match_acc(of all)={result['exact_match_accuracy_of_all']:.2f} "
           f"mean_abs_error(parsed)={result['mean_abs_error_of_parsed']} "
-          f"mean_reward={result['mean_reward']:.3f}")
+          f"mean_reward={result['mean_reward']:.3f} "
+          f"critical_miss_rate(severe->minimal/mild or unparsed)={result['critical_miss_rate']}")
     return result
 
 
@@ -142,8 +175,21 @@ def main():
     print(
         f"\nSummary: exact-match accuracy {before['exact_match_accuracy_of_all']:.2f} -> "
         f"{after['exact_match_accuracy_of_all']:.2f}, mean reward "
-        f"{before['mean_reward']:.3f} -> {after['mean_reward']:.3f}"
+        f"{before['mean_reward']:.3f} -> {after['mean_reward']:.3f}, critical_miss_rate "
+        f"{before['critical_miss_rate']} -> {after['critical_miss_rate']}"
     )
+
+    if WANDB_ENABLED:
+        import time
+        run = wandb.init(project=WANDB_PROJECT, name=f"eval-before-after-{MODEL_NAME.split('/')[-1]}-{int(time.time())}")
+        for label, r in (("before", before), ("after", after)):
+            run.summary[f"{label}/exact_match_accuracy_of_all"] = r["exact_match_accuracy_of_all"]
+            run.summary[f"{label}/mean_abs_error_of_parsed"] = r["mean_abs_error_of_parsed"]
+            run.summary[f"{label}/mean_reward"] = r["mean_reward"]
+            run.summary[f"{label}/critical_miss_rate"] = r["critical_miss_rate"]
+        run.finish()
+    elif not WANDB_AVAILABLE:
+        print("wandb not installed -- skipping W&B logging (pip install wandb to enable).")
 
 
 if __name__ == "__main__":
