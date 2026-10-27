@@ -65,7 +65,11 @@ SEED = 0
 # docstring ("revisit after the first real GRPO run...") doesn't need a code
 # edit to run -- e.g. GRPO_NOISE_RATE=0.0 for a no-noise comparison.
 NOISE_RATE = float(os.environ.get("GRPO_NOISE_RATE", 0.2))  # fraction of SFT targets with a deliberately off-by-one stated score
-WANDB_PROJECT = os.environ.get("WANDB_PROJECT", "capstone-grpo")
+# Same W&B project/entity/grouping convention as train_real.py and
+# evaluate_before_after.py -- see train_real.py's comment for why.
+WANDB_ENTITY = os.environ.get("WANDB_ENTITY", "bbasavar-carnegie-mellon-university")
+WANDB_PROJECT = os.environ.get("WANDB_PROJECT", "Capstone Implementation")
+WANDB_RUN_GROUP = os.environ.get("WANDB_RUN_GROUP")
 WANDB_ENABLED = WANDB_AVAILABLE and os.environ.get("WANDB_DISABLED", "").lower() not in ("1", "true")
 VAL_FRACTION = 0.15       # held out BY SUBJECT, same discipline as the baseline pipeline's grouped CV
 N_EPOCHS = 3
@@ -247,7 +251,14 @@ def eval_parse_rate(policy, tokenizer, rows, prompt_max_length, n=EVAL_N, max_ne
         inputs = {k: v.to(DEVICE) for k, v in inputs.items()}
         out = policy.generate(
             **inputs, max_new_tokens=max_new_tokens, do_sample=False,
-            no_repeat_ngram_size=3, pad_token_id=tokenizer.pad_token_id,
+            # repetition_penalty, NOT no_repeat_ngram_size -- a real bug found 2026-10-23:
+            # no_repeat_ngram_size=3 blocks any 3-gram already in the FULL sequence
+            # (prompt included), and prompts.py's own instruction text contains the literal
+            # phrase "Risk score: <0, 1, 2, or 3>" -- that permanently banned the model from
+            # ever generating "Risk score:" again, which is why parse rate dropped to an exact,
+            # deterministic 0.00 after SFT (greedy decode) even though training loss was fine.
+            # repetition_penalty softly discourages repeats without ever fully banning a phrase.
+            repetition_penalty=1.3, pad_token_id=tokenizer.pad_token_id,
         )
         text = tokenizer.decode(out[0, inputs["input_ids"].shape[1]:], skip_special_tokens=True)
         if parse_predicted_score(text) is not None:
@@ -299,8 +310,18 @@ def main():
 
     run = None
     if WANDB_ENABLED:
+        n_val_subjects = len({r["subject_id"] for r in val_rows})
         run = wandb.init(
-            project=WANDB_PROJECT, name=f"sft-{MODEL_NAME.split('/')[-1]}-{int(time.time())}",
+            entity=WANDB_ENTITY, project=WANDB_PROJECT, group=WANDB_RUN_GROUP, job_type="sft",
+            name=f"sft-{MODEL_NAME.split('/')[-1]}-{int(time.time())}",
+            tags=["sft", "cold-start-fix", MODEL_NAME.split("/")[-1]],
+            notes=(
+                f"Format-SFT cold-start fix on {MODEL_NAME}: {N_EPOCHS} epochs, "
+                f"{len(train_rows)} train / {len(val_rows)} val rows ({n_val_subjects} subjects "
+                f"held out), NOISE_RATE={NOISE_RATE} label noise on the stated score. "
+                f"Teaches output FORMAT before train_real.py's GRPO stage refines ACCURACY "
+                f"via reward -- see this file's module docstring for the cold-start problem."
+            ),
             config=dict(MODEL_NAME=MODEL_NAME, NOISE_RATE=NOISE_RATE, N_EPOCHS=N_EPOCHS,
                         BATCH_SIZE=BATCH_SIZE, LEARNING_RATE=LEARNING_RATE, max_length=max_length),
         )

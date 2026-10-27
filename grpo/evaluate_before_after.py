@@ -41,7 +41,10 @@ from model_real import CHECKPOINT_DIR, DEVICE, MODEL_NAME, load_tokenizer, load_
 from prompts import build_examples, split_examples_by_subject
 from reward import parse_predicted_score, safety_shaped_reward, SEVERE
 
-WANDB_PROJECT = os.environ.get("WANDB_PROJECT", "capstone-grpo")
+# Same W&B project/entity/grouping convention as sft.py and train_real.py.
+WANDB_ENTITY = os.environ.get("WANDB_ENTITY", "bbasavar-carnegie-mellon-university")
+WANDB_PROJECT = os.environ.get("WANDB_PROJECT", "Capstone Implementation")
+WANDB_RUN_GROUP = os.environ.get("WANDB_RUN_GROUP")
 WANDB_ENABLED = WANDB_AVAILABLE and os.environ.get("WANDB_DISABLED", "").lower() not in ("1", "true")
 
 ROOT = Path(__file__).resolve().parent
@@ -84,7 +87,11 @@ def evaluate(policy, tokenizer, examples, prompt_max_length, label):
         inputs = {k: v.to(DEVICE) for k, v in inputs.items()}
         out = policy.generate(
             **inputs, max_new_tokens=MAX_NEW_TOKENS, do_sample=False,
-            no_repeat_ngram_size=3, pad_token_id=tokenizer.pad_token_id,
+            # repetition_penalty, NOT no_repeat_ngram_size -- see sft.py's eval_parse_rate
+            # comment: no_repeat_ngram_size=3 blocked the literal "Risk score:" phrase
+            # because it also appears in the prompt's own instructions, causing a
+            # deterministic 0.00 parse rate. Fixed 2026-10-23.
+            repetition_penalty=1.3, pad_token_id=tokenizer.pad_token_id,
         )
         text = tokenizer.decode(out[0, inputs["input_ids"].shape[1]:], skip_special_tokens=True)
         p = parse_predicted_score(text)
@@ -181,7 +188,18 @@ def main():
 
     if WANDB_ENABLED:
         import time
-        run = wandb.init(project=WANDB_PROJECT, name=f"eval-before-after-{MODEL_NAME.split('/')[-1]}-{int(time.time())}")
+        n_val_subjects = len({e["subject_id"] for e in val_examples})
+        run = wandb.init(
+            entity=WANDB_ENTITY, project=WANDB_PROJECT, group=WANDB_RUN_GROUP, job_type="eval",
+            name=f"eval-before-after-{MODEL_NAME.split('/')[-1]}-{int(time.time())}",
+            tags=["before_after_eval", MODEL_NAME.split("/")[-1]],
+            notes=(
+                f"Before/after comparison on {n_val_subjects} held-out subjects ({len(val_examples)} "
+                f"examples) never trained on by sft.py or train_real.py: checkpoints/sft_lora "
+                f"(before) vs checkpoints/grpo_lora (after GRPO), greedy-decoded. Shows whether "
+                f"GRPO improved accuracy/critical-miss-rate over SFT alone, not just training-time reward."
+            ),
+        )
         for label, r in (("before", before), ("after", after)):
             run.summary[f"{label}/exact_match_accuracy_of_all"] = r["exact_match_accuracy_of_all"]
             run.summary[f"{label}/mean_abs_error_of_parsed"] = r["mean_abs_error_of_parsed"]

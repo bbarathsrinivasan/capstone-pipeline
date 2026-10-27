@@ -127,7 +127,16 @@ SFT_ADAPTER_PATH = str(CHECKPOINT_DIR / "sft_lora")  # run sft.py first; or None
 GRPO_EVAL_EVERY = int(os.environ.get("GRPO_EVAL_EVERY", 10))
 GRPO_EVAL_N = int(os.environ.get("GRPO_EVAL_N", 20))
 
-WANDB_PROJECT = os.environ.get("WANDB_PROJECT", "capstone-grpo")
+# Points at the W&B project you created at https://wandb.ai/authorize
+# ("Capstone Implementation" under the bbasavar-carnegie-mellon-university
+# org/entity). Override either via env var if you ever log to a different
+# project/entity without editing this file.
+WANDB_ENTITY = os.environ.get("WANDB_ENTITY", "bbasavar-carnegie-mellon-university")
+WANDB_PROJECT = os.environ.get("WANDB_PROJECT", "Capstone Implementation")
+# Set once (e.g. by run_gpu.sh, which exports a timestamp-based value) so
+# the sft/grpo/eval runs from one full pipeline run show up grouped
+# together in the W&B UI instead of as unrelated runs.
+WANDB_RUN_GROUP = os.environ.get("WANDB_RUN_GROUP")
 WANDB_ENABLED = WANDB_AVAILABLE and os.environ.get("WANDB_DISABLED", "").lower() not in ("1", "true")
 
 random.seed(SEED)
@@ -169,13 +178,20 @@ def generate_group(policy, tokenizer, prompt, group_size, max_new_tokens, prompt
         do_sample=True,
         temperature=TEMPERATURE,
         top_p=0.95,
-        no_repeat_ngram_size=3,  # blocks any 3-gram from repeating verbatim -- added after
-                                 # evaluate_before_after.py's "after" samples turned up a
-                                 # degenerate loop on a true-Severe miss ("Sleep duration and
-                                 # efficiency are slightly below average..." repeated
-                                 # verbatim until max_new_tokens), which both wastes the
-                                 # completion budget and can crowd out the actual
-                                 # "Risk score: N" line this pipeline is graded on.
+        # repetition_penalty, NOT no_repeat_ngram_size -- a real bug found
+        # 2026-10-23: no_repeat_ngram_size=3 (this file's previous fix for a
+        # degenerate repeat-loop on a true-Severe miss) blocks any 3-gram
+        # that already occurred ANYWHERE in the full sequence, prompt
+        # included -- and prompts.py's own instruction text contains the
+        # literal phrase "Risk score: <0, 1, 2, or 3>". That permanently
+        # banned the model from ever generating "Risk score:" again,
+        # causing a deterministic 0.00 parse rate (not a training problem --
+        # SFT's loss curve was fine; eval_parse_rate's greedy decode was
+        # structurally blocked from the correct phrase). repetition_penalty
+        # softly discourages repeating tokens already seen (prompt or
+        # generated) without ever fully banning a phrase, so it still damps
+        # a degenerate loop while leaving "Risk score: N" reachable.
+        repetition_penalty=1.3,
         pad_token_id=tokenizer.pad_token_id,
     )
     completions = out[:, input_ids.shape[1]:]
@@ -190,8 +206,20 @@ def sequence_logprobs(model, full_ids, prompt_len, attention_mask):
     out = model(input_ids=full_ids, attention_mask=attention_mask)
     logits = out.logits[:, :-1, :]
     targets = full_ids[:, 1:]
-    logprobs = F.log_softmax(logits, dim=-1)
-    token_logprobs = logprobs.gather(-1, targets.unsqueeze(-1)).squeeze(-1)
+    # Memory fix (2026-10-23): this used to be `F.log_softmax(logits, dim=-1)`
+    # then `.gather(...)` -- that materializes a SECOND full
+    # (batch, seq_len, vocab_size) tensor on top of `logits` itself (Qwen3's
+    # vocab is ~152k), and that second tensor is exactly what OOM'd here even
+    # after dropping GPU_SCALE 4->2 (model_real.py's GPU_SCALE comment) --
+    # the traceback landed in this file's log_softmax call. Mathematically,
+    # log_softmax(x)_i = x_i - logsumexp(x), so gathering the raw logit at
+    # the target index and subtracting logsumexp (reduced over vocab, so
+    # only (batch, seq_len), not (batch, seq_len, vocab)) gives the exact
+    # same token log-probability without ever materializing that second
+    # vocab-sized tensor.
+    gathered_logit = logits.gather(-1, targets.unsqueeze(-1)).squeeze(-1)
+    logsumexp = torch.logsumexp(logits, dim=-1)
+    token_logprobs = gathered_logit - logsumexp
     mask = torch.zeros_like(targets, dtype=torch.float)
     mask[:, prompt_len - 1:] = 1.0
     mask = mask * (attention_mask[:, 1:].float())
@@ -346,7 +374,7 @@ def quick_eval(policy, tokenizer, examples, prompt_max_length, n=GRPO_EVAL_N):
         inputs = {k: v.to(DEVICE) for k, v in inputs.items()}
         out = policy.generate(
             **inputs, max_new_tokens=MAX_NEW_TOKENS, do_sample=False,
-            no_repeat_ngram_size=3, pad_token_id=tokenizer.pad_token_id,
+            repetition_penalty=1.3, pad_token_id=tokenizer.pad_token_id,  # see generate_group's comment
         )
         texts.append(tokenizer.decode(out[0, inputs["input_ids"].shape[1]:], skip_special_tokens=True))
         labels.append(ex["risk_int"])
@@ -420,8 +448,20 @@ def main():
     run = None
     if WANDB_ENABLED:
         run = wandb.init(
+            entity=WANDB_ENTITY,
             project=WANDB_PROJECT,
+            group=WANDB_RUN_GROUP,
+            job_type="grpo",
             name=f"grpo-{MODEL_NAME.split('/')[-1]}-{int(time.time())}",
+            tags=["grpo", MODEL_NAME.split("/")[-1], REWARD_VARIANT],
+            notes=(
+                f"GRPO (RL stage) on {MODEL_NAME} starting from "
+                f"{'the SFT LoRA checkpoint' if sft_path else 'a FRESH LoRA init (cold-start run)'}. "
+                f"{len(eval_set)} training prompts / {len(held_out_examples)} held-out, "
+                f"group_size={GROUP_SIZE}, {N_STEPS} steps, reward='{REWARD_VARIANT}'. "
+                f"Held-out probe every {GRPO_EVAL_EVERY} steps selects the best checkpoint "
+                f"saved to checkpoints/grpo_lora (checkpoints/grpo_lora_final is always the last step)."
+            ),
             config=dict(
                 MODEL_NAME=MODEL_NAME, sft_checkpoint_used=bool(sft_path),
                 GROUP_SIZE=GROUP_SIZE, PROMPTS_PER_STEP=PROMPTS_PER_STEP, N_STEPS=N_STEPS,
