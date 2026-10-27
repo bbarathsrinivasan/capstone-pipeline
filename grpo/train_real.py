@@ -295,71 +295,96 @@ def grpo_step(policy, tokenizer, optimizer, batch_examples, prompt_max_length):
     batch_attn = torch.cat(padded_attn, dim=0)
     advantages_t = torch.tensor(group_advantages, dtype=torch.float32, device=DEVICE)
 
+    # Gradient accumulation across prompt groups -- the fourth and real fix
+    # for this same recurring OOM (2026-10-27). Three earlier fixes
+    # (log_softmax->gather, then logsumexp, then F.cross_entropy +
+    # LOGPROB_MICRO_BATCH inside sequence_logprobs) each made ONE forward
+    # call cheaper, but the crash kept recurring because none of them
+    # addressed the actual cause: this function used to compute EVERY
+    # prompt-group's policy logprobs across the WHOLE batch (all
+    # PROMPTS_PER_STEP*GROUP_SIZE sequences), keeping every one of their
+    # autograd graphs alive simultaneously, before calling .backward() ONCE
+    # at the very end -- confirmed by the traceback needing only 510MiB
+    # more while the process already held 21.84/22.06 GiB (accumulation
+    # across loop iterations, not one big tensor). Fix: compute and
+    # backward() each prompt-group's loss contribution immediately, right
+    # after its own forward passes, then move to the next prompt -- so only
+    # ONE prompt-group's graph (GROUP_SIZE sequences, itself further
+    # micro-batched by sequence_logprobs) is ever alive at a time. Since
+    # pg_loss and kl are both mean_over_all_N_sequences(per_sequence_term),
+    # summing each chunk's per_sequence_term and dividing by the TOTAL
+    # sequence count N (not the chunk's own count) before backward()
+    # reconstructs the exact same gradient one backward() over the
+    # full-batch mean loss would have produced -- this is standard gradient
+    # accumulation, not an approximation.
     policy.train()
-    policy_logprob_sum = torch.zeros(len(full_ids_list), device=DEVICE)
-    n_tok_all = torch.zeros(len(full_ids_list), device=DEVICE)
+    optimizer.zero_grad()
+    n_total = len(full_ids_list)
+    pg_loss_sum, kl_sum = 0.0, 0.0
+    any_finite = False
     for i in range(len(batch_examples)):
         pl = prompt_lens[i * GROUP_SIZE]
         idx = slice(i * GROUP_SIZE, (i + 1) * GROUP_SIZE)
-        seq_lp, n_tok = sequence_logprobs(policy, batch_ids[idx], pl, batch_attn[idx])
-        policy_logprob_sum[idx] = seq_lp
-        n_tok_all[idx] = n_tok
-    mean_logprob = policy_logprob_sum / n_tok_all
+        chunk_advantages = advantages_t[idx].detach()
 
-    with torch.no_grad():
-        ref_logprob_sum = torch.zeros(len(full_ids_list), device=DEVICE)
+        seq_lp, n_tok = sequence_logprobs(policy, batch_ids[idx], pl, batch_attn[idx])
+        chunk_mean_logprob = seq_lp / n_tok
+
         # Reference logprobs on the SAME model with its LoRA adapter
         # temporarily disabled, instead of a separate deepcopy()'d reference
-        # model -- that deepcopy kept a full second 4B-parameter base model
-        # resident in GPU memory (~8GB in bf16) for the whole run just for
-        # this KL term, which is exactly what pushed GRPO's memory past what
-        # SFT needed on the same GPU (SFT only ever has ONE model resident).
-        # disable_adapter() makes `policy` behave as the plain pretrained
-        # base -- mathematically identical to the deepcopy reference, same
-        # weights, just without the duplicate copy.
-        with policy.disable_adapter():
-            for i in range(len(batch_examples)):
-                pl = prompt_lens[i * GROUP_SIZE]
-                idx = slice(i * GROUP_SIZE, (i + 1) * GROUP_SIZE)
-                seq_lp, n_tok = sequence_logprobs(policy, batch_ids[idx], pl, batch_attn[idx])
-                ref_logprob_sum[idx] = seq_lp
-        ref_mean_logprob = ref_logprob_sum / n_tok_all
+        # model (that deepcopy kept a full second 4B-parameter base
+        # resident in GPU memory just for this KL term). disable_adapter()
+        # makes `policy` behave as the plain pretrained base -- same
+        # weights, no duplicate copy. Computed under no_grad immediately
+        # after the policy pass for this SAME chunk, so no extra graph
+        # lingers once this prompt-group's backward() below is done.
+        with torch.no_grad(), policy.disable_adapter():
+            ref_seq_lp, ref_n_tok = sequence_logprobs(policy, batch_ids[idx], pl, batch_attn[idx])
+        chunk_ref_mean_logprob = (ref_seq_lp / ref_n_tok).detach()
 
-    pg_loss = -(advantages_t.detach() * mean_logprob).mean()
-    # KL estimator: Schulman's "k3" estimator (http://joschu.net/blog/kl-approx.html),
-    # not the raw signed difference this used to be. The raw difference
-    # (mean_logprob - ref_mean_logprob) is unbiased in EXPECTATION over
-    # x~policy, but for any single sampled x it can be negative -- and once
-    # pg_loss has zero gradient (every rollout in a batch gets reward 0, so
-    # advantage=0 for all of them -- exactly what parse_success_rate=0.0
-    # means in grpo_real_run.json), that raw difference becomes the ONLY
-    # live gradient. Minimizing loss then means minimizing it: pushing the
-    # policy to assign LOWER probability to the very sequence it just
-    # sampled, with nothing to anchor it. That is the mechanism behind the
-    # observed collapse (kl drifting from -0.002 to -0.46 over steps 2-8,
-    # final generations total gibberish) -- the "KL penalty" was, in that
-    # regime, an incentive to become incoherent, not a containment term.
-    # The k3 estimator has the same expectation but is >=0 for every
-    # sample (e^r - 1 - r >= 0 for all real r, equality only at r=0), so
-    # this exploit isn't reachable: drifting from the reference can only
-    # ever raise the loss, never lower it, even when pg_loss is silent.
-    log_ratio = ref_mean_logprob.detach() - mean_logprob  # r = log pi_ref(x) - log pi(x)
-    kl = (torch.exp(log_ratio) - 1 - log_ratio).mean()
-    loss = pg_loss + KL_COEF * kl
+        chunk_pg_loss_sum = -(chunk_advantages * chunk_mean_logprob).sum()
+        # KL estimator: Schulman's "k3" estimator (http://joschu.net/blog/kl-approx.html),
+        # not the raw signed difference this used to be. The raw difference is
+        # unbiased in EXPECTATION over x~policy but can be negative for any single
+        # sample -- once pg_loss has zero gradient (every rollout scores reward 0,
+        # so advantage=0 for all), that raw difference becomes the ONLY live
+        # gradient, and minimizing loss means pushing the policy to assign LOWER
+        # probability to the very sequence it just sampled -- the mechanism behind
+        # an earlier full training collapse. The k3 estimator has the same
+        # expectation but is >=0 for every sample (e^r - 1 - r >= 0 for all real r),
+        # so that exploit isn't reachable: drifting from the reference can only
+        # ever raise the loss, never lower it, even when pg_loss is silent.
+        log_ratio = chunk_ref_mean_logprob - chunk_mean_logprob  # r = log pi_ref(x) - log pi(x)
+        chunk_kl_sum = (torch.exp(log_ratio) - 1 - log_ratio).sum()
 
-    # Same dtype-mismatch nan risk as sft.py (see model_real.py's
-    # load_base_model docstring) -- skip the update rather than take a step
-    # on a corrupted gradient.
-    optimizer.zero_grad()
-    if not torch.isfinite(loss):
-        print(f"WARNING: loss is {loss.item()} (non-finite) -- skipping this step's update.")
-    else:
-        loss.backward()
+        chunk_loss = (chunk_pg_loss_sum + KL_COEF * chunk_kl_sum) / n_total
+        # Same dtype-mismatch nan risk as sft.py (see model_real.py's
+        # load_base_model docstring) -- skip just this chunk's contribution
+        # rather than corrupting the whole step's gradient with it.
+        if not torch.isfinite(chunk_loss):
+            print(f"WARNING: prompt-group {i}'s loss is {chunk_loss.item()} (non-finite) -- "
+                  f"skipping its contribution to this step's gradient.")
+            continue
+        chunk_loss.backward()
+        pg_loss_sum += chunk_pg_loss_sum.item()
+        kl_sum += chunk_kl_sum.item()
+        any_finite = True
+        free_memory()  # release this chunk's now-freed graph back to the allocator
+                        # before the next prompt-group's forward, rather than letting
+                        # several chunks' freed-but-cached blocks pile up first
+
+    if any_finite:
         torch.nn.utils.clip_grad_norm_([p for p in policy.parameters() if p.requires_grad], 1.0)
         optimizer.step()
+    else:
+        print("WARNING: every prompt-group's loss was non-finite this step -- skipping the update entirely.")
+
+    pg_loss_val = pg_loss_sum / n_total if n_total else 0.0
+    kl_val = kl_sum / n_total if n_total else 0.0
+    loss_val = pg_loss_val + KL_COEF * kl_val
 
     return dict(
-        loss=loss.item(), pg_loss=pg_loss.item(), kl=kl.item(),
+        loss=loss_val, pg_loss=pg_loss_val, kl=kl_val,
         reward_mean=float(np.mean(all_rewards)), reward_std=float(np.std(all_rewards)),
         parse_success_rate=float(np.mean([p is not None for p in all_parsed])),
         rewards=all_rewards, parsed=all_parsed, texts=all_texts,
