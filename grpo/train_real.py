@@ -80,6 +80,16 @@ RESULTS.mkdir(exist_ok=True)
 # estimate, at a roughly linear generate() time cost).
 GROUP_SIZE = int(os.environ.get("GRPO_GROUP_SIZE", 4 * GPU_SCALE))
 PROMPTS_PER_STEP = 4 * GPU_SCALE
+# How many of a GROUP_SIZE batch's sequences sequence_logprobs() forwards
+# through the model at once. Added 2026-10-27 after TWO prior OOM fixes in
+# that function (log_softmax->gather, then logsumexp) both still OOM'd at
+# virtually the same memory point -- neither actually bounds peak memory,
+# since the forward pass's own activations (even with grad checkpointing)
+# and any full-vocab reduction's internal temporaries both still scale
+# with however many sequences go through `model(...)` in one call. This
+# caps that at a fixed, small number regardless of GROUP_SIZE/GPU_SCALE --
+# a real ceiling instead of another guess at what fits.
+LOGPROB_MICRO_BATCH = int(os.environ.get("GRPO_LOGPROB_MICRO_BATCH", 2))
 # N_STEPS used to be a flat 8*GPU_SCALE with no way to change it short of
 # editing this file -- fine while every run was dying by step 2 regardless,
 # not fine now that the real bug (policy left in train() mode during
@@ -203,29 +213,47 @@ def generate_group(policy, tokenizer, prompt, group_size, max_new_tokens, prompt
 
 
 def sequence_logprobs(model, full_ids, prompt_len, attention_mask):
-    out = model(input_ids=full_ids, attention_mask=attention_mask)
-    logits = out.logits[:, :-1, :]
-    targets = full_ids[:, 1:]
-    # Memory fix (2026-10-23): this used to be `F.log_softmax(logits, dim=-1)`
-    # then `.gather(...)` -- that materializes a SECOND full
-    # (batch, seq_len, vocab_size) tensor on top of `logits` itself (Qwen3's
-    # vocab is ~152k), and that second tensor is exactly what OOM'd here even
-    # after dropping GPU_SCALE 4->2 (model_real.py's GPU_SCALE comment) --
-    # the traceback landed in this file's log_softmax call. Mathematically,
-    # log_softmax(x)_i = x_i - logsumexp(x), so gathering the raw logit at
-    # the target index and subtracting logsumexp (reduced over vocab, so
-    # only (batch, seq_len), not (batch, seq_len, vocab)) gives the exact
-    # same token log-probability without ever materializing that second
-    # vocab-sized tensor.
-    gathered_logit = logits.gather(-1, targets.unsqueeze(-1)).squeeze(-1)
-    logsumexp = torch.logsumexp(logits, dim=-1)
-    token_logprobs = gathered_logit - logsumexp
-    mask = torch.zeros_like(targets, dtype=torch.float)
-    mask[:, prompt_len - 1:] = 1.0
-    mask = mask * (attention_mask[:, 1:].float())
-    seq_logprob = (token_logprobs * mask).sum(dim=1)
-    n_tokens = mask.sum(dim=1).clamp(min=1)
-    return seq_logprob, n_tokens
+    # Third fix for the same OOM (2026-10-27), and the first that actually
+    # bounds peak memory instead of just changing how a vocab-sized
+    # reduction is computed. Two earlier attempts:
+    #   1. log_softmax(logits) + gather -- materializes a SECOND full
+    #      (batch, seq_len, vocab~152k) tensor alongside `logits` itself.
+    #   2. gathered_logit - logsumexp(logits) -- mathematically avoids
+    #      that second tensor, but logsumexp's OWN internal exp() step
+    #      still materializes a same-size temporary to do the reduction,
+    #      so it OOM'd at virtually the identical memory point (confirmed:
+    #      the 2026-10-27 traceback moved from the log_softmax line to the
+    #      logsumexp line, needing almost exactly the same ~2GiB).
+    # Neither fix touches the OTHER thing that scales with batch size: the
+    # forward pass's own activation memory for however many sequences go
+    # through `model(...)` in one call (gradient checkpointing reduces but
+    # doesn't eliminate this). So this version does two things instead:
+    # (a) F.cross_entropy's fused kernel -- the exact op HF's own
+    # `model(..., labels=...)` path uses internally, confirmed NOT to OOM
+    # in sft.py at this same model/batch/seq-length scale -- computes the
+    # per-token negative log-likelihood via a streaming reduction over the
+    # vocab dim, without a second full-size tensor; (b) forwarding only
+    # LOGPROB_MICRO_BATCH sequences through the model at a time instead of
+    # the whole GROUP_SIZE batch in one call, which caps peak memory at a
+    # fixed number regardless of how large GROUP_SIZE/GPU_SCALE get later --
+    # a real ceiling, not another guess at what happens to fit today.
+    seq_logprobs, n_tokens_list = [], []
+    for start in range(0, full_ids.shape[0], LOGPROB_MICRO_BATCH):
+        end = start + LOGPROB_MICRO_BATCH
+        ids_chunk = full_ids[start:end]
+        attn_chunk = attention_mask[start:end]
+        out = model(input_ids=ids_chunk, attention_mask=attn_chunk)
+        logits = out.logits[:, :-1, :]
+        targets = ids_chunk[:, 1:]
+        token_logprobs = -F.cross_entropy(
+            logits.reshape(-1, logits.size(-1)), targets.reshape(-1), reduction="none"
+        ).view(targets.shape)
+        mask = torch.zeros_like(targets, dtype=torch.float)
+        mask[:, prompt_len - 1:] = 1.0
+        mask = mask * (attn_chunk[:, 1:].float())
+        seq_logprobs.append((token_logprobs * mask).sum(dim=1))
+        n_tokens_list.append(mask.sum(dim=1).clamp(min=1))
+    return torch.cat(seq_logprobs), torch.cat(n_tokens_list)
 
 
 def grpo_step(policy, tokenizer, optimizer, batch_examples, prompt_max_length):
