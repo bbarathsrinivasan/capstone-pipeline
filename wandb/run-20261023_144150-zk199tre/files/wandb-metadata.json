@@ -1,0 +1,44 @@
+{
+  "os":  "Linux-6.17.0-1017-aws-x86_64-with-glibc2.39",
+  "python":  "CPython 3.12.3",
+  "startedAt":  "2026-10-23T14:41:50.746557Z",
+  "program":  "/home/ubuntu/capstone-pipeline/grpo/sft.py",
+  "codePath":  "grpo/sft.py",
+  "codePathLocal":  "grpo/sft.py",
+  "git":  {
+    "remote":  "https://github.com/bbarathsrinivasan/capstone-pipeline.git",
+    "commit":  "ea884bff26399c4e5c744005a9ac8ee719510ba3"
+  },
+  "email":  "bbasavar@andrew.cmu.edu",
+  "root":  "/home/ubuntu/capstone-pipeline",
+  "host":  "ip-172-31-8-108",
+  "executable":  "/home/ubuntu/capstone-pipeline/venv/bin/python3",
+  "cpu_count":  2,
+  "cpu_count_logical":  4,
+  "gpu":  "NVIDIA A10G",
+  "gpu_count":  1,
+  "disk":  {
+    "/":  {
+      "total":  "102888095744",
+      "used":  "71526137856"
+    }
+  },
+  "memory":  {
+    "total":  "16552120320"
+  },
+  "cpu":  {
+    "model":  "AMD EPYC 7R32"
+  },
+  "gpu_nvidia":  [
+    {
+      "name":  "NVIDIA A10G",
+      "memoryTotal":  "24146608128",
+      "cudaCores":  10240,
+      "architecture":  "Ampere",
+      "uuid":  "GPU-97e14bbc-19a3-a6aa-1365-198b1fcbd3df",
+      "pciBusId":  "00000000:00:1E.0"
+    }
+  ],
+  "cudaVersion":  "13.2",
+  "writerId":  "01a16936-069d-7829-aa12-d2648a51a9fa"
+}

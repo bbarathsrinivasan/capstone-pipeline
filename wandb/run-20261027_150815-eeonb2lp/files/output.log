@@ -1,0 +1,14 @@
+[transformers] `use_cache=True` is incompatible with gradient checkpointing. Setting `use_cache=False`.
+Traceback (most recent call last):
+  File "/home/ubuntu/capstone-pipeline/grpo/train_real.py", line 575, in <module>
+    main()
+  File "/home/ubuntu/capstone-pipeline/grpo/train_real.py", line 486, in main
+    step_log = grpo_step(policy, tokenizer, optimizer, batch, prompt_max_length)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/capstone-pipeline/grpo/train_real.py", line 276, in grpo_step
+    seq_lp, n_tok = sequence_logprobs(policy, batch_ids[idx], pl, batch_attn[idx])
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/capstone-pipeline/grpo/train_real.py", line 221, in sequence_logprobs
+    logsumexp = torch.logsumexp(logits, dim=-1)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 1.99 GiB. GPU 0 has a total capacity of 22.06 GiB of which 1.02 GiB is free. Including non-PyTorch memory, this process has 21.04 GiB memory in use. Of the allocated memory 20.64 GiB is allocated by PyTorch, and 98.65 MiB is reserved by PyTorch but unallocated.

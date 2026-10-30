@@ -1,0 +1,81 @@
+_wandb:
+    value:
+        cli_version: 0.31.0
+        e:
+            01a168fe-1667-71ac-8928-c29e70e8a05f:
+                codePath: grpo/sft.py
+                codePathLocal: grpo/sft.py
+                cpu:
+                    model: AMD EPYC 7R32
+                cpu_count: 2
+                cpu_count_logical: 4
+                cudaVersion: "13.2"
+                disk:
+                    /:
+                        total: "102888095744"
+                        used: "71564410880"
+                email: bbasavar@andrew.cmu.edu
+                executable: /home/ubuntu/capstone-pipeline/venv/bin/python3
+                git:
+                    commit: cf44aecdbefa0d715ecc5deedd10e4d86433431e
+                    remote: https://github.com/bbarathsrinivasan/capstone-pipeline.git
+                gpu: NVIDIA A10G
+                gpu_count: 1
+                gpu_nvidia:
+                    - architecture: Ampere
+                      cudaCores: 10240
+                      memoryTotal: "24146608128"
+                      name: NVIDIA A10G
+                      pciBusId: 00000000:00:1E.0
+                      uuid: GPU-97e14bbc-19a3-a6aa-1365-198b1fcbd3df
+                host: ip-172-31-8-108
+                memory:
+                    total: "16552120320"
+                os: Linux-6.17.0-1017-aws-x86_64-with-glibc2.39
+                program: /home/ubuntu/capstone-pipeline/grpo/sft.py
+                python: CPython 3.12.3
+                root: /home/ubuntu/capstone-pipeline
+                startedAt: "2026-10-23T13:40:44.772158Z"
+                writerId: 01a168fe-1667-71ac-8928-c29e70e8a05f
+        m: []
+        python_version: 3.12.3
+        t:
+            "1":
+                - 1
+                - 5
+                - 11
+                - 49
+                - 53
+                - 71
+                - 98
+            "2":
+                - 1
+                - 5
+                - 11
+                - 49
+                - 53
+                - 71
+                - 98
+            "3":
+                - 2
+                - 13
+                - 16
+                - 61
+                - 62
+            "4": 3.12.3
+            "5": 0.31.0
+            "6": 5.19.0
+            "12": 0.31.0
+            "13": linux-x86_64
+BATCH_SIZE:
+    value: 2
+LEARNING_RATE:
+    value: 0.0001
+MODEL_NAME:
+    value: Qwen/Qwen3-0.6B
+N_EPOCHS:
+    value: 3
+NOISE_RATE:
+    value: 0.2
+max_length:
+    value: 941

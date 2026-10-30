@@ -1,0 +1,127 @@
+[transformers] `use_cache=True` is incompatible with gradient checkpointing. Setting `use_cache=False`.
+[step  1/80] reward_mean=0.641 parse_rate=1.00 loss=1.1805 kl=1.9203 (104s elapsed)
+[step  2/80] reward_mean=0.466 parse_rate=1.00 loss=0.1327 kl=2.4597 (211s elapsed)
+[step  3/80] reward_mean=0.712 parse_rate=1.00 loss=0.5227 kl=2.2000 (310s elapsed)
+[step  4/80] reward_mean=0.597 parse_rate=0.98 loss=0.1857 kl=3.1590 (425s elapsed)
+[step  5/80] reward_mean=0.658 parse_rate=1.00 loss=0.2832 kl=2.3410 (522s elapsed)
+[step  6/80] reward_mean=0.485 parse_rate=1.00 loss=1.3730 kl=2.6975 (621s elapsed)
+[step  7/80] reward_mean=0.724 parse_rate=1.00 loss=0.8763 kl=2.7818 (724s elapsed)
+[step  8/80] reward_mean=0.552 parse_rate=1.00 loss=0.7955 kl=2.5531 (823s elapsed)
+[step  9/80] reward_mean=0.593 parse_rate=0.97 loss=0.3309 kl=3.2352 (943s elapsed)
+[step 10/80] reward_mean=0.311 parse_rate=1.00 loss=0.1948 kl=3.0678 (1056s elapsed)
+  [held-out probe @ step 10] n=20 mean_reward=0.448 parse_rate=1.00 exact_match_accuracy=0.30
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+  -> new best held-out mean_reward=0.448, saved checkpoints/grpo_lora
+[step 11/80] reward_mean=0.654 parse_rate=1.00 loss=0.6496 kl=3.9118 (1228s elapsed)
+[step 12/80] reward_mean=0.636 parse_rate=0.98 loss=0.5121 kl=4.2894 (1352s elapsed)
+[step 13/80] reward_mean=0.616 parse_rate=1.00 loss=0.2253 kl=3.6458 (1464s elapsed)
+[step 14/80] reward_mean=0.565 parse_rate=1.00 loss=0.7243 kl=2.9597 (1565s elapsed)
+[step 15/80] reward_mean=0.572 parse_rate=1.00 loss=-0.3764 kl=4.3507 (1673s elapsed)
+[step 16/80] reward_mean=0.714 parse_rate=1.00 loss=0.2394 kl=4.6920 (1788s elapsed)
+[step 17/80] reward_mean=0.579 parse_rate=1.00 loss=-0.0066 kl=4.1787 (1897s elapsed)
+[step 18/80] reward_mean=0.680 parse_rate=1.00 loss=0.0657 kl=3.8183 (2004s elapsed)
+[step 19/80] reward_mean=0.484 parse_rate=1.00 loss=0.6970 kl=4.6501 (2119s elapsed)
+[step 20/80] reward_mean=0.614 parse_rate=0.98 loss=0.2531 kl=4.0082 (2225s elapsed)
+  [held-out probe @ step 20] n=20 mean_reward=0.523 parse_rate=1.00 exact_match_accuracy=0.40
+  -> new best held-out mean_reward=0.523, saved checkpoints/grpo_lora
+[step 21/80] reward_mean=0.495 parse_rate=1.00 loss=0.7116 kl=3.8026 (2391s elapsed)
+[step 22/80] reward_mean=0.675 parse_rate=1.00 loss=0.3386 kl=5.1137 (2503s elapsed)
+[step 23/80] reward_mean=0.456 parse_rate=0.97 loss=0.7644 kl=4.5512 (2617s elapsed)
+[step 24/80] reward_mean=0.618 parse_rate=1.00 loss=0.6872 kl=4.5176 (2720s elapsed)
+[step 25/80] reward_mean=0.545 parse_rate=0.95 loss=0.3380 kl=4.8044 (2840s elapsed)
+[step 26/80] reward_mean=0.493 parse_rate=0.98 loss=0.8730 kl=4.3974 (2952s elapsed)
+[step 27/80] reward_mean=0.530 parse_rate=1.00 loss=0.4788 kl=4.2586 (3059s elapsed)
+[step 28/80] reward_mean=0.743 parse_rate=0.98 loss=0.2009 kl=3.8297 (3164s elapsed)
+[step 29/80] reward_mean=0.620 parse_rate=1.00 loss=0.1871 kl=4.0883 (3263s elapsed)
+[step 30/80] reward_mean=0.552 parse_rate=0.98 loss=0.1874 kl=5.7409 (3381s elapsed)
+  [held-out probe @ step 30] n=20 mean_reward=0.440 parse_rate=1.00 exact_match_accuracy=0.35
+[step 31/80] reward_mean=0.600 parse_rate=1.00 loss=-0.0625 kl=4.4095 (3552s elapsed)
+[step 32/80] reward_mean=0.634 parse_rate=1.00 loss=0.1624 kl=5.4690 (3662s elapsed)
+Traceback (most recent call last):
+  File "/home/ubuntu/capstone-pipeline/grpo/train_real.py", line 628, in <module>
+    main()
+  File "/home/ubuntu/capstone-pipeline/grpo/train_real.py", line 539, in main
+    step_log = grpo_step(policy, tokenizer, optimizer, batch, prompt_max_length)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/capstone-pipeline/grpo/train_real.py", line 265, in grpo_step
+    completions, texts, prompt_len = generate_group(
+                                     ^^^^^^^^^^^^^^^
+  File "/home/ubuntu/capstone-pipeline/venv/lib/python3.12/site-packages/torch/utils/_contextlib.py", line 124, in decorate_context
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/capstone-pipeline/grpo/train_real.py", line 184, in generate_group
+    out = policy.generate(
+          ^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/capstone-pipeline/venv/lib/python3.12/site-packages/peft/peft_model.py", line 2242, in generate
+    outputs = self.base_model.generate(*args, **kwargs)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/capstone-pipeline/venv/lib/python3.12/site-packages/torch/utils/_contextlib.py", line 124, in decorate_context
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/capstone-pipeline/venv/lib/python3.12/site-packages/transformers/generation/utils.py", line 2982, in generate
+    result = decoding_method(
+             ^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/capstone-pipeline/venv/lib/python3.12/site-packages/transformers/generation/utils.py", line 3182, in _sample
+    outputs = self._prefill(
+              ^^^^^^^^^^^^^^
+  File "/home/ubuntu/capstone-pipeline/venv/lib/python3.12/site-packages/transformers/generation/utils.py", line 4293, in _prefill
+    return self(**model_inputs, return_dict=True)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/capstone-pipeline/venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1783, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/capstone-pipeline/venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1794, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/capstone-pipeline/venv/lib/python3.12/site-packages/transformers/utils/generic.py", line 943, in wrapper
+    output = func(self, *args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/capstone-pipeline/venv/lib/python3.12/site-packages/transformers/models/qwen3/modeling_qwen3.py", line 469, in forward
+    outputs: BaseModelOutputWithPast = self.model(
+                                       ^^^^^^^^^^^
+  File "/home/ubuntu/capstone-pipeline/venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1783, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/capstone-pipeline/venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1794, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/capstone-pipeline/venv/lib/python3.12/site-packages/transformers/utils/generic.py", line 1081, in wrapper
+    output = func(self, *args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/capstone-pipeline/venv/lib/python3.12/site-packages/transformers/utils/output_capturing.py", line 287, in wrapper
+    outputs = func(self, *args, **kwargs)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/capstone-pipeline/venv/lib/python3.12/site-packages/transformers/models/qwen3/modeling_qwen3.py", line 405, in forward
+    hidden_states = decoder_layer(
+                    ^^^^^^^^^^^^^^
+  File "/home/ubuntu/capstone-pipeline/venv/lib/python3.12/site-packages/transformers/modeling_layers.py", line 110, in __call__
+    return super().__call__(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/capstone-pipeline/venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1783, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/capstone-pipeline/venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1794, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/capstone-pipeline/venv/lib/python3.12/site-packages/transformers/models/qwen3/modeling_qwen3.py", line 299, in forward
+    hidden_states, _ = self.self_attn(
+                       ^^^^^^^^^^^^^^^
+  File "/home/ubuntu/capstone-pipeline/venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1783, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/capstone-pipeline/venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1794, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/capstone-pipeline/venv/lib/python3.12/site-packages/transformers/models/qwen3/modeling_qwen3.py", line 271, in forward
+    attn_output = self.o_proj(attn_output)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/capstone-pipeline/venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1783, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/capstone-pipeline/venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1794, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/capstone-pipeline/venv/lib/python3.12/site-packages/peft/tuners/lora/layer.py", line 1113, in forward
+    result = result.to(torch_result_dtype)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+KeyboardInterrupt

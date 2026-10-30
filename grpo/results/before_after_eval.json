@@ -2,1023 +2,1020 @@
   "before": {
     "label": "before_sft_only",
     "n": 69,
-    "parse_rate": 0.0,
-    "exact_match_accuracy_of_all": 0.0,
-    "exact_match_accuracy_of_parsed": null,
-    "mean_abs_error_of_parsed": null,
-    "mean_reward": 0.0,
+    "parse_rate": 1.0,
+    "exact_match_accuracy_of_all": 0.2753623188405797,
+    "exact_match_accuracy_of_parsed": 0.2753623188405797,
+    "mean_abs_error_of_parsed": 1.6666666666666667,
+    "mean_reward": 0.4479012934901709,
     "confusion_matrix": {
       "3": {
-        "unparsed": 19
+        "3": 19
       },
       "2": {
-        "unparsed": 10
+        "3": 10
       },
       "1": {
-        "unparsed": 15
+        "3": 15
       },
       "0": {
-        "unparsed": 25
+        "3": 25
       }
     },
     "n_severe": 19,
-    "critical_miss_rate": 1.0,
+    "critical_miss_rate": 0.0,
     "samples": [
       {
         "sample_id": "tier1_globem_0008",
         "true_risk": "severe",
-        "generation": " The week shows a recurring pattern of late bedtimes, fragmented sleep (high wake-after-sleep-onset), and increased isolation at home.\n\nRisk score\uff1amoderate",
-        "parsed_score": null,
-        "reward": 0.0
+        "generation": " \n\nMultiple days show severely reduced sleep, high wake-after-sleep-onset, little time outside the home, and a marked increase in screen use overnight -- a pattern consistent with significant withdrawal.\n\nRisk score: 3",
+        "parsed_score": 3.0,
+        "reward": 1.0
       },
       {
         "sample_id": "tier1_globem_0010",
         "true_risk": "severe",
-        "generation": " The week shows a recurring pattern of late bedtimes, fragmented sleep (high wake-after-sleep-onset), and increased isolation at home.\n\nRisk score\uff1amoderate",
-        "parsed_score": null,
-        "reward": 0.0
+        "generation": " \n\nMultiple days show severely reduced sleep, high wake-after-sleep-onset, little time outside the home, and a marked increase in screen use overnight -- a pattern consistent with significant withdrawal.\n\nRisk score: 3",
+        "parsed_score": 3.0,
+        "reward": 1.0
       },
       {
         "sample_id": "tier1_globem_0013",
         "true_risk": "severe",
-        "generation": " The week shows a recurring pattern of late bedtimes, fragmented sleep (high wake-after-sleep-onset), and increased isolation at home.\n\nRisk score\uff1amoderate",
-        "parsed_score": null,
-        "reward": 0.0
+        "generation": " \n\nMultiple days show severely reduced sleep, high wake-after-sleep-onset, little time outside the home, and a marked increase in screen use overnight -- a pattern consistent with significant withdrawal.\n\nRisk score: 3",
+        "parsed_score": 3.0,
+        "reward": 1.0
       },
       {
         "sample_id": "tier1_globem_0019",
         "true_risk": "severe",
-        "generation": " This week shows a recurring pattern of late bedtimes, fragmented sleep (high wake-after-sleep-onset), and increased isolation at home.\n\nRisk score\uff1amoderate",
-        "parsed_score": null,
-        "reward": 0.0
+        "generation": " \n\nMultiple days show severely reduced sleep, high wake-after-sleep-onset, little time outside the home, and a marked increase in screen use overnight -- a pattern consistent with significant withdrawal.\n\nRisk score: 3",
+        "parsed_score": 3.0,
+        "reward": 1.0
       },
       {
         "sample_id": "tier1_globem_0026",
         "true_risk": "severe",
-        "generation": " The week shows a recurring pattern of late bedtimes, fragmented sleep (high wake-after-sleep-onset), and increased isolation at home.\n\nRisk score\uff1amoderate",
-        "parsed_score": null,
-        "reward": 0.0
+        "generation": " \n\nMultiple days show severely reduced sleep, high wake-after-sleep-onset, little time outside the home, and a marked increase in screen use overnight -- a pattern consistent with significant withdrawal.\n\nRisk score: 3",
+        "parsed_score": 3.0,
+        "reward": 1.0
       },
       {
         "sample_id": "tier1_globem_0030",
         "true_risk": "severe",
-        "generation": " The week shows a recurring pattern of late bedtimes, fragmented sleep (high wake-after-sleep-onset), and increased isolation at home.\n\nRisk score\uff1amoderate",
-        "parsed_score": null,
-        "reward": 0.0
+        "generation": " \n\nMultiple days show severely reduced sleep, high wake-after-sleep-onset, little time outside the home, and a marked increase in screen use overnight -- a pattern consistent with significant withdrawal.\n\nRisk score: 3",
+        "parsed_score": 3.0,
+        "reward": 1.0
       },
       {
         "sample_id": "tier1_globem_0039",
         "true_risk": "severe",
-        "generation": " The week shows a recurring pattern of late bedtimes, fragmented sleep (high wake-after-sleep-onset), and increased isolation at home.\n\nRisk score\uff1amoderate",
-        "parsed_score": null,
-        "reward": 0.0
+        "generation": " \n\nMultiple days show severely reduced sleep, high wake-after-sleep-onset, little time outside the home, and a marked increase in screen use overnight -- a pattern consistent with significant withdrawal.\n\nRisk score: 3",
+        "parsed_score": 3.0,
+        "reward": 1.0
       },
       {
         "sample_id": "tier1_globem_0051",
         "true_risk": "severe",
-        "generation": " The week shows a recurring pattern of late bedtimes, fragmented sleep (high wake-after-sleep-onset), and increased isolation at home.\n\nRisk score\uff1amoderate",
-        "parsed_score": null,
-        "reward": 0.0
+        "generation": " \n\nMultiple days show severely reduced sleep, high wake-after-sleep-onset, little time outside the home, and a marked increase in screen use overnight -- a pattern consistent with significant withdrawal.\n\nRisk score: 3",
+        "parsed_score": 3.0,
+        "reward": 1.0
       },
       {
         "sample_id": "tier1_globem_0052",
         "true_risk": "severe",
-        "generation": " The week shows a recurring pattern of late bedtimes, fragmented sleep (high wake-after-sleep-onset), and increased isolation at home.\n\nRisk score\uff1amoderate",
-        "parsed_score": null,
-        "reward": 0.0
+        "generation": " \n\nMultiple days show severely reduced sleep, high wake-after-sleep-onset, little time outside the home, and a marked increase in screen use overnight -- a pattern consistent with significant withdrawal.\n\nRisk score: 3",
+        "parsed_score": 3.0,
+        "reward": 1.0
       },
       {
         "sample_id": "tier1_globem_0064",
         "true_risk": "severe",
-        "generation": " The week shows a recurring pattern of late bedtimes, fragmented sleep (high wake-after-sleep-onset), and increased isolation at home.\n\nRisk score\uff1amoderate",
-        "parsed_score": null,
-        "reward": 0.0
+        "generation": " \n\nMultiple days show severely reduced sleep, high wake-after-sleep-onset, little time outside the home, and a marked increase in screen use overnight -- a pattern consistent with significant withdrawal.\n\nRisk score: 3",
+        "parsed_score": 3.0,
+        "reward": 1.0
       },
       {
         "sample_id": "tier1_globem_0080",
         "true_risk": "severe",
-        "generation": " The week shows a recurring pattern of late bedtimes, fragmented sleep (high wake-after-sleep-onset), and increased isolation at home.\n\nRisk score\uff1amoderate",
-        "parsed_score": null,
-        "reward": 0.0
+        "generation": " \n\nMultiple days show severely reduced sleep, high wake-after-sleep-onset, little time outside the home, and a marked increase in screen use overnight -- a pattern consistent with significant withdrawal.\n\nRisk score: 3",
+        "parsed_score": 3.0,
+        "reward": 1.0
       },
       {
         "sample_id": "tier1_globem_0081",
         "true_risk": "severe",
-        "generation": " The week shows a recurring pattern of late bedtimes, fragmented sleep (high wake-after-sleep-onset), and increased isolation at home.\n\nRisk score\uff1amoderate",
-        "parsed_score": null,
-        "reward": 0.0
+        "generation": " \n\nMultiple days show severely reduced sleep, high wake-after-sleep-onset, little time outside the home, and a marked increase in screen use overnight -- a pattern consistent with significant withdrawal.\n\nRisk score: 3",
+        "parsed_score": 3.0,
+        "reward": 1.0
       },
       {
         "sample_id": "tier1_globem_0082",
         "true_risk": "severe",
-        "generation": " The week shows a recurring pattern of late bedtimes, fragmented sleep (high wake-after-sleep-onset), and increased isolation at home.\n\nRisk score\uff1amoderate",
-        "parsed_score": null,
-        "reward": 0.0
+        "generation": " \n\nMultiple days show severely reduced sleep, high wake-after-sleep-onset, little time outside the home, and a marked increase in screen use overnight -- a pattern consistent with significant withdrawal.\n\nRisk score: 3",
+        "parsed_score": 3.0,
+        "reward": 1.0
       },
       {
         "sample_id": "tier1_globem_0084",
         "true_risk": "severe",
-        "generation": " This week shows a recurring pattern of late bedtimes, fragmented sleep, and increased isolation.\n\nRisk score\uff1a2",
-        "parsed_score": null,
-        "reward": 0.0
+        "generation": " \n\nMultiple days show severely reduced sleep, high wake-after-sleep-onset, little time outside the home, and a marked increase in screen use overnight -- a pattern consistent with significant withdrawal.\n\nRisk score: 3",
+        "parsed_score": 3.0,
+        "reward": 1.0
       },
       {
         "sample_id": "tier1_globem_0088",
         "true_risk": "severe",
-        "generation": " The week shows a recurring pattern of late bedtimes, fragmented sleep (high wake-after-sleep-onset), and increased isolation at home.\n\nRisk score\uff1amoderate",
-        "parsed_score": null,
-        "reward": 0.0
+        "generation": " \n\nMultiple days show severely reduced sleep, high wake-after-sleep-onset, little time outside the home, and a marked increase in screen use overnight -- a pattern consistent with significant withdrawal.\n\nRisk score: 3",
+        "parsed_score": 3.0,
+        "reward": 1.0
       },
       {
         "sample_id": "tier1_globem_0090",
         "true_risk": "severe",
-        "generation": " The week shows a recurring pattern of late bedtimes, fragmented sleep (high wake-after-sleep-onset), and increased isolation at home.\n\nRisk score\uff1amoderate",
-        "parsed_score": null,
-        "reward": 0.0
+        "generation": " \n\nMultiple days show severely reduced sleep, high wake-after-sleep-onset, little time outside the home, and a marked increase in screen use overnight -- a pattern consistent with significant withdrawal.\n\nRisk score: 3",
+        "parsed_score": 3.0,
+        "reward": 1.0
       },
       {
         "sample_id": "tier1_globem_0105",
         "true_risk": "severe",
-        "generation": " This week shows a recurring pattern of late bedtimes, fragmented sleep, and increased isolation.\n\nRisk score\uff1amoderate",
-        "parsed_score": null,
-        "reward": 0.0
+        "generation": " \n\nMultiple days show severely reduced sleep, high wake-after-sleep-onset, little time outside the home, and a marked increase in screen use overnight -- a pattern consistent with significant withdrawal.\n\nRisk score: 3",
+        "parsed_score": 3.0,
+        "reward": 1.0
       },
       {
         "sample_id": "tier1_globem_0109",
         "true_risk": "severe",
-        "generation": " The week shows a recurring pattern of late bedtimes, fragmented sleep (high wake-after-sleep-onset), and increased isolation at home.\n\nRisk score\uff1amoderate",
-        "parsed_score": null,
-        "reward": 0.0
+        "generation": " \n\nMultiple days show severely reduced sleep, high wake-after-sleep-onset, little time outside the home, and a marked increase in screen use overnight -- a pattern consistent with significant withdrawal.\n\nRisk score: 3",
+        "parsed_score": 3.0,
+        "reward": 1.0
       },
       {
         "sample_id": "tier1_globem_0112",
         "true_risk": "severe",
-        "generation": " This week shows a recurring pattern of late bedtimes, fragmented sleep, and increased isolation.\n\nThe week shows recurring pattern c\u1ee7a late bedimes, fragmented\u7761\u7720, and higher isolation.\n\nRisk score\uff1a2",
-        "parsed_score": null,
-        "reward": 0.0
+        "generation": " \n\nMultiple days show severely reduced sleep, high wake-after-sleep-onset, little time outside the home, and a marked increase in screen use overnight -- a pattern consistent with significant withdrawal.\n\nRisk score: 3",
+        "parsed_score": 3.0,
+        "reward": 1.0
       },
       {
         "sample_id": "tier1_globem_0125",
         "true_risk": "moderate",
-        "generation": " The week shows a recurring pattern of late bedtimes, fragmented sleep (high wake-after-sleep-onset), and increased isolation at home.\n\nRisk score\uff1amoderate",
-        "parsed_score": null,
-        "reward": 0.0
+        "generation": " \n\nMultiple days show severely reduced sleep, high wake-after-sleep-onset, little time outside the home, and a marked increase in screen use overnight -- a pattern consistent with significant withdrawal.\n\nRisk score: 3",
+        "parsed_score": 3.0,
+        "reward": 0.7066482778577162
       },
       {
         "sample_id": "tier1_globem_0126",
         "true_risk": "moderate",
-        "generation": " This week shows a recurring pattern of late bedtimes, fragmented sleep, and increased isolation.\n\nRisk score\uff1a2",
-        "parsed_score": null,
-        "reward": 0.0
+        "generation": " \n\nMultiple days show severely reduced sleep, high wake-after-sleep-onset, little time outside the home, and a marked increase in screen use overnight -- a pattern consistent with significant withdrawal.\n\nRisk score: 3",
+        "parsed_score": 3.0,
+        "reward": 0.7066482778577162
       },
       {
         "sample_id": "tier1_globem_0138",
         "true_risk": "moderate",
-        "generation": " The week shows a recurring pattern of late bedtimes, fragmented sleep (high wake-after-sleep-onset), and increased isolation at home.\n\nRisk score\uff1amoderate",
-        "parsed_score": null,
-        "reward": 0.0
+        "generation": " \n\nMultiple days show severely reduced sleep, high wake-after-sleep-onset, little time outside the home, and a marked increase in screen use overnight -- a pattern consistent with significant withdrawal.\n\nRisk score: 3",
+        "parsed_score": 3.0,
+        "reward": 0.7066482778577162
       },
       {
         "sample_id": "tier1_globem_0151",
         "true_risk": "moderate",
-        "generation": " This week shows a recurring pattern of late bedtimes, fragmented sleep, and increased isolation.\n\nRisk score\uff1amoderate",
-        "parsed_score": null,
-        "reward": 0.0
+        "generation": " \n\nMultiple days show severely reduced sleep duration and sleep efficiency, alongside persistent high nighttime screen time and little time spent away from home.\nRisk score: 3",
+        "parsed_score": 3.0,
+        "reward": 0.7066482778577162
       },
       {
         "sample_id": "tier1_globem_0160",
         "true_risk": "moderate",
-        "generation": " This week shows a recurring pattern of late bedtimes, fragmented sleep, and increased isolation.\n\nRisk score\uff1amoderate",
-        "parsed_score": null,
-        "reward": 0.0
+        "generation": " \n\nMultiple days show severely reduced sleep, high wake-after-sleep-onset, little time outside the home, and a marked increase in screen use overnight -- a pattern consistent with significant withdrawal.\n\nRisk score: 3",
+        "parsed_score": 3.0,
+        "reward": 0.7066482778577162
       },
       {
         "sample_id": "tier1_globem_0171",
         "true_risk": "moderate",
-        "generation": " The week shows a recurring pattern of late bedtimes, fragmented sleep (high wake-after-sleep-onset), and increased isolation at home.\n\nRisk score\uff1amoderate",
-        "parsed_score": null,
-        "reward": 0.0
+        "generation": " \n\nMultiple days show severely reduced sleep, high wake-after-sleep-onset, little time outside the home, and a marked increase in screen use overnight -- a pattern consistent with significant withdrawal.\n\nRisk score: 3",
+        "parsed_score": 3.0,
+        "reward": 0.7066482778577162
       },
       {
         "sample_id": "tier1_globem_0187",
         "true_risk": "moderate",
-        "generation": " This week shows a recurring pattern of late bedtimes, fragmented sleep (high wake-after-sleep-onset), and increased isolation at home.\n\nRisk score\uff1amoderate",
-        "parsed_score": null,
-        "reward": 0.0
+        "generation": " \n\nMultiple days show severely reduced sleep, high wake-after-sleep-onset, little time outside the home, and a marked increase in screen use overnight -- a pattern consistent with significant withdrawal.\n\nRisk score: 3",
+        "parsed_score": 3.0,
+        "reward": 0.7066482778577162
       },
       {
         "sample_id": "tier1_globem_0192",
         "true_risk": "moderate",
-        "generation": " The week shows a recurring pattern of late bedtimes, fragmented sleep (high wake-after-sleep-onset), and increased isolation at home.\n\nRisk score\uff1amoderate",
-        "parsed_score": null,
-        "reward": 0.0
+        "generation": " \n\nMultiple days show severely reduced sleep, high wake-after-sleep-onset, little time outside the home, and a marked increase in screen use overnight -- a pattern consistent with significant withdrawal.\n\nRisk score: 3",
+        "parsed_score": 3.0,
+        "reward": 0.7066482778577162
       },
       {
         "sample_id": "tier1_globem_0221",
         "true_risk": "moderate",
-        "generation": " The week shows a recurring pattern of late bedtimes, fragmented sleep (high wake-after-sleep-onset), and increased isolation at home.\n\nRisk score\uff1amoderate",
-        "parsed_score": null,
-        "reward": 0.0
+        "generation": " \n\nMultiple days show severely reduced sleep, high wake-after-sleep-onset, little time outside the home, and a marked increase in screen use overnight -- a pattern consistent with significant withdrawal.\n\nRisk score: 3",
+        "parsed_score": 3.0,
+        "reward": 0.7066482778577162
       },
       {
         "sample_id": "tier1_globem_0238",
         "true_risk": "moderate",
-        "generation": " The week shows a recurring pattern of late bedtimes, fragmented sleep (high wake-after-sleep-onset), and increased isolation at home.\n\nRisk score\uff1amoderate",
-        "parsed_score": null,
-        "reward": 0.0
+        "generation": " \n\nMultiple days show severely reduced sleep, high wake-after-sleep-onset, little time outside the home, and a marked increase in screen use overnight -- a pattern consistent with significant withdrawal.\n\nRisk score: 3",
+        "parsed_score": 3.0,
+        "reward": 0.7066482778577162
       },
       {
         "sample_id": "tier1_globem_0241",
         "true_risk": "mild",
-        "generation": " This week shows a recurring pattern of late bedtimes, fragmented sleep, and increased isolation.\n\nThe week shows recurring pattern c\u1ee7a late bedimes, fragmented\u7761\u7720, and higher isolation.\n\nRisk score\uff1a2",
-        "parsed_score": null,
-        "reward": 0.0
+        "generation": " \n\nMultiple days show severely reduced sleep duration and efficiency, paired with little time away from home and heavy nighttime screen use.\nRisk score: 3",
+        "parsed_score": 3.0,
+        "reward": 0.24935220877729622
       },
       {
         "sample_id": "tier1_globem_0253",
         "true_risk": "mild",
-        "generation": " This week shows a recurring pattern of late bedtimes, fragmented sleep (high wake-after-sleep-onset), and increased isolation at home.\n\nRisk score\uff1amoderate",
-        "parsed_score": null,
-        "reward": 0.0
+        "generation": " \n\nMultiple days show severely reduced sleep, high wake-after-sleep-onset, little time outside the home, and a marked increase in screen use overnight -- a pattern consistent with significant withdrawal.\n\nRisk score: 3",
+        "parsed_score": 3.0,
+        "reward": 0.24935220877729622
       },
       {
         "sample_id": "tier1_globem_0259",
         "true_risk": "mild",
-        "generation": " The week shows a recurring pattern of late bedtimes, fragmented sleep (high wake-after-sleep-onset), and increased isolation at home.\n\nRisk score\uff1amoderate",
-        "parsed_score": null,
-        "reward": 0.0
+        "generation": " \n\nMultiple days show severely reduced sleep, high wake-after-sleep-onset, little time outside the home, and a marked increase in screen use overnight -- a pattern consistent with significant withdrawal.\n\nRisk score: 3",
+        "parsed_score": 3.0,
+        "reward": 0.24935220877729622
       },
       {
         "sample_id": "tier1_globem_0262",
         "true_risk": "mild",
-        "generation": " The week shows a recurring pattern of late bedtimes, fragmented sleep (high wake-after-sleep-onset), and increased isolation at home.\n\nRisk score\uff1amoderate",
-        "parsed_score": null,
-        "reward": 0.0
+        "generation": " \n\nMultiple days show severely reduced sleep, high wake-after-sleep-onset, little time outside the home, and a marked increase in screen use overnight -- a pattern consistent with significant withdrawal.\n\nRisk score: 3",
+        "parsed_score": 3.0,
+        "reward": 0.24935220877729622
       },
       {
         "sample_id": "tier1_globem_0269",
         "true_risk": "mild",
-        "generation": " The week shows a recurring pattern of late bedtimes, fragmented sleep (high wake-after-sleep-onset), and increased isolation at home.\n\nRisk score\uff1amoderate",
-        "parsed_score": null,
-        "reward": 0.0
+        "generation": " \n\nMultiple days show severely reduced sleep, high wake-after-sleep-onset, little time outside the home, and a marked increase in screen use overnight -- a pattern consistent with significant withdrawal.\n\nRisk score: 3",
+        "parsed_score": 3.0,
+        "reward": 0.24935220877729622
       },
       {
         "sample_id": "tier1_globem_0277",
         "true_risk": "mild",
-        "generation": " This week shows a recurring pattern of late bedtimes, fragmented sleep, and increased isolation.\n\nRisk score\uff1a1",
-        "parsed_score": null,
-        "reward": 0.0
+        "generation": " \n\nMultiple days show severely reduced sleep, high wake-after-sleep-onset, little time outside the home, and a marked increase in screen use overnight -- a pattern consistent with significant withdrawal.\n\nRisk score: 3",
+        "parsed_score": 3.0,
+        "reward": 0.24935220877729622
       },
       {
         "sample_id": "tier1_globem_0279",
         "true_risk": "mild",
-        "generation": " The week shows a recurring pattern of late bedtimes, fragmented sleep (high wake-after-sleep-onset), and increased isolation at home.\n\nRisk score\uff1amoderate",
-        "parsed_score": null,
-        "reward": 0.0
+        "generation": " \n\nMultiple days show severely reduced sleep duration and efficiency, paired with little time away from home and heavy nighttime screen use.\nRisk score: 3",
+        "parsed_score": 3.0,
+        "reward": 0.24935220877729622
       },
       {
         "sample_id": "tier1_globem_0283",
         "true_risk": "mild",
-        "generation": " The week shows a recurring pattern of late bedtimes, fragmented sleep (high wake-after-sleep-onset), and increased isolation at home.\n\nRisk score\uff1amoderate",
-        "parsed_score": null,
-        "reward": 0.0
+        "generation": " \n\nMultiple days show severely reduced sleep, high wake-after-sleep-onset, little time outside the home, and a marked increase in screen use overnight -- a pattern consistent with significant withdrawal.\n\nRisk score: 3",
+        "parsed_score": 3.0,
+        "reward": 0.24935220877729622
       },
       {
         "sample_id": "tier1_globem_0285",
         "true_risk": "mild",
-        "generation": " The week shows a recurring pattern of late bedtimes, fragmented sleep (high wake-after-sleep-onset), and increased isolation at home.\n\nRisk score\uff1amoderate",
-        "parsed_score": null,
-        "reward": 0.0
+        "generation": " \n\nMultiple days show severely reduced sleep, high wake-after-sleep-onset, little time outside the home, and a marked increase in screen use overnight -- a pattern consistent with significant withdrawal.\n\nRisk score: 3",
+        "parsed_score": 3.0,
+        "reward": 0.24935220877729622
       },
       {
         "sample_id": "tier1_globem_0290",
         "true_risk": "mild",
-        "generation": " The week shows a recurring pattern of late bedtimes, fragmented sleep (high wake-after-sleep-onset), and increased isolation at home.\n\nRisk score\uff1amoderate",
-        "parsed_score": null,
-        "reward": 0.0
+        "generation": " \n\nMultiple days show severely reduced sleep, high wake-after-sleep-onset, little time outside the home, and a marked increase in screen use overnight -- a pattern consistent with significant withdrawal.\n\nRisk score: 3",
+        "parsed_score": 3.0,
+        "reward": 0.24935220877729622
       },
       {
         "sample_id": "tier1_globem_0291",
         "true_risk": "mild",
-        "generation": " This week shows a recurring pattern of late bedtimes, fragmented sleep, and increased isolation.\n\nRisk score\uff1a1",
-        "parsed_score": null,
-        "reward": 0.0
+        "generation": " \n\nMultiple days show severely reduced sleep, high wake-after-sleep-onset, little time outside the home, and a marked increase in screen use overnight -- a pattern consistent with significant withdrawal.\n\nRisk score: 3",
+        "parsed_score": 3.0,
+        "reward": 0.24935220877729622
       },
       {
         "sample_id": "tier1_globem_0308",
         "true_risk": "mild",
-        "generation": " This week shows a recurring pattern of late bedtimes, fragmented sleep, and increased isolation.\n\nRisk score\uff1amoderate",
-        "parsed_score": null,
-        "reward": 0.0
+        "generation": " \n\nMultiple days show severely reduced sleep, high wake-after-sleep-onset, little time outside the home, and a marked increase in screen use overnight -- a pattern consistent with significant withdrawal.\n\nRisk score: 3",
+        "parsed_score": 3.0,
+        "reward": 0.24935220877729622
       },
       {
         "sample_id": "tier1_globem_0315",
         "true_risk": "mild",
-        "generation": " The week shows a recurring pattern of late bedtimes, fragmented sleep (high wake-after-sleep-onset), and increased isolation at home.\n\nRisk score\uff1amoderate",
-        "parsed_score": null,
-        "reward": 0.0
+        "generation": " \n\nMultiple days show severely reduced sleep, high wake-after-sleep-onset, little time outside the home, and a marked increase in screen use overnight -- a pattern consistent with significant withdrawal.\n\nRisk score: 3",
+        "parsed_score": 3.0,
+        "reward": 0.24935220877729622
       },
       {
         "sample_id": "tier1_globem_0337",
         "true_risk": "mild",
-        "generation": " The week shows a recurring pattern of late bedtimes, fragmented sleep (high wake-after-sleep-onset), and increased isolation at home.\n\nRisk score\uff1amoderate",
-        "parsed_score": null,
-        "reward": 0.0
+        "generation": " \n\nMultiple days show severely reduced sleep, high wake-after-sleep-onset, little time outside the home, and a marked increase in screen use overnight -- a pattern consistent with significant withdrawal.\n\nRisk score: 3",
+        "parsed_score": 3.0,
+        "reward": 0.24935220877729622
       },
       {
         "sample_id": "tier1_globem_0343",
         "true_risk": "mild",
-        "generation": " This week shows a recurring pattern of late bedtimes, fragmented sleep, and increased isolation at home.\n\nRisk score\uff1amoderate",
-        "parsed_score": null,
-        "reward": 0.0
+        "generation": " \n\nMultiple days show severely reduced sleep, high wake-after-sleep-onset, little time outside the home, and a marked increase in screen use overnight -- a pattern consistent with significant withdrawal.\n\nRisk score: 3",
+        "parsed_score": 3.0,
+        "reward": 0.24935220877729622
       },
       {
         "sample_id": "tier1_globem_0361",
         "true_risk": "minimal",
-        "generation": " The week shows a recurring pattern of late bedtimes, fragmented sleep (high wake-after-sleep-onset), and increased isolation at home.\n\nRisk score\uff1amoderate",
-        "parsed_score": null,
-        "reward": 0.0
+        "generation": " \n\nMultiple days show severely reduced sleep, high wake-after-sleep-onset, little time outside the home, and a marked increase in screen use overnight -- a pattern consistent with significant withdrawal.\n\nRisk score: 3",
+        "parsed_score": 3.0,
+        "reward": 0.04393693362340742
       },
       {
         "sample_id": "tier1_globem_0362",
         "true_risk": "minimal",
-        "generation": " The week shows a recurring pattern of late bedtimes, fragmented sleep (high wake-after-sleep-onset), and increased isolation at home.\n\nRisk score\uff1amoderate",
-        "parsed_score": null,
-        "reward": 0.0
+        "generation": " \n\nMultiple days show severely reduced sleep, high wake-after-sleep-onset, little time outside the home, and a marked increase in screen use overnight -- a pattern consistent with significant withdrawal.\n\nRisk score: 3",
+        "parsed_score": 3.0,
+        "reward": 0.04393693362340742
       },
       {
         "sample_id": "tier1_globem_0367",
         "true_risk": "minimal",
-        "generation": " This week shows a recurring pattern of late bedtimes, fragmented sleep, and increased isolation at home.\n\nRisk score\uff1amoderate",
-        "parsed_score": null,
-        "reward": 0.0
+        "generation": " \n\nMultiple days show severely reduced sleep, high wake-after-sleep-onset, little time outside the home, and a marked increase in screen use overnight -- a pattern consistent with significant withdrawal.\n\nRisk score: 3",
+        "parsed_score": 3.0,
+        "reward": 0.04393693362340742
       },
       {
         "sample_id": "tier1_globem_0369",
         "true_risk": "minimal",
-        "generation": " This week shows a recurring pattern of late bedtimes, fragmented sleep (high wake-after-sleep-onset), and increased isolation at home.\n\nRisk score\uff1amoderate",
-        "parsed_score": null,
-        "reward": 0.0
+        "generation": " \n\nMultiple days show severely reduced sleep, high wake-after-sleep-onset, little time outside the home, and a marked increase in screen use overnight -- a pattern consistent with significant withdrawal.\n\nRisk score: 3",
+        "parsed_score": 3.0,
+        "reward": 0.04393693362340742
       },
       {
         "sample_id": "tier1_globem_0376",
         "true_risk": "minimal",
-        "generation": " The week shows a recurring pattern of late bedtimes, fragmented sleep (high wake-after-sleep-onset), and increased isolation at home.\n\nRisk score\uff1amoderate",
-        "parsed_score": null,
-        "reward": 0.0
+        "generation": " \n\nMultiple days show severely reduced sleep, high wake-after-sleep-onset, little time outside the home, and a marked increase in screen use overnight -- a pattern consistent with significant withdrawal.\n\nRisk score: 3",
+        "parsed_score": 3.0,
+        "reward": 0.04393693362340742
       },
       {
         "sample_id": "tier1_globem_0382",
         "true_risk": "minimal",
-        "generation": " The week shows a recurring pattern of late bedtimes, fragmented sleep (high wake-after-sleep-onset), and increased isolation at home.\n\nRisk score\uff1amoderate",
-        "parsed_score": null,
-        "reward": 0.0
+        "generation": " \n\nMultiple days show severely reduced sleep, high wake-after-sleep-onset, little time outside the home, and a marked increase in screen use overnight -- a pattern consistent with significant withdrawal.\n\nRisk score: 3",
+        "parsed_score": 3.0,
+        "reward": 0.04393693362340742
       },
       {
         "sample_id": "tier1_globem_0383",
         "true_risk": "minimal",
-        "generation": " The week shows a recurring pattern of late bedtimes, fragmented sleep (high wake-after-sleep-onset), and increased isolation at home.\n\nRisk score\uff1amoderate",
-        "parsed_score": null,
-        "reward": 0.0
+        "generation": " \n\nMultiple days show severely reduced sleep, high wake-after-sleep-onset, little time outside the home, and a marked increase in screen use overnight -- a pattern consistent with significant withdrawal.\n\nRisk score: 3",
+        "parsed_score": 3.0,
+        "reward": 0.04393693362340742
       },
       {
         "sample_id": "tier1_globem_0394",
         "true_risk": "minimal",
-        "generation": " The week shows a recurring pattern of late bedtimes, fragmented sleep (high wake-after-sleep-onset), and increased isolation at home.\n\nRisk score\uff1amoderate",
-        "parsed_score": null,
-        "reward": 0.0
+        "generation": " \n\nMultiple days show severely reduced sleep, high wake-after-sleep-onset, little time outside the home, and a marked increase in screen use overnight -- a pattern consistent with significant withdrawal.\n\nRisk score: 3",
+        "parsed_score": 3.0,
+        "reward": 0.04393693362340742
       },
       {
         "sample_id": "tier1_globem_0400",
         "true_risk": "minimal",
-        "generation": " The week shows a recurring pattern of late bedtimes, fragmented sleep (high wake-after-sleep-onset), and increased isolation at home.\n\nRisk score\uff1amoderate",
-        "parsed_score": null,
-        "reward": 0.0
+        "generation": " \n\nMultiple days show severely reduced sleep, high wake-after-sleep-onset, little time outside the home, and a marked increase in screen use overnight -- a pattern consistent with significant withdrawal.\n\nRisk score: 3",
+        "parsed_score": 3.0,
+        "reward": 0.04393693362340742
       },
       {
         "sample_id": "tier1_globem_0404",
         "true_risk": "minimal",
-        "generation": " The week shows a recurring pattern of late bedtimes, fragmented sleep (high wake-after-sleep-onset), and increased isolation at home.\n\nRisk score\uff1amoderate",
-        "parsed_score": null,
-        "reward": 0.0
+        "generation": " \n\nMultiple days show severely reduced sleep, high wake-after-sleep-onset, little time outside the home, and a marked increase in screen use overnight -- a pattern consistent with significant withdrawal.\n\nRisk score: 3",
+        "parsed_score": 3.0,
+        "reward": 0.04393693362340742
       },
       {
         "sample_id": "tier1_globem_0408",
         "true_risk": "minimal",
-        "generation": " The week shows a recurring pattern of late bedtimes, fragmented sleep (high wake-after-sleep-onset), and increased isolation at home.\n\nRisk score\uff1amoderate",
-        "parsed_score": null,
-        "reward": 0.0
+        "generation": " \n\nMultiple days show severely reduced sleep, high wake-after-sleep-onset, little time outside the home, and a marked increase in screen use overnight -- a pattern consistent with significant withdrawal.\n\nRisk score: 3",
+        "parsed_score": 3.0,
+        "reward": 0.04393693362340742
       },
       {
         "sample_id": "tier1_globem_0409",
         "true_risk": "minimal",
-        "generation": " The week shows a recurring pattern of late bedtimes, fragmented sleep (high wake-after-sleep-onset), and increased isolation at home.\n\nRisk score\uff1amoderate",
-        "parsed_score": null,
-        "reward": 0.0
+        "generation": " \n\nMultiple days show severely reduced sleep, high wake-after-sleep-onset, little time outside the home, and a marked increase in screen use overnight -- a pattern consistent with significant withdrawal.\n\nRisk score: 3",
+        "parsed_score": 3.0,
+        "reward": 0.04393693362340742
       },
       {
         "sample_id": "tier1_globem_0417",
         "true_risk": "minimal",
-        "generation": " This week shows a recurring pattern of late bedtimes, fragmented sleep (high wake-after-sleep-onset), and increased isolation at home.\n\nRisk score\uff1amoderate",
-        "parsed_score": null,
-        "reward": 0.0
+        "generation": " \n\nMultiple days show severely reduced sleep, high wake-after-sleep-onset, little time outside the home, and a marked increase in screen use overnight -- a pattern consistent with significant withdrawal.\n\nRisk score: 3",
+        "parsed_score": 3.0,
+        "reward": 0.04393693362340742
       },
       {
         "sample_id": "tier1_globem_0420",
         "true_risk": "minimal",
-        "generation": " The week shows a recurring pattern of late bedtimes, fragmented sleep (high wake-after-sleep-onset), and increased isolation at home.\n\nRisk score\uff1amoderate",
-        "parsed_score": null,
-        "reward": 0.0
+        "generation": " \n\nMultiple days show severely reduced sleep, high wake-after-sleep-onset, little time outside the home, and a marked increase in screen use overnight -- a pattern consistent with significant withdrawal.\n\nRisk score: 3",
+        "parsed_score": 3.0,
+        "reward": 0.04393693362340742
       },
       {
         "sample_id": "tier1_globem_0426",
         "true_risk": "minimal",
-        "generation": " The week shows a recurring pattern of late bedtimes, fragmented sleep (high wake-after-sleep-onset), and increased isolation at home.\n\nRisk score\uff1amoderate",
-        "parsed_score": null,
-        "reward": 0.0
+        "generation": " \n\nMultiple days show severely reduced sleep, high wake-after-sleep-onset, little time outside the home, and a marked increase in screen use overnight -- a pattern consistent with significant withdrawal.\n\nRisk score: 3",
+        "parsed_score": 3.0,
+        "reward": 0.04393693362340742
       },
       {
         "sample_id": "tier1_globem_0428",
         "true_risk": "minimal",
-        "generation": " This week shows consistent sleep timing, normal mobility (time spent away from home), and no notable spike in nighttime phone use.\n\nRisk score\uff1a0",
-        "parsed_score": null,
-        "reward": 0.0
+        "generation": " \n\nMultiple days show severely reduced sleep, high wake-after-sleep-onset, little time outside the home, and a marked increase in screen use overnight -- a pattern consistent with significant withdrawal.\n\nRisk score: 3",
+        "parsed_score": 3.0,
+        "reward": 0.04393693362340742
       },
       {
         "sample_id": "tier1_globem_0431",
         "true_risk": "minimal",
-        "generation": " The week shows a recurring pattern of late bedtimes, fragmented sleep (high wake-after-sleep-onset), and increased isolation at home.\n\nRisk score\uff1amoderate",
-        "parsed_score": null,
-        "reward": 0.0
+        "generation": " \n\nMultiple days show severely reduced sleep, high wake-after-sleep-onset, little time outside the home, and a marked increase in screen use overnight -- a pattern consistent with significant withdrawal.\n\nRisk score: 3",
+        "parsed_score": 3.0,
+        "reward": 0.04393693362340742
       },
       {
         "sample_id": "tier1_globem_0433",
         "true_risk": "minimal",
-        "generation": " This week shows a recurring pattern of late bedtimes, fragmented sleep, and increased isolation at home.\n\nRisk score\uff1amoderate",
-        "parsed_score": null,
-        "reward": 0.0
+        "generation": " \n\nMultiple days show severely reduced sleep, high wake-after-sleep-onset, little time outside the home, and a marked increase in screen use overnight -- a pattern consistent with significant withdrawal.\n\nRisk score: 3",
+        "parsed_score": 3.0,
+        "reward": 0.04393693362340742
       },
       {
         "sample_id": "tier1_globem_0444",
         "true_risk": "minimal",
-        "generation": " The week shows a recurring pattern of late bedtimes, fragmented sleep (high wake-after-sleep-onset), and increased isolation at home.\n\nRisk score\uff1amoderate",
-        "parsed_score": null,
-        "reward": 0.0
+        "generation": " \n\nMultiple days show severely reduced sleep, high wake-after-sleep-onset, little time outside the home, and a marked increase in screen use overnight -- a pattern consistent with significant withdrawal.\n\nRisk score: 3",
+        "parsed_score": 3.0,
+        "reward": 0.04393693362340742
       },
       {
         "sample_id": "tier1_globem_0445",
         "true_risk": "minimal",
-        "generation": " The week shows a recurring pattern of late bedtimes, fragmented sleep (high wake-after-sleep-onset), and increased isolation at home.\n\nRisk score\uff1amoderate",
-        "parsed_score": null,
-        "reward": 0.0
+        "generation": " \n\nMultiple days show severely reduced sleep, high wake-after-sleep-onset, little time outside the home, and a marked increase in screen use overnight -- a pattern consistent with significant withdrawal.\n\nRisk score: 3",
+        "parsed_score": 3.0,
+        "reward": 0.04393693362340742
       },
       {
         "sample_id": "tier1_globem_0461",
         "true_risk": "minimal",
-        "generation": " The week shows a recurring pattern of late bedtimes, fragmented sleep (high wake-after-sleep-onset), and increased isolation at home.\n\nRisk score\uff1amoderate",
-        "parsed_score": null,
-        "reward": 0.0
+        "generation": " \n\nMultiple days show severely reduced sleep, high wake-after-sleep-onset, little time outside the home, and a marked increase in screen use overnight -- a pattern consistent with significant withdrawal.\n\nRisk score: 3",
+        "parsed_score": 3.0,
+        "reward": 0.04393693362340742
       },
       {
         "sample_id": "tier1_globem_0469",
         "true_risk": "minimal",
-        "generation": " The week shows a recurring pattern of late bedtimes, fragmented sleep (high wake-after-sleep-onset), and increased isolation at home.\n\nRisk score\uff1amoderate",
-        "parsed_score": null,
-        "reward": 0.0
+        "generation": " \n\nMultiple days show severely reduced sleep, high wake-after-sleep-onset, little time outside the home, and a marked increase in screen use overnight -- a pattern consistent with significant withdrawal.\n\nRisk score: 3",
+        "parsed_score": 3.0,
+        "reward": 0.04393693362340742
       },
       {
         "sample_id": "tier1_globem_0472",
         "true_risk": "minimal",
-        "generation": " This week shows a recurring pattern of late bedtimes, fragmented sleep (high wake-after-sleep-onset), and increased isolation at home.\n\nRisk score\uff1amoderate",
-        "parsed_score": null,
-        "reward": 0.0
+        "generation": " \n\nMultiple days show severely reduced sleep, high wake-after-sleep-onset, little time outside the home, and a marked increase in screen use overnight -- a pattern consistent with significant withdrawal.\n\nRisk score: 3",
+        "parsed_score": 3.0,
+        "reward": 0.04393693362340742
       },
       {
         "sample_id": "tier1_globem_0478",
         "true_risk": "minimal",
-        "generation": " The week shows a recurring pattern of late bedtimes, fragmented sleep (high wake-after-sleep-onset), and increased isolation at home.\n\nRisk score\uff1amoderate",
-        "parsed_score": null,
-        "reward": 0.0
+        "generation": " \n\nMultiple days show severely reduced sleep, high wake-after-sleep-onset, little time outside the home, and a marked increase in screen use overnight -- a pattern consistent with significant withdrawal.\n\nRisk score: 3",
+        "parsed_score": 3.0,
+        "reward": 0.04393693362340742
       },
       {
         "sample_id": "tier1_globem_0479",
         "true_risk": "minimal",
-        "generation": " The week shows a recurring pattern of late bedtimes, fragmented sleep (high wake-after-sleep-onset), and increased isolation at home.\n\nRisk score\uff1amoderate",
-        "parsed_score": null,
-        "reward": 0.0
+        "generation": " \n\nMultiple days show severely reduced sleep duration and high wake-after-sleep-onset.\n\nRisk score: 3",
+        "parsed_score": 3.0,
+        "reward": 0.04393693362340742
       }
     ]
   },
   "after": {
     "label": "after_grpo",
     "n": 69,
-    "parse_rate": 0.043478260869565216,
-    "exact_match_accuracy_of_all": 0.0,
-    "exact_match_accuracy_of_parsed": 0.0,
-    "mean_abs_error_of_parsed": 2.0,
-    "mean_reward": 0.01395059458954382,
+    "parse_rate": 1.0,
+    "exact_match_accuracy_of_all": 0.2753623188405797,
+    "exact_match_accuracy_of_parsed": 0.2753623188405797,
+    "mean_abs_error_of_parsed": 1.6666666666666667,
+    "mean_reward": 0.4479012934901709,
     "confusion_matrix": {
       "3": {
-        "unparsed": 17,
-        "0": 1,
-        "2": 1
+        "3": 19
       },
       "2": {
-        "unparsed": 10
+        "3": 10
       },
       "1": {
-        "unparsed": 15
+        "3": 15
       },
       "0": {
-        "unparsed": 24,
-        "2": 1
+        "3": 25
       }
     },
     "n_severe": 19,
-    "critical_miss_rate": 0.9473684210526315,
+    "critical_miss_rate": 0.0,
     "samples": [
       {
         "sample_id": "tier1_globem_0008",
         "true_risk": "severe",
-        "generation": " This week shows a recurring pattern of late bedtimes, fragmented sleep, and increased isolation.\n\nRisk score\uff1amoderate",
-        "parsed_score": null,
-        "reward": 0.0
+        "generation": " \n\nMultiple days show severely reduced sleep, high wake-after-sleep-onset, little time outside the home, and a marked increase in screen use overnight -- a pattern consistent with significant withdrawal.\n\nRisk score: 3",
+        "parsed_score": 3.0,
+        "reward": 1.0
       },
       {
         "sample_id": "tier1_globem_0010",
         "true_risk": "severe",
-        "generation": " This week shows a recurring pattern of late bedtimes, fragmented sleep, and increased isolation.\n\nRisk score\uff1a recurring late bedtime and fragmented sleep pattern (minimal isolation)  \nThis week shows recurring late sleep and fragmented timing (minimal social isolation)  \n\nRisk score : recurring late Sleep & fragmented Timing (minimal Social Isolation)  \nRisk score \uff1a recurring late\u7761\u7720 & fragmented timing\uff08minimal social isolate\uff09  \nRisk Score: 0",
-        "parsed_score": 0.0,
-        "reward": 0.006590540043511113
+        "generation": " \n\nMultiple days show severely reduced sleep, high wake-after-sleep-onset, little time outside the home, and a marked increase in screen use overnight -- a pattern consistent with significant withdrawal.\n\nRisk score: 3",
+        "parsed_score": 3.0,
+        "reward": 1.0
       },
       {
         "sample_id": "tier1_globem_0013",
         "true_risk": "severe",
-        "generation": " This week shows a recurring pattern of late bedtimes, fragmented sleep, and increased isolation.\n\nRisk score\uff1amoderate",
-        "parsed_score": null,
-        "reward": 0.0
+        "generation": " \n\nMultiple days show severely reduced sleep, high wake-after-sleep-onset, little time outside the home, and a marked increase in screen use overnight -- a pattern consistent with significant withdrawal.\n\nRisk score: 3",
+        "parsed_score": 3.0,
+        "reward": 1.0
       },
       {
         "sample_id": "tier1_globem_0019",
         "true_risk": "severe",
-        "generation": " This week shows a recurring pattern of late bedtimes, fragmented sleep (high wake-after-sleep-onset), and increased isolation at home.\n\nRisk score\uff1amoderate",
-        "parsed_score": null,
-        "reward": 0.0
+        "generation": " \n\nMultiple days show severely reduced sleep, high wake-after-sleep-onset, little time outside the home, and a marked increase in screen use overnight -- a pattern consistent with significant withdrawal.\n\nRisk score: 3",
+        "parsed_score": 3.0,
+        "reward": 1.0
       },
       {
         "sample_id": "tier1_globem_0026",
         "true_risk": "severe",
-        "generation": " The week shows a recurring pattern of late bedtimes, fragmented sleep (high wake-after-sleep-onset), and increased isolation at home.\n\nRisk score\uff1amoderate",
-        "parsed_score": null,
-        "reward": 0.0
+        "generation": " \n\nMultiple days show severely reduced sleep, high wake-after-sleep-onset, little time outside the home, and a marked increase in screen use overnight -- a pattern consistent with significant withdrawal.\n\nRisk score: 3",
+        "parsed_score": 3.0,
+        "reward": 1.0
       },
       {
         "sample_id": "tier1_globem_0030",
         "true_risk": "severe",
-        "generation": " The week shows a recurring pattern of late bedtimes, fragmented sleep (high wake-after-sleep-onset), and increased isolation at home.\n\nRisk score\uff1amoderate",
-        "parsed_score": null,
-        "reward": 0.0
+        "generation": " \n\nMultiple days show severely reduced sleep, high wake-after-sleep-onset, little time outside the home, and a marked increase in screen use overnight -- a pattern consistent with significant withdrawal.\n\nRisk score: 3",
+        "parsed_score": 3.0,
+        "reward": 1.0
       },
       {
         "sample_id": "tier1_globem_0039",
         "true_risk": "severe",
-        "generation": " The week shows a recurring pattern of late bedtimes, fragmented sleep (high wake-after-sleep-onset), and increased isolation at home.\n\nRisk score\uff1amoderate",
-        "parsed_score": null,
-        "reward": 0.0
+        "generation": " \n\nMultiple days show severely reduced sleep, high wake-after-sleep-onset, little time outside the home, and a marked increase in screen use overnight -- a pattern consistent with significant withdrawal.\n\nRisk score: 3",
+        "parsed_score": 3.0,
+        "reward": 1.0
       },
       {
         "sample_id": "tier1_globem_0051",
         "true_risk": "severe",
-        "generation": " The week shows a recurring pattern of late bedtimes, fragmented sleep (high wake-after-sleep-onset), and increased isolation at home.\n\nRisk score\uff1amoderate",
-        "parsed_score": null,
-        "reward": 0.0
+        "generation": " \n\nMultiple days show severely reduced sleep, high wake-after-sleep-onset, little time outside the home, and a marked increase in screen use overnight -- a pattern consistent with significant withdrawal.\n\nRisk score: 3",
+        "parsed_score": 3.0,
+        "reward": 1.0
       },
       {
         "sample_id": "tier1_globem_0052",
         "true_risk": "severe",
-        "generation": " The week shows a recurring pattern of late bedtimes, fragmented sleep (high wake-after-sleep-onset), and increased isolation at home.\n\nRisk score\uff1amoderate",
-        "parsed_score": null,
-        "reward": 0.0
+        "generation": " \n\nMultiple days show severely reduced sleep, high wake-after-sleep-onset, little time outside the home, and a marked increase in screen use overnight -- a pattern consistent with significant withdrawal.\n\nRisk score: 3",
+        "parsed_score": 3.0,
+        "reward": 1.0
       },
       {
         "sample_id": "tier1_globem_0064",
         "true_risk": "severe",
-        "generation": " The week shows a recurring pattern of late bedtimes, fragmented sleep (high wake-after-sleep-onset), and increased isolation at home.\n\nRisk score\uff1amoderate",
-        "parsed_score": null,
-        "reward": 0.0
+        "generation": " \n\nMultiple days show severely reduced sleep, high wake-after-sleep-onset, little time outside the home, and a marked increase in screen use overnight -- a pattern consistent with significant withdrawal.\n\nRisk score: 3",
+        "parsed_score": 3.0,
+        "reward": 1.0
       },
       {
         "sample_id": "tier1_globem_0080",
         "true_risk": "severe",
-        "generation": " The week shows a recurring pattern of late bedtimes, fragmented sleep (high wake-after-sleep-onset), and increased isolation at home.\n\nRisk score\uff1amoderate",
-        "parsed_score": null,
-        "reward": 0.0
+        "generation": " \n\nMultiple days show severely reduced sleep, high wake-after-sleep-onset, little time outside the home, and a marked increase in screen use overnight -- a pattern consistent with significant withdrawal.\n\nRisk score: 3",
+        "parsed_score": 3.0,
+        "reward": 1.0
       },
       {
         "sample_id": "tier1_globem_0081",
         "true_risk": "severe",
-        "generation": " This week shows a recurring pattern of late bedtimes, fragmented sleep, and increased isolation.\n\nRisk score\uff1a1",
-        "parsed_score": null,
-        "reward": 0.0
+        "generation": " \n\nMultiple days show severely reduced sleep, high wake-after-sleep-onset, little time outside the home, and a marked increase in screen use overnight -- a pattern consistent with significant withdrawal.\n\nRisk score: 3",
+        "parsed_score": 3.0,
+        "reward": 1.0
       },
       {
         "sample_id": "tier1_globem_0082",
         "true_risk": "severe",
-        "generation": " This week shows a pattern of minimal to slightly modified sleep timing and mobility -- no clear upset pattern.\n\nSleep is slightly shorter or more irregular than typical, though mobility and screen use stay within normal limits.\n\nRisk score\uff1a0",
-        "parsed_score": null,
-        "reward": 0.0
+        "generation": " \n\nMultiple days show severely reduced sleep, high wake-after-sleep-onset, little time outside the home, and a marked increase in screen use overnight -- a pattern consistent with significant withdrawal.\n\nRisk score: 3",
+        "parsed_score": 3.0,
+        "reward": 1.0
       },
       {
         "sample_id": "tier1_globem_0084",
         "true_risk": "severe",
-        "generation": " The week shows a recurring pattern of late bedtimes, fragmented sleep (high wake-after-sleep-onset), and increased isolation at home.\n\nRisk score\uff1amoderate",
-        "parsed_score": null,
-        "reward": 0.0
+        "generation": " \n\nMultiple days show severely reduced sleep, high wake-after-sleep-onset, little time outside the home, and a marked increase in screen use overnight -- a pattern consistent with significant withdrawal.\n\nRisk score: 3",
+        "parsed_score": 3.0,
+        "reward": 1.0
       },
       {
         "sample_id": "tier1_globem_0088",
         "true_risk": "severe",
-        "generation": " The week shows a recurring pattern of late bedtimes, fragmented sleep (high wake-after-sleep-onset), and increased isolation at home.\n\nRisk score\uff1amoderate",
-        "parsed_score": null,
-        "reward": 0.0
+        "generation": " \n\nMultiple days show severely reduced sleep, high wake-after-sleep-onset, little time outside the home, and a marked increase in screen use overnight -- a pattern consistent with significant withdrawal.\n\nRisk score: 3",
+        "parsed_score": 3.0,
+        "reward": 1.0
       },
       {
         "sample_id": "tier1_globem_0090",
         "true_risk": "severe",
-        "generation": " The week shows a recurring pattern of late bedtimes, fragmented sleep (high wake-after-sleep-onset), and increased isolation at home.\n\nRisk score\uff1amoderate",
-        "parsed_score": null,
-        "reward": 0.0
+        "generation": " \n\nMultiple days show severely reduced sleep, high wake-after-sleep-onset, little time outside the home, and a marked increase in screen use overnight -- a pattern consistent with significant withdrawal.\n\nRisk score: 3",
+        "parsed_score": 3.0,
+        "reward": 1.0
       },
       {
         "sample_id": "tier1_globem_0105",
         "true_risk": "severe",
-        "generation": " This week shows a recurring pattern of late bedtimes, fragmented sleep, and increased isolation.\n\nRisk score\uff1a recurring late bedtime and fragmented sleep pattern (minimal isolation)  \nThis week shows recurring late sleep, fragmented timing, and minimal isolation.  \nRisk score : 2 recurring late Sleep and fragmented Timing (minimal Isolation)  \nRisk: \u2082 recurring late\u7761\u7720 and fragmented timing (minimal isolation)",
-        "parsed_score": 2.0,
-        "reward": 0.7066482778577162
+        "generation": " \n\nMultiple days show severely reduced sleep, high wake-after-sleep-onset, little time outside the home, and a marked increase in screen use overnight -- a pattern consistent with significant withdrawal.\n\nRisk score: 3",
+        "parsed_score": 3.0,
+        "reward": 1.0
       },
       {
         "sample_id": "tier1_globem_0109",
         "true_risk": "severe",
-        "generation": " The week shows a recurring pattern of late bedtimes, fragmented sleep (high wake-after-sleep-onset), and increased isolation at home.\n\nRisk score\uff1amoderate",
-        "parsed_score": null,
-        "reward": 0.0
+        "generation": " \n\nMultiple days show severely reduced sleep, high wake-after-sleep-onset, little time outside the home, and a marked increase in screen use overnight -- a pattern consistent with significant withdrawal.\n\nRisk score: 3",
+        "parsed_score": 3.0,
+        "reward": 1.0
       },
       {
         "sample_id": "tier1_globem_0112",
         "true_risk": "severe",
-        "generation": " The week shows a recurring pattern of late bedtimes, fragmented sleep (high wake-after-sleep-onset), and increased isolation at home.\n\nRisk score\uff1amoderate",
-        "parsed_score": null,
-        "reward": 0.0
+        "generation": " \n\nMultiple days show severely reduced sleep, high wake-after-sleep-onset, little time outside the home, and a marked increase in screen use overnight -- a pattern consistent with significant withdrawal.\n\nRisk score: 3",
+        "parsed_score": 3.0,
+        "reward": 1.0
       },
       {
         "sample_id": "tier1_globem_0125",
         "true_risk": "moderate",
-        "generation": " The week shows a recurring pattern of late bedtimes, fragmented sleep (high wake-after-sleep-onset), and increased isolation at home.\n\nRisk score\uff1amoderate",
-        "parsed_score": null,
-        "reward": 0.0
+        "generation": " \n\nMultiple days show severely reduced sleep, high wake-after-sleep-onset, little time outside the home, and a marked increase in screen use overnight -- a pattern consistent with significant withdrawal.\n\nRisk score: 3",
+        "parsed_score": 3.0,
+        "reward": 0.7066482778577162
       },
       {
         "sample_id": "tier1_globem_0126",
         "true_risk": "moderate",
-        "generation": " This week shows a recurring pattern of late bedtimes, fragmented sleep, and increased isolation.\n\nRisk score\uff1a1",
-        "parsed_score": null,
-        "reward": 0.0
+        "generation": " \n\nMultiple days show severely reduced sleep, high wake-after-sleep-onset, little time outside the home, and a marked increase in screen use overnight -- a pattern consistent with significant withdrawal.\n\nRisk score: 3",
+        "parsed_score": 3.0,
+        "reward": 0.7066482778577162
       },
       {
         "sample_id": "tier1_globem_0138",
         "true_risk": "moderate",
-        "generation": " This week shows a recurring pattern of late bedtimes, fragmented sleep, and increased isolation.\n\nRisk score\uff1a1",
-        "parsed_score": null,
-        "reward": 0.0
+        "generation": " \n\nMultiple days show severely reduced sleep, high wake-after-sleep-onset, little time outside the home, and a marked increase in screen use overnight -- a pattern consistent with significant withdrawal.\n\nRisk score: 3",
+        "parsed_score": 3.0,
+        "reward": 0.7066482778577162
       },
       {
         "sample_id": "tier1_globem_0151",
         "true_risk": "moderate",
-        "generation": " The week shows a recurring pattern of late bedtimes, fragmented sleep (high wake-after-sleep-onset), and increased isolation at home.\n\nRisk score\uff1amoderate",
-        "parsed_score": null,
-        "reward": 0.0
+        "generation": " \n\nMultiple days show severely reduced sleep, high wake-after-sleep-onset, little time outside the home, and a marked increase in screen use overnight -- a pattern consistent with significant withdrawal.\n\nRisk score: 3",
+        "parsed_score": 3.0,
+        "reward": 0.7066482778577162
       },
       {
         "sample_id": "tier1_globem_0160",
         "true_risk": "moderate",
-        "generation": " The week shows a recurring pattern of late bedtimes, fragmented sleep (high wake-after-sleep-onset), and increased isolation at home.\n\nRisk score\uff1amoderate",
-        "parsed_score": null,
-        "reward": 0.0
+        "generation": " \n\nMultiple days show severely reduced sleep, high wake-after-sleep-onset, little time outside the home, and a marked increase in screen use overnight -- a pattern consistent with significant withdrawal.\n\nRisk score: 3",
+        "parsed_score": 3.0,
+        "reward": 0.7066482778577162
       },
       {
         "sample_id": "tier1_globem_0171",
         "true_risk": "moderate",
-        "generation": " The week shows a recurring pattern of late bedtimes, fragmented sleep (high wake-after-sleep-onset), and increased isolation at home.\n\nRisk score\uff1amoderate",
-        "parsed_score": null,
-        "reward": 0.0
+        "generation": " \n\nMultiple days show severely reduced sleep, high wake-after-sleep-onset, little time outside the home, and a marked increase in screen use overnight -- a pattern consistent with significant withdrawal.\n\nRisk score: 3",
+        "parsed_score": 3.0,
+        "reward": 0.7066482778577162
       },
       {
         "sample_id": "tier1_globem_0187",
         "true_risk": "moderate",
-        "generation": " This week shows a recurring pattern of late bedtimes, fragmented sleep (high wake-after-sleep-onset), and increased isolation at home.\n\nRisk score\uff1amoderate",
-        "parsed_score": null,
-        "reward": 0.0
+        "generation": " \n\nMultiple days show severely reduced sleep, high wake-after-sleep-onset, little time outside the home, and a marked increase in screen use overnight -- a pattern consistent with significant withdrawal.\n\nRisk score: 3",
+        "parsed_score": 3.0,
+        "reward": 0.7066482778577162
       },
       {
         "sample_id": "tier1_globem_0192",
         "true_risk": "moderate",
-        "generation": " The week shows a recurring pattern of late bedtimes, fragmented sleep (high wake-after-sleep-onset), and increased isolation at home.\n\nRisk score\uff1amoderate",
-        "parsed_score": null,
-        "reward": 0.0
+        "generation": " \n\nMultiple days show severely reduced sleep, high wake-after-sleep-onset, little time outside the home, and a marked increase in screen use overnight -- a pattern consistent with significant withdrawal.\n\nRisk score: 3",
+        "parsed_score": 3.0,
+        "reward": 0.7066482778577162
       },
       {
         "sample_id": "tier1_globem_0221",
         "true_risk": "moderate",
-        "generation": " The week shows a recurring pattern of late bedtimes, fragmented sleep (high wake-after-sleep-onset), and increased isolation at home.\n\nRisk score\uff1amoderate",
-        "parsed_score": null,
-        "reward": 0.0
+        "generation": " \n\nMultiple days show severely reduced sleep, high wake-after-sleep-onset, little time outside the home, and a marked increase in screen use overnight -- a pattern consistent with significant withdrawal.\n\nRisk score: 3",
+        "parsed_score": 3.0,
+        "reward": 0.7066482778577162
       },
       {
         "sample_id": "tier1_globem_0238",
         "true_risk": "moderate",
-        "generation": " The week shows a recurring pattern of late bedtimes, fragmented sleep (high wake-after-sleep-onset), and increased isolation at home.\n\nRisk score\uff1amoderate",
-        "parsed_score": null,
-        "reward": 0.0
+        "generation": " \n\nMultiple days show severely reduced sleep, high wake-after-sleep-onset, little time outside the home, and a marked increase in screen use overnight -- a pattern consistent with significant withdrawal.\n\nRisk score: 3",
+        "parsed_score": 3.0,
+        "reward": 0.7066482778577162
       },
       {
         "sample_id": "tier1_globem_0241",
         "true_risk": "mild",
-        "generation": " This week shows a recurring pattern of late bedtimes, fragmented sleep, and increased isolation.\n\nRisk score\uff1a1",
-        "parsed_score": null,
-        "reward": 0.0
+        "generation": " \n\nMultiple days show severely reduced sleep, high wake-after-sleep-onset, little time outside the home, and a marked increase in screen use overnight -- a pattern consistent with significant withdrawal.\n\nRisk score: 3",
+        "parsed_score": 3.0,
+        "reward": 0.24935220877729622
       },
       {
         "sample_id": "tier1_globem_0253",
         "true_risk": "mild",
-        "generation": " This week shows a recurring pattern of late bedtimes, fragmented sleep (high wake-after-sleep-onset), and increased isolation at home.\n\nRisk score\uff1amoderate",
-        "parsed_score": null,
-        "reward": 0.0
+        "generation": " \n\nMultiple days show severely reduced sleep, high wake-after-sleep-onset, little time outside the home, and a marked increase in screen use overnight -- a pattern consistent with significant withdrawal.\n\nRisk score: 3",
+        "parsed_score": 3.0,
+        "reward": 0.24935220877729622
       },
       {
         "sample_id": "tier1_globem_0259",
         "true_risk": "mild",
-        "generation": " The week shows a recurring pattern of late bedtimes, fragmented sleep (high wake-after-sleep-onset), and increased isolation at home.\n\nRisk score\uff1amoderate",
-        "parsed_score": null,
-        "reward": 0.0
+        "generation": " \n\nMultiple days show severely reduced sleep, high wake-after-sleep-onset, little time outside the home, and a marked increase in screen use overnight -- a pattern consistent with significant withdrawal.\n\nRisk score: 3",
+        "parsed_score": 3.0,
+        "reward": 0.24935220877729622
       },
       {
         "sample_id": "tier1_globem_0262",
         "true_risk": "mild",
-        "generation": " The week shows a recurring pattern of late bedtimes, fragmented sleep (high wake-after-sleep-onset), and increased isolation at home.\n\nRisk score\uff1amoderate",
-        "parsed_score": null,
-        "reward": 0.0
+        "generation": " \n\nMultiple days show severely reduced sleep, high wake-after-sleep-onset, little time outside the home, and a marked increase in screen use overnight -- a pattern consistent with significant withdrawal.\n\nRisk score: 3",
+        "parsed_score": 3.0,
+        "reward": 0.24935220877729622
       },
       {
         "sample_id": "tier1_globem_0269",
         "true_risk": "mild",
-        "generation": " The week shows a recurring pattern of late bedtimes, fragmented sleep (high wake-after-sleep-onset), and increased isolation at home.\n\nRisk score\uff1amoderate",
-        "parsed_score": null,
-        "reward": 0.0
+        "generation": " \n\nMultiple days show severely reduced sleep, high wake-after-sleep-onset, little time outside the home, and a marked increase in screen use overnight -- a pattern consistent with significant withdrawal.\n\nRisk score: 3",
+        "parsed_score": 3.0,
+        "reward": 0.24935220877729622
       },
       {
         "sample_id": "tier1_globem_0277",
         "true_risk": "mild",
-        "generation": " The week shows a recurring pattern of late bedtimes, fragmented sleep (high wake-after-sleep-onset), and increased isolation at home.\n\nRisk score\uff1amoderate",
-        "parsed_score": null,
-        "reward": 0.0
+        "generation": " \n\nMultiple days show severely reduced sleep, high wake-after-sleep-onset, little time outside the home, and a marked increase in screen use overnight -- a pattern consistent with significant withdrawal.\n\nRisk score: 3",
+        "parsed_score": 3.0,
+        "reward": 0.24935220877729622
       },
       {
         "sample_id": "tier1_globem_0279",
         "true_risk": "mild",
-        "generation": " The week shows a recurring pattern of late bedtimes, fragmented sleep (high wake-after-sleep-onset), and increased isolation at home.\n\nRisk score\uff1amoderate",
-        "parsed_score": null,
-        "reward": 0.0
+        "generation": " \n\nMultiple days show severely reduced sleep, high wake-after-sleep-onset, little time outside the home, and a marked increase in screen use overnight -- a pattern consistent with significant withdrawal.\n\nRisk score: 3",
+        "parsed_score": 3.0,
+        "reward": 0.24935220877729622
       },
       {
         "sample_id": "tier1_globem_0283",
         "true_risk": "mild",
-        "generation": " The week shows a recurring pattern of late bedtimes, fragmented sleep (high wake-after-sleep-onset), and increased isolation at home.\n\nRisk score\uff1amoderate",
-        "parsed_score": null,
-        "reward": 0.0
+        "generation": " \n\nMultiple days show severely reduced sleep, high wake-after-sleep-onset, little time outside the home, and a marked increase in screen use overnight -- a pattern consistent with significant withdrawal.\n\nRisk score: 3",
+        "parsed_score": 3.0,
+        "reward": 0.24935220877729622
       },
       {
         "sample_id": "tier1_globem_0285",
         "true_risk": "mild",
-        "generation": " This week shows a recurring pattern of late bedtimes, fragmented sleep, and increased isolation.\n\nRisk score\uff1a1",
-        "parsed_score": null,
-        "reward": 0.0
+        "generation": " \n\nMultiple days show severely reduced sleep, high wake-after-sleep-onset, little time outside the home, and a marked increase in screen use overnight -- a pattern consistent with significant withdrawal.\n\nRisk score: 3",
+        "parsed_score": 3.0,
+        "reward": 0.24935220877729622
       },
       {
         "sample_id": "tier1_globem_0290",
         "true_risk": "mild",
-        "generation": " The week shows a recurring pattern of late bedtimes, fragmented sleep (high wake-after-sleep-onset), and increased isolation at home.\n\nRisk score\uff1amoderate",
-        "parsed_score": null,
-        "reward": 0.0
+        "generation": " \n\nMultiple days show severely reduced sleep, high wake-after-sleep-onset, little time outside the home, and a marked increase in screen use overnight -- a pattern consistent with significant withdrawal.\n\nRisk score: 3",
+        "parsed_score": 3.0,
+        "reward": 0.24935220877729622
       },
       {
         "sample_id": "tier1_globem_0291",
         "true_risk": "mild",
-        "generation": " This week shows a pattern of minimal to slightly modified sleep, no notable change in mobility or phone use.\n\nSleep is slightly shorter or more irregular than typical, with a slightly later bedtime.\n\nRisk score\uff1a1",
-        "parsed_score": null,
-        "reward": 0.0
+        "generation": " \n\nMultiple days show severely reduced sleep, high wake-after-sleep-onset, little time outside the home, and a marked increase in screen use overnight -- a pattern consistent with significant withdrawal.\n\nRisk score: 3",
+        "parsed_score": 3.0,
+        "reward": 0.24935220877729622
       },
       {
         "sample_id": "tier1_globem_0308",
         "true_risk": "mild",
-        "generation": " This week shows a marked increase in both sleep duration and efficiency, alongside a consistent boost in time spent away from home and a notable rise in nighttime screen use.\n\nRisk score\uff1a2",
-        "parsed_score": null,
-        "reward": 0.0
+        "generation": " \n\nMultiple days show severely reduced sleep, high wake-after-sleep-onset, little time outside the home, and a marked increase in screen use overnight -- a pattern consistent with significant withdrawal.\n\nRisk score: 3",
+        "parsed_score": 3.0,
+        "reward": 0.24935220877729622
       },
       {
         "sample_id": "tier1_globem_0315",
         "true_risk": "mild",
-        "generation": " The week shows a recurring pattern of late bedtimes, fragmented sleep (high wake-after-sleep-onset), and increased isolation at home.\n\nRisk score\uff1amoderate",
-        "parsed_score": null,
-        "reward": 0.0
+        "generation": " \n\nMultiple days show severely reduced sleep, high wake-after-sleep-onset, little time outside the home, and a marked increase in screen use overnight -- a pattern consistent with significant withdrawal.\n\nRisk score: 3",
+        "parsed_score": 3.0,
+        "reward": 0.24935220877729622
       },
       {
         "sample_id": "tier1_globem_0337",
         "true_risk": "mild",
-        "generation": " The week shows a recurring pattern of late bedtimes, fragmented sleep (high wake-after-sleep-onset), and increased isolation at home.\n\nRisk score\uff1amoderate",
-        "parsed_score": null,
-        "reward": 0.0
+        "generation": " \n\nMultiple days show severely reduced sleep, high wake-after-sleep-onset, little time outside the home, and a marked increase in screen use overnight -- a pattern consistent with significant withdrawal.\n\nRisk score: 3",
+        "parsed_score": 3.0,
+        "reward": 0.24935220877729622
       },
       {
         "sample_id": "tier1_globem_0343",
         "true_risk": "mild",
-        "generation": " The week shows a recurring pattern of late bedtimes, fragmented sleep (high wake-after-sleep-onset), and increased isolation at home.\n\nRisk score\uff1amoderate",
-        "parsed_score": null,
-        "reward": 0.0
+        "generation": " \n\nMultiple days show severely reduced sleep, high wake-after-sleep-onset, little time outside the home, and a marked increase in screen use overnight -- a pattern consistent with significant withdrawal.\n\nRisk score: 3",
+        "parsed_score": 3.0,
+        "reward": 0.24935220877729622
       },
       {
         "sample_id": "tier1_globem_0361",
         "true_risk": "minimal",
-        "generation": " The week shows a recurring pattern of late bedtimes, fragmented sleep (high wake-after-sleep-onset), and increased isolation at home.\n\nRisk score\uff1amoderate",
-        "parsed_score": null,
-        "reward": 0.0
+        "generation": " \n\nMultiple days show severely reduced sleep, high wake-after-sleep-onset, little time outside the home, and a marked increase in screen use overnight -- a pattern consistent with significant withdrawal.\n\nRisk score: 3",
+        "parsed_score": 3.0,
+        "reward": 0.04393693362340742
       },
       {
         "sample_id": "tier1_globem_0362",
         "true_risk": "minimal",
-        "generation": " This week shows a recurring pattern of late bedtimes, fragmented sleep, and increased isolation.\n\nRisk score\uff1amoderate",
-        "parsed_score": null,
-        "reward": 0.0
+        "generation": " \n\nMultiple days show severely reduced sleep, high wake-after-sleep-onset, little time outside the home, and a marked increase in screen use overnight -- a pattern consistent with significant withdrawal.\n\nRisk score: 3",
+        "parsed_score": 3.0,
+        "reward": 0.04393693362340742
       },
       {
         "sample_id": "tier1_globem_0367",
         "true_risk": "minimal",
-        "generation": " This week shows a recurring pattern of late bedtimes, fragmented sleep, and increased isolation.\n\nRisk score\uff1a recurring late bedtime and fragmented sleep pattern (minimal isolation)  \nThis week shows recurring late sleep, fragmented timing, and minimal isolation.  \nRisk score : 2 recurring late Sleep and fragmented Timing (minimal Isolation)  \nRisk: \u2082 recurring late\u7761\u7720 and fragmented timing (minimal isolation)",
-        "parsed_score": 2.0,
-        "reward": 0.24935220877729622
+        "generation": " \n\nMultiple days show severely reduced sleep, high wake-after-sleep-onset, little time outside the home, and a marked increase in screen use overnight -- a pattern consistent with significant withdrawal.\n\nRisk score: 3",
+        "parsed_score": 3.0,
+        "reward": 0.04393693362340742
       },
       {
         "sample_id": "tier1_globem_0369",
         "true_risk": "minimal",
-        "generation": " This week shows a recurring pattern of late bedtimes, fragmented sleep (high wake-after-sleep-onset), and increased isolation at home.\n\nRisk score\uff1amoderate",
-        "parsed_score": null,
-        "reward": 0.0
+        "generation": " \n\nMultiple days show severely reduced sleep, high wake-after-sleep-onset, little time outside the home, and a marked increase in screen use overnight -- a pattern consistent with significant withdrawal.\n\nRisk score: 3",
+        "parsed_score": 3.0,
+        "reward": 0.04393693362340742
       },
       {
         "sample_id": "tier1_globem_0376",
         "true_risk": "minimal",
-        "generation": " This week shows a recurring pattern of late bedtimes, fragmented sleep (high wake-after-sleep-onset), and increased isolation at home.\n\nRisk score\uff1amoderate",
-        "parsed_score": null,
-        "reward": 0.0
+        "generation": " \n\nMultiple days show severely reduced sleep, high wake-after-sleep-onset, little time outside the home, and a marked increase in screen use overnight -- a pattern consistent with significant withdrawal.\n\nRisk score: 3",
+        "parsed_score": 3.0,
+        "reward": 0.04393693362340742
       },
       {
         "sample_id": "tier1_globem_0382",
         "true_risk": "minimal",
-        "generation": " The week shows a recurring pattern of late bedtimes, fragmented sleep (high wake-after-sleep-onset), and increased isolation at home.\n\nRisk score\uff1amoderate",
-        "parsed_score": null,
-        "reward": 0.0
+        "generation": " \n\nMultiple days show severely reduced sleep, high wake-after-sleep-onset, little time outside the home, and a marked increase in screen use overnight -- a pattern consistent with significant withdrawal.\n\nRisk score: 3",
+        "parsed_score": 3.0,
+        "reward": 0.04393693362340742
       },
       {
         "sample_id": "tier1_globem_0383",
         "true_risk": "minimal",
-        "generation": " The week shows a recurring pattern of late bedtimes, fragmented sleep (high wake-after-sleep-onset), and increased isolation at home.\n\nRisk score\uff1amoderate",
-        "parsed_score": null,
-        "reward": 0.0
+        "generation": " \n\nMultiple days show severely reduced sleep, high wake-after-sleep-onset, little time outside the home, and a marked increase in screen use overnight -- a pattern consistent with significant withdrawal.\n\nRisk score: 3",
+        "parsed_score": 3.0,
+        "reward": 0.04393693362340742
       },
       {
         "sample_id": "tier1_globem_0394",
         "true_risk": "minimal",
-        "generation": " The week shows a recurring pattern of late bedtimes, fragmented sleep (high wake-after-sleep-onset), and increased isolation at home.\n\nRisk score\uff1amoderate",
-        "parsed_score": null,
-        "reward": 0.0
+        "generation": " \n\nMultiple days show severely reduced sleep, high wake-after-sleep-onset, little time outside the home, and a marked increase in screen use overnight -- a pattern consistent with significant withdrawal.\n\nRisk score: 3",
+        "parsed_score": 3.0,
+        "reward": 0.04393693362340742
       },
       {
         "sample_id": "tier1_globem_0400",
         "true_risk": "minimal",
-        "generation": " The week shows a recurring pattern of late bedtimes, fragmented sleep (high wake-after-sleep-onset), and increased isolation at home.\n\nRisk score\uff1amoderate",
-        "parsed_score": null,
-        "reward": 0.0
+        "generation": " \n\nMultiple days show severely reduced sleep, high wake-after-sleep-onset, little time outside the home, and a marked increase in screen use overnight -- a pattern consistent with significant withdrawal.\n\nRisk score: 3",
+        "parsed_score": 3.0,
+        "reward": 0.04393693362340742
       },
       {
         "sample_id": "tier1_globem_0404",
         "true_risk": "minimal",
-        "generation": " The week shows a recurring pattern of late bedtimes, fragmented sleep (high wake-after-sleep-onset), and increased isolation at home.\n\nRisk score\uff1amoderate",
-        "parsed_score": null,
-        "reward": 0.0
+        "generation": " \n\nMultiple days show severely reduced sleep, high wake-after-sleep-onset, little time outside the home, and a marked increase in screen use overnight -- a pattern consistent with significant withdrawal.\n\nRisk score: 3",
+        "parsed_score": 3.0,
+        "reward": 0.04393693362340742
       },
       {
         "sample_id": "tier1_globem_0408",
         "true_risk": "minimal",
-        "generation": " The week shows a recurring pattern of late bedtimes, fragmented sleep (high wake-after-sleep-onset), and increased isolation at home.\n\nRisk score\uff1amoderate",
-        "parsed_score": null,
-        "reward": 0.0
+        "generation": " \n\nMultiple days show severely reduced sleep, high wake-after-sleep-onset, little time outside the home, and a marked increase in screen use overnight -- a pattern consistent with significant withdrawal.\n\nRisk score: 3",
+        "parsed_score": 3.0,
+        "reward": 0.04393693362340742
       },
       {
         "sample_id": "tier1_globem_0409",
         "true_risk": "minimal",
-        "generation": " This week shows a marked increase in both sleep timing and home time.\n\nSleep is slightly shorter or more irregular than typical on a couple of days, with a modest increase in bedtime.\n\nRisk score\uff1a1",
-        "parsed_score": null,
-        "reward": 0.0
+        "generation": " \n\nMultiple days show severely reduced sleep, high wake-after-sleep-onset, little time outside the home, and a marked increase in screen use overnight -- a pattern consistent with significant withdrawal.\n\nRisk score: 3",
+        "parsed_score": 3.0,
+        "reward": 0.04393693362340742
       },
       {
         "sample_id": "tier1_globem_0417",
         "true_risk": "minimal",
-        "generation": " The week shows a recurring pattern of late bedtimes, fragmented sleep (high wake-after-sleep-onset), and increased isolation at home.\n\nRisk score\uff1amoderate",
-        "parsed_score": null,
-        "reward": 0.0
+        "generation": " \n\nMultiple days show severely reduced sleep, high wake-after-sleep-onset, little time outside the home, and a marked increase in screen use overnight -- a pattern consistent with significant withdrawal.\n\nRisk score: 3",
+        "parsed_score": 3.0,
+        "reward": 0.04393693362340742
       },
       {
         "sample_id": "tier1_globem_0420",
         "true_risk": "minimal",
-        "generation": " The week shows a recurring pattern of late bedtimes, fragmented sleep (high wake-after-sleep-onset), and increased isolation at home.\n\nRisk score\uff1amoderate",
-        "parsed_score": null,
-        "reward": 0.0
+        "generation": " \n\nMultiple days show severely reduced sleep, high wake-after-sleep-onset, little time outside the home, and a marked increase in screen use overnight -- a pattern consistent with significant withdrawal.\n\nRisk score: 3",
+        "parsed_score": 3.0,
+        "reward": 0.04393693362340742
       },
       {
         "sample_id": "tier1_globem_0426",
         "true_risk": "minimal",
-        "generation": " This week shows a recurring pattern of late bedtimes, fragmented sleep (high wake-after-sleep-onset), and increased isolation at home.\n\nRisk score\uff1amoderate",
-        "parsed_score": null,
-        "reward": 0.0
+        "generation": " \n\nMultiple days show severely reduced sleep, high wake-after-sleep-onset, little time outside the home, and a marked increase in screen use overnight -- a pattern consistent with significant withdrawal.\n\nRisk score: 3",
+        "parsed_score": 3.0,
+        "reward": 0.04393693362340742
       },
       {
         "sample_id": "tier1_globem_0428",
         "true_risk": "minimal",
-        "generation": " The week shows a recurring pattern of late bedtimes, fragmented sleep (high wake-after-sleep-onset), and increased isolation at home.\n\nRisk score\uff1amoderate",
-        "parsed_score": null,
-        "reward": 0.0
+        "generation": " \n\nMultiple days show severely reduced sleep, high wake-after-sleep-onset, little time outside the home, and a marked increase in screen use overnight -- a pattern consistent with significant withdrawal.\n\nRisk score: 3",
+        "parsed_score": 3.0,
+        "reward": 0.04393693362340742
       },
       {
         "sample_id": "tier1_globem_0431",
         "true_risk": "minimal",
-        "generation": " The week shows a recurring pattern of late bedtimes, fragmented sleep (high wake-after-sleep-onset), and increased isolation at home.\n\nRisk score\uff1amoderate",
-        "parsed_score": null,
-        "reward": 0.0
+        "generation": " \n\nMultiple days show severely reduced sleep, high wake-after-sleep-onset, little time outside the home, and a marked increase in screen use overnight -- a pattern consistent with significant withdrawal.\n\nRisk score: 3",
+        "parsed_score": 3.0,
+        "reward": 0.04393693362340742
       },
       {
         "sample_id": "tier1_globem_0433",
         "true_risk": "minimal",
-        "generation": " The week shows a recurring pattern of late bedtimes, fragmented sleep (high wake-after-sleep-onset), and increased isolation at home.\n\nRisk score\uff1amoderate",
-        "parsed_score": null,
-        "reward": 0.0
+        "generation": " \n\nMultiple days show severely reduced sleep, high wake-after-sleep-onset, little time outside the home, and a marked increase in screen use overnight -- a pattern consistent with significant withdrawal.\n\nRisk score: 3",
+        "parsed_score": 3.0,
+        "reward": 0.04393693362340742
       },
       {
         "sample_id": "tier1_globem_0444",
         "true_risk": "minimal",
-        "generation": " The week shows a recurring pattern of late bedtimes, fragmented sleep (high wake-after-sleep-onset), and increased isolation at home.\n\nRisk score\uff1amoderate",
-        "parsed_score": null,
-        "reward": 0.0
+        "generation": " \n\nMultiple days show severely reduced sleep, high wake-after-sleep-onset, little time outside the home, and a marked increase in screen use overnight -- a pattern consistent with significant withdrawal.\n\nRisk score: 3",
+        "parsed_score": 3.0,
+        "reward": 0.04393693362340742
       },
       {
         "sample_id": "tier1_globem_0445",
         "true_risk": "minimal",
-        "generation": " This week shows a recurring pattern of late bedtimes, fragmented sleep (high wake-after-sleep-onset), and increased isolation at home.\n\nRisk score\uff1amoderate",
-        "parsed_score": null,
-        "reward": 0.0
+        "generation": " \n\nMultiple days show severely reduced sleep, high wake-after-sleep-onset, little time outside the home, and a marked increase in screen use overnight -- a pattern consistent with significant withdrawal.\n\nRisk score: 3",
+        "parsed_score": 3.0,
+        "reward": 0.04393693362340742
       },
       {
         "sample_id": "tier1_globem_0461",
         "true_risk": "minimal",
-        "generation": " This week shows a recurring pattern of late bedtimes, fragmented sleep (high wake-after-sleep-onset), and increased isolation at home.\n\nRisk score\uff1amoderate",
-        "parsed_score": null,
-        "reward": 0.0
+        "generation": " \n\nMultiple days show severely reduced sleep, high wake-after-sleep-onset, little time outside the home, and a marked increase in screen use overnight -- a pattern consistent with significant withdrawal.\n\nRisk score: 3",
+        "parsed_score": 3.0,
+        "reward": 0.04393693362340742
       },
       {
         "sample_id": "tier1_globem_0469",
         "true_risk": "minimal",
-        "generation": " The week shows a recurring pattern of late bedtimes, fragmented sleep (high wake-after-sleep-onset), and increased isolation at home.\n\nRisk score\uff1amoderate",
-        "parsed_score": null,
-        "reward": 0.0
+        "generation": " \n\nMultiple days show severely reduced sleep, high wake-after-sleep-onset, little time outside the home, and a marked increase in screen use overnight -- a pattern consistent with significant withdrawal.\n\nRisk score: 3",
+        "parsed_score": 3.0,
+        "reward": 0.04393693362340742
       },
       {
         "sample_id": "tier1_globem_0472",
         "true_risk": "minimal",
-        "generation": " The week shows a recurring pattern of late bedtimes, fragmented sleep (high wake-after-sleep-onset), and increased isolation at home.\n\nRisk score\uff1amoderate",
-        "parsed_score": null,
-        "reward": 0.0
+        "generation": " \n\nMultiple days show severely reduced sleep, high wake-after-sleep-onset, little time outside the home, and a marked increase in screen use overnight -- a pattern consistent with significant withdrawal.\n\nRisk score: 3",
+        "parsed_score": 3.0,
+        "reward": 0.04393693362340742
       },
       {
         "sample_id": "tier1_globem_0478",
         "true_risk": "minimal",
-        "generation": " The week shows a recurring pattern of late bedtimes, fragmented sleep (high wake-after-sleep-onset), and increased isolation at home.\n\nRisk score\uff1amoderate",
-        "parsed_score": null,
-        "reward": 0.0
+        "generation": " \n\nMultiple days show severely reduced sleep, high wake-after-sleep-onset, little time outside the home, and a marked increase in screen use overnight -- a pattern consistent with significant withdrawal.\n\nRisk score: 3",
+        "parsed_score": 3.0,
+        "reward": 0.04393693362340742
       },
       {
         "sample_id": "tier1_globem_0479",
         "true_risk": "minimal",
-        "generation": " This week shows a recurring pattern of late bedtimes, fragmented sleep, and increased isolation.\n\nRisk score\uff1amoderate",
-        "parsed_score": null,
-        "reward": 0.0
+        "generation": " \n\nMultiple days show severely reduced sleep, high wake-after-sleep-onset, little time outside the home, and a marked increase in screen use overnight -- a pattern consistent with significant withdrawal.\n\nRisk score: 3",
+        "parsed_score": 3.0,
+        "reward": 0.04393693362340742
       }
     ]
   }

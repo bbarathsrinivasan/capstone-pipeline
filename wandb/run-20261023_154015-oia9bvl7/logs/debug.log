@@ -1,0 +1,24 @@
+2026-10-23 15:40:15,293 INFO    MainThread:2826 [wandb_setup.py:_flush():81] Current SDK version is 0.31.0
+2026-10-23 15:40:15,293 INFO    MainThread:2826 [wandb_setup.py:_flush():81] Configure stats pid to 2826
+2026-10-23 15:40:15,293 INFO    MainThread:2826 [wandb_setup.py:_flush():81] Loading settings from environment variables
+2026-10-23 15:40:15,293 INFO    MainThread:2826 [wandb_init.py:setup_run_log_directory():740] Logging user logs to /home/ubuntu/capstone-pipeline/wandb/run-20261023_154015-oia9bvl7/logs/debug.log
+2026-10-23 15:40:15,293 INFO    MainThread:2826 [wandb_init.py:setup_run_log_directory():741] Logging internal logs to /home/ubuntu/capstone-pipeline/wandb/run-20261023_154015-oia9bvl7/logs/debug-internal.log
+2026-10-23 15:40:15,293 INFO    MainThread:2826 [wandb_init.py:init():784] calling init triggers
+2026-10-23 15:40:15,294 INFO    MainThread:2826 [wandb_init.py:init():789] wandb.init called with sweep_config: {}
+config: {'MODEL_NAME': 'Qwen/Qwen3-4B', 'NOISE_RATE': 0.2, 'N_EPOCHS': 3, 'BATCH_SIZE': 4, 'LEARNING_RATE': 0.0001, 'max_length': 941, '_wandb': {}}
+2026-10-23 15:40:15,294 INFO    MainThread:2826 [wandb_init.py:init():832] starting backend
+2026-10-23 15:40:15,294 INFO    MainThread:2826 [wandb_init.py:init():847] sending inform_init request
+2026-10-23 15:40:15,296 INFO    MainThread:2826 [wandb_init.py:init():852] backend started and connected
+2026-10-23 15:40:15,297 INFO    MainThread:2826 [wandb_init.py:init():922] updated telemetry
+2026-10-23 15:40:15,302 INFO    MainThread:2826 [wandb_init.py:init():940] communicating run to backend with 90.0 second timeout
+2026-10-23 15:40:15,638 INFO    MainThread:2826 [wandb_init.py:init():977] starting run threads in backend
+2026-10-23 15:40:15,729 INFO    MainThread:2826 [wandb_run.py:_console_start():2528] atexit reg
+2026-10-23 15:40:15,730 INFO    MainThread:2826 [wandb_run.py:_redirect():2378] redirect: wrap_raw
+2026-10-23 15:40:15,730 INFO    MainThread:2826 [wandb_run.py:_redirect():2447] Wrapping output streams.
+2026-10-23 15:40:15,730 INFO    MainThread:2826 [wandb_run.py:_redirect():2470] Redirects installed.
+2026-10-23 15:40:15,732 INFO    MainThread:2826 [wandb_init.py:init():1015] run started, returning control to user process
+2026-10-23 15:55:31,832 INFO    MainThread:2826 [wandb_run.py:_finish():2300] finishing run bbasavar-carnegie-mellon-university/capstone-grpo/oia9bvl7
+2026-10-23 15:55:31,833 INFO    MainThread:2826 [wandb_run.py:_atexit_cleanup():2495] got exitcode: 0
+2026-10-23 15:55:31,833 INFO    MainThread:2826 [wandb_run.py:_restore():2477] restore
+2026-10-23 15:55:31,833 INFO    MainThread:2826 [wandb_run.py:_restore():2483] restore done
+2026-10-23 15:55:32,519 INFO    MainThread:2826 [wandb_run.py:_footer_sync_info():3908] logging synced files

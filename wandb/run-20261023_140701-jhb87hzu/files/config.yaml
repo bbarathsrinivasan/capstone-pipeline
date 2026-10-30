@@ -1,0 +1,47 @@
+_wandb:
+    value:
+        cli_version: 0.31.0
+        e:
+            01a16916-2682-7497-8732-85fbda9f2e47:
+                codePath: grpo/evaluate_before_after.py
+                codePathLocal: grpo/evaluate_before_after.py
+                email: bbasavar@andrew.cmu.edu
+                executable: /home/ubuntu/capstone-pipeline/venv/bin/python3
+                git:
+                    commit: cf44aecdbefa0d715ecc5deedd10e4d86433431e
+                    remote: https://github.com/bbarathsrinivasan/capstone-pipeline.git
+                host: ip-172-31-8-108
+                os: Linux-6.17.0-1017-aws-x86_64-with-glibc2.39
+                program: /home/ubuntu/capstone-pipeline/grpo/evaluate_before_after.py
+                python: CPython 3.12.3
+                root: /home/ubuntu/capstone-pipeline
+                startedAt: "2026-10-23T14:07:01.759268Z"
+                writerId: 01a16916-2682-7497-8732-85fbda9f2e47
+        m: []
+        python_version: 3.12.3
+        t:
+            "1":
+                - 1
+                - 5
+                - 11
+                - 49
+                - 53
+                - 71
+                - 98
+            "2":
+                - 1
+                - 5
+                - 11
+                - 49
+                - 53
+                - 71
+                - 98
+            "3":
+                - 2
+                - 13
+                - 62
+            "4": 3.12.3
+            "5": 0.31.0
+            "6": 5.19.0
+            "12": 0.31.0
+            "13": linux-x86_64
